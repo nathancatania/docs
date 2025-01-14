@@ -1,0 +1,53 @@
+---
+icon: hashtag
+title: "Locate your Tenant ID"
+description: "How to locate your Glean Tenant ID, also known as the Backend Domain, or QE Domain; which is needed in certain situations when connecting Glean to your datasources and apps."
+---
+
+When integrating Glean with various data sources and applications within your organization, you'll often require your Glean **Tenant ID** or **Tenant Domain**. This unique identifier is crucial for accessing tenant-specific data within Glean's systems. It typically follows the format `tenant_id-be.glean.com`, where:
+
+- `tenant_id` represents your unique Glean Tenant ID.
+- `tenant_id-be.glean.com` is your unique Glean Tenant Domain, also referred to as the Backend Domain or Query Endpoint (QE) Domain.
+
+## Understanding the Tenant ID and Domain
+
+Glean's single-tenant architecture means that each customer's environment is built from the ground up, ensuring complete isolation and uniqueness of data and services. With this architecture, each tenant receives a unique domain that points to the static IP address of their Glean environment.
+
+This domain is used for all interactions with Glean, including:
+
+- User login processes
+- Search and query operations
+- Crawler functions
+- Webhooks
+- API interactions (Indexing, Client, and Browser)
+
+Therefore, when setting up features like Single Sign-On (SSO) or connecting to company data sources, you'll need the Tenant ID or domain.
+
+While Glean typically provides your Tenant ID or Domain within customized setup instructions in the UI, there may be times when you need to locate this information independently.
+
+## How to Find Your Tenant ID and Domain
+
+Here are methods to determine your Tenant ID and Domain:
+
+### Method 1: Adding a New Data Source
+
+Glean includes your Tenant ID or Domain in the customized setup instructions provided in the UI.
+
+1. Go to [Workspace Settings > Setup > Apps](https://app.glean.com/admin/setup/apps), and select **Add App**.
+2. Choose an app, such as **Aha!**. Alternatively, [click here](https://app.glean.com/admin/setup/apps/aha).
+3. A sidebar with setup instructions will appear. In the *Setting up webhooks* section, you'll find a URL containing your Tenant ID and Domain.
+4. Make note of the domain shown. This is your Tenant Domain which contains your Tenant ID (the full URL is specific to the 'Aha!' app configuration and can be discarded).
+
+![](assets/tenant-id.20240213114733457.webp)
+
+### Method 2: Using Browser Developer Tools During Login
+
+When logging into Glean, a call is made to the Tenant Domain, which can be captured using your browser's developer tools.
+
+1. Open an Incognito or Private Browsing window and visit [https://app.glean.com](https://app.glean.com/). You will be prompted to sign in with your email.
+2. Launch your browser's developer tools and go to the **Network** tab.
+3. Enter your email to proceed. You'll be redirected to your SSO provider.
+4. In the developer tools' network tab, look for a request to `https://tenant_id-be.glean.com/login`. The `tenant_id` in this URL is your Glean Tenant ID.
+5. Make a note of the domain shown. This is your Tenant Domain which contains your Tenant ID (the full URL is specific to the SSO login process and can be discarded).
+
+![](assets/tenant-id.20240213114740647.webp)

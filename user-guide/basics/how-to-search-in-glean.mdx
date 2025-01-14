@@ -1,0 +1,156 @@
+---
+title: How to search in Glean
+description: Tips and tricks to find everything you need in Glean
+icon: magnifying-glass-plus
+---
+
+We've put together a quick guide on all our favorite ways of searching in Glean:
+
+* Search basics
+* Filters to narrow down on results
+* Searching for teammates
+* Search from wherever you work
+* Sharing knowledge from Glean
+* Advanced features
+
+Let's dive right in!
+
+## Search basics
+
+### 1. Search for words from anywhere in the document
+
+First things first - Glean doesn't just search document titles! You can search for whatever you remember about a document (i.e. specific phrases or keywords) and watch Glean work its magic ✨
+
+*Pro tip: You can run queries as either keywords or phrased as questions.*
+
+<iframe src="https://www.loom.com/embed/0aad1f29b38542af9dbdd5aa59fa1159" height="400" width="700"></iframe>
+
+### 2. Navigate to documents via autocomplete
+
+If you've visited a doc before, just start typing some words from the title to see it appear as a suggestion in autocomplete.
+
+*Bonus: With the [Glean extension](https://chrome.google.com/webstore/detail/scio-search/cfpdompphcacgpjfbonkdokgjhgabpij), you'll also see docs from enterprise apps that Glean hasn't indexed.*
+
+### 3. Use quotes around a word to require it being present
+
+To ensure that a word or a phrase are present in all results, include a quote around the word or the phrase that needs to be present.
+
+For example: **`featureX "featureY`"****or  **`featureX ”some phrase”`**
+
+Two words in quotes will require that those words show up in the same order right next to each other in the doc. If you just want to make sure that the words show up independently anywhere in the then put separate quotes around each of the words.
+
+## Filters
+
+Below we'll walk through 6 examples of filters you can use in Glean. Note that there are two general ways to filter in Glean:
+
+1. Directly from the query box by typing filter keywords
+2. Clicking on filters after you see results
+
+<iframe src="https://www.loom.com/embed/0c92f33229674762ace79b495a178fd7" height="400" width="700"></iframe>
+
+### 1. Find more recent results with "updated"
+
+Use the ***updated***filter to find documents updated in a certain time frame, e.g. **`updated:yesterday`.**
+
+Updated time is one of the common filters shown across the top of the results page.
+
+### 2. Find a person associated with the document with "from"
+
+Use the flexible ***from*** filter to find people associated with a document across any tool, e.g. either Owner or Contributor for a Drive/Dropbox/Box doc, or Assignee, Reporter, or Commenter in a Jira.
+
+You can either use the ***from*** filter on top of the results page, or you can include **`from:`**as you're formulating your query and select one of the names that appear in autocomplete suggestions.
+
+*Pro tips:*
+
+* *Use **`from:me`**  to find something related to you*
+* *If you need to narrow it down to only a specific field (e.g. the Owner of the document), we recommend using the app-specific filters discussed in later sections.*
+
+### 3. Find specific document types with "type"
+
+Use the ***type*** filter to narrow by a specific document type (such as a **presentation** in Drive or a **bug** in Jira).
+
+You can either use the ***type*** filter on top of the results page, or you can include **`type:`**as you're formulating your query and select an autocomplete suggestion.
+
+### 4. Find things you've previously viewed with "my history"
+
+Use the ***my history*** filter to narrow down your results to only docs that you've viewed.
+
+Type **`my:history`**into the query box or use the filters at the top of the results page.
+
+This currently will only filter to docs you've viewed in the past 6 months.
+
+### 5. Filter by app
+
+Click on the app name in the right side filters to narrow to results from that app.
+
+*Pro tip: use **`app:`** in the query to pre-filter to a specific data source without needing to click on it.*
+
+### 6. Use dynamically suggested filters within an app
+
+Once you narrow down to a specific app, you'll see dynamically populated filters based on the results on the page. You can use this to get more specific about what you're looking for. All filters can also be typed while you're formulating the query.
+
+## Search for teammates
+
+### 1. Find contact info and details about the person
+
+Search for a person's name to quickly find contact info, see their org chart, and recent documents and activity from the person. You can also search by a department or role, e.g. `Engineering`.
+
+### 2. Learn more about a document owner
+
+When you see a name next to a document, you can click on the person's name to search for the document owner.
+
+## Search from wherever you work
+
+### 1. Search directly from Slack
+
+Share a doc quickly from anywhere in Slack with **`/glean`**** followed by query terms.
+
+The **results will only be visible to you**unless you select a document to share in the channel.
+
+### 2. Search from any location
+
+Use **Cmd+J** on Mac (or **Alt-J**on Windows) to pop out our sidebar and search from anywhere you're working on the web. The search experience is the same as the web app. This only works if you have the [Glean extension](https://chrome.google.com/webstore/detail/scio-search/cfpdompphcacgpjfbonkdokgjhgabpij).
+
+Note: If you have the Firefox extension installed, use the shortcut **Control+J** (Mac)
+
+## Share knowledge
+
+If you want to send results to someone else, just copy the URL of your Glean query and send it to anyone on your team, e.g. [https://app.glean.com/search?q=example](https://app.glean.com/search?q=example)
+
+Remember that their results are personalized so they won't see any sensitive content they don't have access to, even if you see it in your results.
+
+## Advanced features
+
+### 1. Advanced filters
+
+For complex workflows, you might be using apps with a lot of custom fields in them, like Salesforce, Zendesk, and Jira.
+
+Good news! We extract those custom fields when we index your content so you can use them to do more advanced searches.
+
+Click the "info" icon in the right corner of the search box to see the fields that are available for each app.
+
+You can actually create a query that just filters by a single advanced filter. Build on top of it with additional filters (either the standard ones on the right side or other advanced filters). You can even add in some keywords on top of it!
+
+**Example:**
+
+If you're in sales, quickly answer the common question *“Does anyone have a customer that has…?”*
+
+Just search for**`status:”closed won” vertical:”xyz” feature name`** and narrow down to Salesforce to run an ad-hoc report looking for Won deals in the “xyz” vertical that have any mention of a specific feature.
+
+### 2.  Filter out certain apps
+
+Too many results? If you know certain apps aren't relevant for your query, you can remove them from your search results. Click on the filter icon at the top of the app filters, and change the list of apps you'd like to see results from.
+
+​​
+
+### 3. Everything is searchable!
+
+Really, we mean it! If you're looking for a folder, but don't feel like using a special search operator like we showed earlier, **you can still type what you're searching for in plain text.**
+
+For example, if you're looking for the Product folder, then just search **`product folder`**
+
+*Pro tip: Type in something like **pptx** or **pdf** at the end of your query to focus on specific document types.*
+
+This will generally work, but if for some reason it doesn't filter it down as you had hoped, then you can use the specific filters mentioned earlier.
+
+Happy searching! May you find everything you need - near and far.

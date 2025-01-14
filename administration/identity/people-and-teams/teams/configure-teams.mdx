@@ -1,0 +1,121 @@
+---
+title: "Configure Teams"
+description: "Enable team collaboration and discovery by configuring team pages in Glean"
+---
+
+## Overview
+
+Team pages help organizations improve collaboration and visibility by providing centralized spaces for teams to share their mission, contact information, and membership. Each team page serves as a hub for others to better understand the team's work and how to engage with them.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/879486707/b4f806552bdde3d6f6f4e452/Screenshot+2023-11-09+at+8.44.00+AM.png" />
+</Frame>
+
+## Team Creation Methods
+
+<Card title="Automatic Generation" icon="wand-magic-sparkles">
+Teams can be automatically generated from your existing work systems:
+- Google Groups
+- Slack channels
+- People attributes from Glean (e.g., department field)
+  - Supports data from primary people sources like Okta, BambooHR, and Azure Active Directory
+
+When setting up automated team creation, you can provide include/exclude lists to control which items become teams.
+</Card>
+
+<Card title="Manual Creation" icon="file-import">
+Teams can also be created manually through:
+- CSV upload to Google Cloud Storage
+- JSON data submission via Glean Push API
+</Card>
+
+## Team Page Components
+
+### Core Information
+- Team name and department affiliation
+- Team member roster and leadership
+- Profile and banner images
+- About section with rich text description
+
+### Contact Details
+- Team email addresses (including aliases)
+- Slack channels
+- Relevant URLs (internal and external resources)
+
+## Discovery Features
+
+### Team Directory
+
+Teams appear alongside people in the directory for easy discovery. Users can:
+- Sort teams by relevance, size, or alphabetically
+- Filter teams by name
+- Access team profiles directly from directory listings
+
+### Search Integration
+
+<Info>
+Teams are surfaced prominently in search results when:
+- A user explicitly searches for a team
+- Team information is relevant to a search query
+- Users begin typing a team-related search term (suggested results)
+</Info>
+
+## External Team Pages Integration
+
+While Glean recommends using native team pages, organizations can integrate existing team pages:
+
+<Steps>
+  <Step title="Configuration">
+    Submit team data through:
+    - Push API
+    - Google Cloud Storage
+  </Step>
+  
+  <Step title="Link Override">
+    Configure external page URLs to override default Glean team profiles
+  </Step>
+</Steps>
+
+<Warning>
+When external links are configured, users cannot access the native Glean team profile page.
+</Warning>
+
+## Implementation Recommendations
+
+### Getting Started
+1. Set up department-level teams as a foundation
+2. Expand to functional teams (e.g., development pods, sales teams)
+3. Include employee resource groups (ERGs)
+
+### Content Management
+Engage team leads to maintain their team pages:
+- Update profile images and banners
+- Write descriptive team information
+- Configure preferred contact methods
+
+## Technical Considerations
+
+<Card title="Setup and Updates">
+- Initial team creation takes approximately 30 minutes to propagate
+- Changes may take up to an hour to fully sync
+- Content updates from data sources follow similar timing
+</Card>
+
+### Content Governance
+Currently, all team members can edit:
+- Profile pictures
+- Banner images
+- Team descriptions
+- Contact information
+
+<Info>
+Glean is developing enhanced governance models and welcomes customer feedback on desired controls.
+</Info>
+
+## Upcoming Features
+
+<Card title="Planned Improvements">
+- Native team creation through Glean frontend
+- In-app member management
+- Enhanced team administration capabilities
+</Card>

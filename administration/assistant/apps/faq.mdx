@@ -1,0 +1,115 @@
+---
+title: "FAQ"
+description: "Frequently asked questions about Glean Apps, including setup, deployment, functionality, and troubleshooting"
+icon: "circle-question"
+---
+
+## General Information
+
+<AccordionGroup>
+  <Accordion title="What are Glean Apps?">
+    Glean Apps are self-serve, no-code solutions that allow users to build and deploy customized AI Assistants in minutes. These apps can perform defined functions within an organization, such as answering frequently asked questions in a specific Slack channel. They pull information from a precise set of data sources and follow existing user permission and data governance rules.
+  </Accordion>
+
+  <Accordion title="Who can create and edit Glean Apps?">
+    Glean workspace admins and super admins can create, view, edit, and delete any Glean App. They can also grant 'Glean App Creator' permissions to other members, allowing them to create, edit, and delete their own Glean Apps.
+
+    Each App can have multiple editors who help manage it. More information is available in [this help article](https://help.glean.com/en/articles/8870002-how-to-enable-your-organization-to-create-glean-apps).
+  </Accordion>
+
+  <Accordion title="How can I grant Glean App Creator permission to multiple users?">
+    Admins can grant Glean App Creator permission in two ways:
+    - Member-by-member basis from the workspace settings
+    - Provide app creator permission as a default for app members 
+
+    More information is available in [this help article](https://help.glean.com/en/articles/8870002-how-to-enable-your-organization-to-create-glean-apps).
+  </Accordion>
+</AccordionGroup>
+
+## Deployment and Access
+
+<AccordionGroup>
+  <Accordion title="Where can Glean Apps be deployed?">
+    Currently, Glean Apps can be deployed to:
+    - Chat
+    - Slack channels 
+    - Chat API
+    - Web embeds
+
+    <Info>Distribution via Microsoft Teams is part of the roadmap.</Info>
+  </Accordion>
+
+  <Accordion title="Can I choose who sees a Glean App in the App library?">
+    Yes, you can choose if a Glean App is visible to either all or some of your teammates. Teammates can always access the App using the test link.
+  </Accordion>
+</AccordionGroup>
+
+## Functionality and Use Cases
+
+<AccordionGroup>
+  <Accordion title="What are some common use cases for Glean Apps?">
+    Glean Apps can be used in various scenarios:
+
+    ### Employee Experience
+    - IT help desk agents
+    - HR queries
+    - Company-wide employee experience bots
+    - Personalized onboarding
+    - Internal communications
+
+    ### Sales and Marketing
+    - Answering customer questions
+    - Crafting personalized emails
+    - Summarizing meeting notes
+    - Competitive intelligence
+
+    ### Product and Engineering
+    - Synthesizing customer feedback
+    - Answering questions in Slack/Teams
+    - Generating project updates
+    - Managing technical documentation
+
+    ### Customer Support
+    - Suggesting case resolutions
+    - Creating service briefings
+    - Managing knowledge base articles
+  </Accordion>
+
+  <Accordion title="How do Glean Apps ensure high-quality responses?">
+    Glean Apps use retrieval-augmented generation (RAG) to ensure answers are grounded in the specified knowledge sources. They provide line-by-line citations for the content used to generate responses. Response instructions can also be used to direct the App to keep answers concise and optimize for brevity.
+  </Accordion>
+
+  <Accordion title="How does a Glean App response differ from an Assistant response?">
+    Glean Apps differ from Glean Assistant in two key ways:
+
+    1. They only refer to the knowledge sources that these Apps have access to answer the questions
+    2. App creators can provide additional instructions to customize the behavior and personality of the Glean App
+  </Accordion>
+
+  <Accordion title="Can I bring different LLMs to different Glean Apps?">
+    Currently Assistant and Glean Apps use the same LLM that is set up for your workspace. The ability to choose a different LLM provider and key for different Glean Apps is not available.
+  </Accordion>
+</AccordionGroup>
+
+## Troubleshooting and Best Practices
+
+<AccordionGroup>
+  <Accordion title="What should I do if a Glean App is not answering correctly?">
+    If a Glean App is not providing accurate responses, it may be due to one of the following reasons:
+
+    - Misconfigured instructions
+    - Limitations with media data
+    - Known limitations with Glean's existing connectors
+    - Insufficient or overly similar data sources
+
+    <Tip>End users can provide feedback using thumbs down with details on the failure reason.</Tip>
+  </Accordion>
+
+  <Accordion title="How long does it take for new or edited documents to be included?">
+    Content which is already crawled and indexed by Glean's connectors is instantly usable when added as a knowledge source in a Glean app. Updates for newly created or recently updated content and changes in recursive folder structure follow the SLA for their respective Glean connector.
+  </Accordion>
+
+  <Accordion title="What are some best practices for testing Glean Apps in Slack?">
+    Publishing a Glean App to a test channel is the recommended approach for testing. This allows you to verify the app's functionality and accuracy before deploying it to a broader audience.
+  </Accordion>
+</AccordionGroup>

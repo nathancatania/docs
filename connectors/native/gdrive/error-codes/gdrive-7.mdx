@@ -1,0 +1,37 @@
+---
+title: GDRIVE-7
+description: GDRIVE-7 Error Code
+---
+
+## Issue
+
+We were unable to verify that one or more of the Google Drive documents you provided exist. There are multiple types of Google Drive documents. Here are the ones that are currently supported:
+
+[Folder](https://developers.google.com/drive/api/guides/about-files)
+
+- Glean can exclude content from its content crawl by a Folder ID.
+- This applies for any regular Folder as well as any Shared Drive.
+- They are both treated as excludable containers. E.g. `1eu6oictFLDwY5VGYqD4t_UZV4eBt-Rzq`.
+
+
+[Shared Drive](https://developers.google.com/drive/api/guides/about-shareddrives)
+
+- Glean can include content by Shared Drive ID.
+    - Shared Drive IDs usually look something like `0AKK7zp3V_n1rUk9PVA`.
+- Glean can also exclude content by Shared Drive name prefix.
+    - For example, if we have 3 Shared Drives named "Financial Planning", "Finished Articles", and "FY2026 Finances", then the prefix "Fin" would exclude the Shared Drives named "Financial Planning" and "Finished Articles" from being crawled. However, "FY2026 Finances" would not be excluded because it does not begin with "Fin".
+
+[Google Group](https://developers.google.com/admin-sdk/directory/reference/rest/v1/groups)
+
+- Glean can exclude content owned by individuals in a group.
+    - The content of this redlist will be an email, e.g. `redlisted-group@glean.com`.
+
+## Resolution
+
+- Ensure that the correct type of content is entered in the appropriate input field.
+    - For example, do not enter IDs into the Shared Drive prefix field. Similarly, do not enter a Folder ID into the Google Group input field.
+- Ensure that the credentials provided to Glean have the required scopes to request the provided Folder, Shared Drive, and/or Group.
+
+Once updated, the changes should be reflected immediately since we are validating directly from GDrive's API.
+
+If you are still having difficulty please reach out to us: [https://support.glean.com](https://support.glean.com)

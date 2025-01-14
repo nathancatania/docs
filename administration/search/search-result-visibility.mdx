@@ -1,0 +1,75 @@
+---
+title: "Hiding Search Results"
+description: "Manage document visibility at scale by uploading a CSV file to hide documents from Glean's search results and Chat"
+icon: "file-csv"
+---
+
+## Overview
+
+Glean's CSV upload feature allows administrators to hide documents at scale. This method enables organizations to efficiently manage the visibility of thousands of documents in Glean's search results and Assistant responses. You can specify which documents to hide and control visibility for different user groups.
+
+<Info>
+Up to 500,000 documents can be specified in a single CSV file. The hiding process takes approximately one hour, and documents remain hidden until you delete the CSV file or upload a new one.
+</Info>
+
+## Implementation Steps
+
+<Steps>
+  <Step title="Prepare your CSV file">
+    1. Navigate to the [admin console](https://app.glean.com/admin/)
+    2. Go to **Governance** > [**Document hiding**](https://app.glean.com/admin/managesearch/hidedocuments) 
+    3. Click "Download the CSV template"
+    
+    Your CSV should contain two columns:
+
+    | Column 1 | Column 2 |
+    |----------|-----------|
+    | **Document ID** | **Preferred visibility** |
+
+    ### Visibility Options
+    
+    - `HIDE_ALL`: Hides the document from all Glean users
+    - `HIDE_ALL_EXCEPT_OWNER`: Hides the document from everyone except the owner (documents without owners will be hidden from all users)
+    - `HIDE_FROM_GROUPS`: Hides the document from everyone except those with explicit share permissions
+
+    ### Finding Document IDs
+    
+    1. Visit [app.glean.com/search](https://app.glean.com/search?q=enter+query+here&showSearchResultID=true)
+    2. Search for the document
+    3. Hover over the search result to copy the document ID
+  </Step>
+
+  <Step title="Upload your CSV file">
+    Upload your prepared CSV file to Glean. The system will validate the file data and execute the changes when all validation checks pass.
+  </Step>
+</Steps>
+
+## Important Notes
+
+<Card title="CSV Management">
+- Only one CSV can be active at any time
+- Deleting the uploaded CSV unhides all documents
+- Each new CSV must contain ALL document IDs that should be hidden, not just updates
+</Card>
+
+<Warning>
+The CSV must include all document IDs you want to keep hidden. For example:
+- If you have 10 hidden documents and want to hide 2 more, your new CSV needs 12 entries
+- If you want to unhide 10 out of 12 documents, your new CSV should contain only the 2 remaining document IDs
+</Warning>
+
+### Limitations
+
+<Info>
+- Non-document items (folders, containers) cannot be hidden
+- CSV upload only affects visibility in Glean's search results and Assistant responses
+- Source permissions remain unchanged
+</Info>
+
+## Error Handling
+
+<Warning>
+- Glean performs validation checks during upload and will notify admins of any errors
+- All errors must be resolved for the CSV upload to succeed
+- If any errors are found (e.g., 2 errors in a CSV with 100 entries), none of the documents will be hidden until the CSV is corrected
+</Warning>

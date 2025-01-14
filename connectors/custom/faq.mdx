@@ -1,0 +1,44 @@
+---
+title: "REST APIs FAQ"
+description: "Frequently asked questions about using Glean's REST APIs, including troubleshooting guides and implementation tips"
+---
+
+Our REST APIs FAQ provides answers to common questions about implementing and using Glean's APIs. For detailed implementation guidance, please refer to our [developer documentation](https://developers.glean.com/).
+
+<AccordionGroup>
+  <Accordion title="Why isn't my indexed document appearing in search results?" icon="circle-question">
+    When using the [/indexdocument](https://developers.glean.com/indexing/tag/Documents/paths/~1indexdocument/post/) and [/bulkindexdocuments](https://developers.glean.com/indexing/tag/Documents/paths/~1bulkindexdocuments/post/) endpoints, documents are added to a processing queue and are not indexed immediately. To expedite document indexing:
+
+    1. Use the [/processalldocuments](https://developers.glean.com/indexing/tag/Documents/paths/~1processalldocuments/post/) endpoint to schedule immediate processing
+    2. Verify document status using the [get document information](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1document/post/) endpoint
+    3. Check permissions with the [check document access](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1checkdocumentaccess/post/) endpoint if the document is indexed but not appearing in results
+  </Accordion>
+
+  <Accordion title="How can I delete documents from my custom data source?" icon="circle-question">
+    You have several options for document deletion:
+
+    1. Use the [/deletedocument](https://developers.glean.com/indexing/tag/Documents/paths/~1deletedocument/post/) endpoint for individual documents
+    2. Use [/bulkindexdocuments](https://developers.glean.com/indexing/tag/Documents/paths/~1bulkindexdocuments/post/) to remove documents not present in the upload
+    3. To delete all documents, use [/bulkindexdocuments](https://developers.glean.com/indexing/tag/Documents/paths/~1bulkindexdocuments/post/) with an empty *documents* array and set *disableStaleDocumentDeletionCheck* to *true*
+  </Accordion>
+
+  <Accordion title="Where can I find example API implementations?" icon="circle-question">
+    We maintain a public GitHub repository with example implementations for our APIs. You can find these examples in our [indexing-api-connectors repository](https://github.com/gleanwork/indexing-api-connectors/).
+  </Accordion>
+
+  <Accordion title="Why is the 'Results Display' section blank in the UI for my custom data source?" icon="circle-question">
+    The Results Display options are not shown until object definitions are created for the data source. This is because you can customize the results display based on the object type. For more information on setting up object definitions, please refer to our [documentation on custom properties](https://developers.glean.com/docs/indexing_api/custom_properties/).
+  </Accordion>
+</AccordionGroup>
+
+## Additional Resources
+
+<CardGroup>
+<Card title="Developer Documentation" icon="book-bookmark" href="/developers">
+  Access our comprehensive developer documentation for detailed API references and implementation guides.
+</Card>
+
+<Card title="Troubleshooting Guide" icon="wrench" href="/connectors/custom/troubleshooting">
+  Find solutions to common API issues and implementation challenges.
+</Card>
+</CardGroup>

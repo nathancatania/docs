@@ -1,0 +1,33 @@
+---
+title: Create Variable Go Links
+---
+
+Variable Go Links redirect to specific destinations when a custom value like a ticket # are added, powering hundreds of pages within a website. Users can make any part of an URL variable with a denotation and append Go Link URL to target specific destinations such as search results page or support tickets.
+
+### How to create a Variable Go Link
+
+1. Click on "New Go Link" on your [Go Links dashboard](https://app.glean.com/knowledge/golinks) or Glean Home Page.
+
+2. Fill in the Destination URL and identify the part of the URL (parameter) to make variable and replace it with **`{*}`.** You will see "**Variable**" pop up when it detects a**`{*}`**.
+
+* Example: **`glean.atlassian.net/123`** -> **`glean.atlassian.net/{*}`**
+
+3. Fill in "Default Go Link to". This is to specify the default destination URL for the Go Link without a variable.
+
+* Example: You can specify **go/jira** to be redirected to **glean.atlassian.net**
+
+Note: When typing a variable Go Link, the substitution would be denoted by another “/” following go/jira (E.g. **go/jira/123**). There can be multiple variable substitutions in a single URL (E.g. **go/jira/123/abc**)
+
+### Examples
+
+Use Variable Go Links to quickly navigate to search result pages
+
+* `https://app.glean.com/search?q={*}` -> `https://app.glean.com/search?q=%7B*%7D`
+* `https://github.com/search?q={*}` -> `https://github.com/search?q=%7B*%7D`
+
+*Note that Variable Go Links support spaces (E.g. you can search for "how do go links work" using "*go/glean/how do go links work"*
+
+Use Variable Go Links to quickly navigate to specific issues and tickets
+
+* `https://app.atlassian.net/browse/PROD-{*}` -> `https://app.atlassian.net/browse/PROD-%7B*%7D`
+* `https://github.com/product/{*}/issues/{*}` -> `https://github.com/product/%7B*%7D/issues/%7B*%7D`

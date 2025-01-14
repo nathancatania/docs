@@ -1,0 +1,22 @@
+---
+title: SLACK-3
+description: SLACK-3 Error Code
+---
+
+## Issue:
+
+- We do not have all the necessary OAuth scopes for GleanBot to work.
+
+## Resolution:
+
+- Navigate to [https://api.slack.com/apps](https://api.slack.com/apps) and find your app created for the Glean integration.
+- On the left hand side, navigate to OAuth & Permissions. Then scroll down to the Scopes section.
+
+<Frame><img src="https://support.glean.com/hc/article_attachments/26959266382619"/></Frame>
+
+- Under Bot Token Scopes, select Add an OAuth Scope.
+- From there, you can add the missing scopes listed that are needed for GleanBot to set up. The link will be something like: `https://api.slack.com/apps/XXXXX/oauth?`
+
+<Frame><img src="https://support.glean.com/hc/article_attachments/26959282506779"/></Frame>
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

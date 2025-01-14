@@ -1,0 +1,53 @@
+---
+title: "Glean REST APIs"
+description: "Overview of Glean's REST APIs, including Client and Indexing APIs, along with token types and their features"
+---
+
+Glean provides two REST APIs for interacting with the platform. Our [developer documentation](https://developers.glean.com/) provides detailed implementation instructions. This guide offers an introduction to Glean's REST APIs and serves as a general reference.
+
+## API Types
+
+<CardGroup>
+<Card title="Client API" icon="user" href="https://developers.glean.com/client/overview/">
+  The Client API enables implementation of a custom client interface to interact with the Glean system. This API allows you to build custom interfaces and integrate Glean's functionality into your applications.
+</Card>
+
+<Card title="Indexing API" icon="database" href="https://developers.glean.com/indexing/overview/">
+  The Indexing API (also known as the Push API) is used to upload documents to Glean. This API enables you to programmatically manage document indexing and content integration with the Glean platform.
+</Card>
+</CardGroup>
+## API Tokens
+
+Different types of tokens are available depending on your integration needs:
+
+<ResponseField name="Indexing Token" type="object" required>
+  These tokens are specifically designed for indexing documents from internal tools or apps that Glean does not natively support. They are used with the Indexing REST API to send documents to Glean via HTTP requests.
+
+  **Features:**
+  - Configurable token rotation period in minutes
+  - IP range restrictions for requests
+  - Data source-specific or global permissions
+  - Configurable expiry date
+</ResponseField>
+
+<ResponseField name="Client Token" type="object" required>
+  These tokens are utilized for making API calls to Glean's Client API. They can be scoped either to a single user or globally, allowing the caller to act as multiple users.
+
+  **Features:**
+  - Configurable scopes for specific request types (e.g., Chat, Answers, Search)
+  - Permissions can be set to self, another user, or global (if Super Admin)
+  - Configurable expiry date
+</ResponseField>
+
+<ResponseField name="Authentication Token API Key" type="object" required>
+  These tokens are used to create authentication tokens on behalf of any user.
+
+  **Features:**
+  - Only one authentication key can be active at a time
+</ResponseField>
+
+## Additional Resources
+
+<Card title="API Troubleshooting Guide" icon="wrench" href="https://support.glean.com/hc/en-us/articles/27590109118235-Troubleshooting-Rest-API-Issues">
+  Access our comprehensive guide for troubleshooting common REST API issues and solutions.
+</Card>

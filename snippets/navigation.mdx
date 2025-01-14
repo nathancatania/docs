@@ -1,0 +1,450 @@
+{/* Base - Can be used for anything */}
+export const GleanNavigationLink = (icon, text, href) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+}
+
+{/* ------------------------------ Admin Console Shortcuts ------------------------------ */}
+{/* Data source Settings */}
+export const SettingsDataSources = ({ text = "Admin Console > Data sources", href = "https://app.glean.com/admin/setup/apps", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Teammates Settings */}
+export const SettingsTeammates = ({ text = "Admin Console > Teammates", href = "https://app.glean.com/admin/teammates", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Assistant Settings */}
+export const SettingsAssistant = ({ text = "Admin Console > Platform > Assistant", href = "https://app.glean.com/admin/setup/gleanassistant", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Assistant Settings - Setup Tab */}
+export const SettingsAssistantSetup = ({ text = "Admin Console > Platform > Assistant > Setup", href = "https://app.glean.com/admin/setup/gleanassistant?tab=setup", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Assistant Settings - Settings Tab */}
+export const SettingsAssistantSettings = ({ text = "Admin Console > Platform > Assistant > Settings", href = "https://app.glean.com/admin/setup/gleanassistant?tab=settings", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Assistant Settings - Advanced Tab */}
+export const SettingsAssistantAdvanced = ({ text = "Admin Console > Platform > Assistant > Advanced", href = "https://app.glean.com/admin/setup/gleanassistant?tab=advanced", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Platform - AI Apps Settings */}
+export const SettingsAIApps = ({ text = "Admin Console > Platform > Apps", href = "https://app.glean.com/admin/platform/ai-apps", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Platform - Actions Settings */}
+export const SettingsActions = ({ text = "Admin Console > Platform > Actions", href = "https://app.glean.com/admin/platform/tools", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Platform - API tokens Settings */}
+export const SettingsAPITokens = ({ text = "Admin Console > Platform > API tokens", href = "https://app.glean.com/admin/platform/tokenManagement", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Platform - Glean Assist Settings */}
+export const SettingsGleanAssist = ({ text = "Admin Console > Platform > Glean Assist", href = "https://app.glean.com/admin/platform/glean-assist/apps", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Authentication Settings */}
+export const SettingsAuthentication = ({ text = "Admin Console > Settings > Authentication", href = "https://app.glean.com/admin/setup/auth", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* People data Settings */}
+export const SettingsPeopleData = ({ text = "Admin Console > Settings > People data", href = "https://app.glean.com/admin/setup/people", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Appearance Settings */}
+export const SettingsAppearance = ({ text = "Admin Console > Settings > Appearance", href = "https://app.glean.com/admin/appearance", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Alerts Settings */}
+export const SettingsAlerts = ({ text = "Admin Console > Settings > Alerts", href = "https://app.glean.com/admin/setup/alerts", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Email Settings */}
+export const SettingsEmail = ({ text = "Admin Console > Settings > Email", href = "https://app.glean.com/admin/setup/emailsettings", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Help Settings */}
+export const SettingsHelp = ({ text = "Admin Console > Settings > Help", href = "https://app.glean.com/admin/helpsettings", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Extension Rollout */}
+export const SettingsExtensionRollout = ({ text = "Admin Console > Settings > Extension rollout", href = "https://app.glean.com/admin/manageadoption/extensionrollout", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* About Glean */}
+export const SettingsAbout = ({ text = "Admin Console > Settings > About", href = "https://app.glean.com/admin/about-glean", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Governance - Sensitive Content Reporting */}
+export const SettingsDLP = ({ text = "Admin Console > Governance > Sensitive content reporting", href = "https://app.glean.com/admin/sensitivecontentreports", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Governance - Document Hiding */}
+export const SettingsDocumentHiding = ({ text = "Admin Console > Governance > Document hiding", href = "https://app.glean.com/admin/managesearch/hidedocuments", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Governance - Access Verification */}
+export const SettingsAccessVerification = ({ text = "Admin Console > Governance > Access verification", href = "https://app.glean.com/admin/managesearch/documentaccess", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Governance - Sensitive Content Lookup */}
+export const SettingsAdminSearch = ({ text = "Admin Console > Governance > Sensitive content lookup", href = "https://app.glean.com/admin/adminsearch", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Admin Updates */}
+export const SettingsAdminUpdates = ({ text = "Admin Console > Admin updates", href = "https://app.glean.com/admin/updates", icon = "wrench" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+
+{/* ------------------------------ Knowledge Management Shortcuts ------------------------------ */}
+{/* Collections Landing Page */}
+export const KnowledgeCollections = ({ text = "Knowledge > Collections", href = "https://app.glean.com/knowledge/collections", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Answers Landing Page */}
+export const KnowledgeAnswers = ({ text = "Knowledge > Answers", href = "https://app.glean.com/knowledge/answers", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Announcements Landing Page */}
+export const KnowledgeAnnouncements = ({ text = "Knowledge > Announcements", href = "https://app.glean.com/knowledge/announcements", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Go Links Landing Page */}
+export const KnowledgeGoLinks = ({ text = "Knowledge > Go Links", href = "https://app.glean.com/knowledge/golinks", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Pins Landing Page */}
+export const KnowledgePins = ({ text = "Knowledge > Pins", href = "https://app.glean.com/knowledge/pins", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Verification - Tasks Page */}
+export const KnowledgeVerificationTasks = ({ text = "Knowledge > Verification > Tasks", href = "https://app.glean.com/verification/tasks", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Verification - Tasks Page */}
+export const KnowledgeVerificationDocuments = ({ text = "Knowledge > Verification > Your Documents", href = "https://app.glean.com/verification/content", icon = "book-open" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+
+{/* ------------------------------ People Shortcuts ------------------------------ */}
+{/* People Directory */}
+export const PeopleDirectory = ({ text = "People > Teammates", href = "https://app.glean.com/directory/people", icon = "user-group" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Org Chart */}
+export const PeopleOrgChart = ({ text = "People > Org Chart", href = "https://app.glean.com/directory/orgchart", icon = "user-group" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Teams */}
+export const PeopleTeams = ({ text = "People > Teams", href = "https://app.glean.com/directory/teams", icon = "user-group" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* ------------------------------ Assistant/Chat Shortcuts ------------------------------ */}
+{/* Chat */}
+export const AssistantChat = ({ text = "Chat > New Chat", href = "https://app.glean.com/chat", icon = "comment" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* Prompt Library */}
+export const AssistantPromptLibrary = ({ text = "Chat > Prompts", href = "https://app.glean.com/chat/prompts", icon = "comment" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+
+{/* App Library */}
+export const AssistantAppLibrary = ({ text = "Chat > Apps", href = "https://app.glean.com/chat/apps", icon = "comment" }) => {
+    return (
+        <span>
+            <Icon icon={icon} /> &nbsp;
+            <a href={href} target="_blank" rel="noreferrer">
+                {text}
+            </a>
+        </span>
+    );
+};
+

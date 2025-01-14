@@ -1,0 +1,65 @@
+---
+title: Datasource Failure Alerts
+description: Datasource Failure Alerts
+---
+
+## Overview
+
+After a datasource is set up, it can fail for a variety of reasons, such as:
+
+* Credentials expire and need to refreshed on Glean
+* Required plug-in installation failed
+* Domains are no longer valid
+
+Glean is enabling daily Datasource Failure alerts for Slack, O365, Google Drive, Github, so that admins can immediately take action. You can edit who receives these alerts via the alerts page on the admin workspace.
+
+## Datasources Covered
+
+* Slack (Regular and Enterprise Grid)
+* O365 (OneDrive and Sharepoint)
+* Google Drive
+* GitHub
+
+Issues related to data sources not covered by this will continue to be sent to admins as Zendesk tickets by Glean Support.
+
+## What do these alerts look like?
+
+The alerts include the name of the datasource that is failing (as specified in your Glean admin workspace), the time stamp where the error occurred, the specific error that triggered the alert, [documentation to fix the error](https://support.glean.com/hc/en-us/sections/21066299704475-Glean-Error-Codes), and a link to the datasource in your Glean workspace.
+
+![datasource-failure-alerts-0](/images/administration/datasource-failure-alerts-0.png)
+
+## Is this alert required? If so, why?
+
+**Yes, datasource failure alerts are required**. Datasource setup and successful continuous indexing is an essential part of Glean working well for your users. Delays in fixing data sources can result in your corpus in Glean becoming stale and user queries returning old documents. In particular, this is risk with stale permissions, as users may have access to content on Glean that they don’t have access to in their native datasource.
+
+If you have further issues when fixing your datasource setup, Glean’s support team can assist you with errors you encounter. If there are data sources that you no longer wish to connect to Glean, you can delete them on Glean’s Admin Workspace.
+
+## Why are you sending alerts to those four data sources?
+
+Slack, O365, Google Drive, and Github are 4 of the most frequently used data sources by Glean customers. We plan to add additional datasource to the alerts in the future.
+
+## How often are these alerts sent?
+
+Alerts are sent every day to the admins until the datasource setup issue is resolved or the admin has requested that Glean Support deletes the datasource.
+
+## Who are alerts sent to?
+
+Currently, alerts are sent to all admins specified in the Alerts page on workspace. In the future, we will provide the ability to pick recipients for each alert.
+
+## How do I change who these alerts are sent to?
+
+Recipients for alerts can be changed via the alerts page on Workspace. Simply add or remove the name of admins on this page.
+
+![datasource-failure-alerts-1](/images/administration/datasource-failure-alerts-1.png)
+
+## I want to receive some alerts and not others. How do I specify this?
+
+On the alerts page, you can edit the audiences that receive the Datasource Failure Alerts, along with other alerts. Click the three-dot button next to the alert audience images to specify which admins should receive each alert.
+
+![datasource-failure-alerts-2](/images/administration/datasource-failure-alerts-2.png)
+
+## What happens if, after following the documented instructions, I continue to receive the alert daily?
+
+If the alert continues after reconnecting, please contact [Glean Technical Support](https://support.glean.com) for further assistance.  Please provide the alert notification body contents in the support ticket.
+
+If you do not have access to the Glean Support portal, please contact your account CSM to provision access for you.

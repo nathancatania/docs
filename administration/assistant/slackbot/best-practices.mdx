@@ -1,0 +1,79 @@
+---
+title: "Slackbot Best Practices"
+description: "Learn how Glean detects and responds to questions in Slack conversations"
+---
+
+## Overview
+
+Glean's Slack integration is designed to proactively assist users by detecting and answering questions within your company's context. Understanding how Glean identifies answerable questions can help you get better responses and more accurate assistance.
+
+## Best Practices for Asking Questions
+
+To receive optimal assistance from Glean in Slack, follow these key principles:
+
+<Card title="Key Guidelines for Effective Questions">
+- **Be Specific**: Frame your question with clear, precise details that provide necessary context
+- **Use Complete Sentences**: Structure your questions as full, grammatically complete sentences
+- **Focus on One Topic**: Address one subject per question to ensure clear and targeted responses
+</Card>
+
+## Example Questions That Work Well
+
+Here are examples of questions that Glean can effectively detect and answer:
+
+### Technical Queries
+- "Is Deploy Orchestrator failing with a 500 error supposed to be transient?"
+- "What is the minimum LTE bandwidth required for AB4 streaming on Respond?"
+- "Are click tracking URLs valid for multiple calls, or only the first one?"
+
+### Administrative Questions
+- "What is our PTO policy?"
+- "How much of the relocation budget can be used for home workspace setup?"
+- "What's the meal reimbursement budget for late dinner at the office?"
+
+### Access and Support
+- "Where should I request access to [product name]?"
+- "How do I request access to a loaner laptop?"
+- "Can I cancel my peer-review submissions?"
+
+## Questions That May Not Receive Responses
+
+<Info>
+While Glean is designed to be highly responsive, certain types of messages won't trigger responses. Understanding these categories can help you rephrase your questions more effectively.
+</Info>
+
+### Non-Question Statements
+Messages that don't explicitly request information won't receive responses, such as:
+- "Not sure this is the right channel to ask about GPT..."
+- "Discussion regarding topicality :thread:"
+
+### Contextually Ambiguous Questions
+Questions that lack sufficient context for a meaningful response:
+- "Is that flag good enough to prevent irregularities?"
+- "Are these the final design drafts?"
+- "@Sarah, can you provide more details about yesterday's issue?"
+
+### Opinion-Based Questions
+Queries seeking subjective judgments rather than factual information:
+- "Which is the best programming language, Go or Python?"
+- "What's the most effective way to structure our team?"
+
+### Action Requests
+Questions that require human intervention or specific actions:
+- "@sales-team, Can someone give a demo to a new prospect?"
+- "@jira-team, Can you provide access to Jira?"
+
+<Warning>
+Questions directed at specific individuals or teams using @ mentions are treated as action requests and won't receive automated responses, even if they're phrased as questions.
+</Warning>
+
+## Tips for Rephrasing Questions
+
+When your question falls into one of the non-answerable categories, try these approaches:
+
+1. Add specific context to ambiguous questions
+2. Rephrase action requests as information queries
+3. Convert opinion requests into fact-based questions
+4. Remove @ mentions when seeking general information
+
+This will help ensure your questions are structured in a way that Glean can effectively process and answer.

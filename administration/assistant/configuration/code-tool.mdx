@@ -1,0 +1,103 @@
+---
+title: "Code Tool"
+description: "Enable code search and generation capabilities in Glean Assistant to enhance software development workflows"
+icon: "code"
+---
+
+<Frame>
+  <img src="assets/code-tool.20240526171221666.webp" alt="Code Tool Interface" />
+</Frame>
+
+Glean Assistant can be enhanced with code search and generation capabilities to support your development teams and engineers. This guide walks administrators through enabling these features to help development teams leverage Glean Assistant for more efficient coding practices.
+
+## Overview
+
+The Code Tool capability enables Glean Assistant to understand your organization's code repositories context, providing:
+
+- Contextually relevant search results for software engineers
+- Code suggestions that align with organizational standards across applications
+
+<Card title="Learn More" icon="arrow-right" href="../usage/code-tool">
+  Explore Code Search & Generation using Glean Assistant
+</Card>
+
+## Configuration
+
+In most cases, no explicit configuration is needed if your Glean environment meets the base requirements below.
+
+### Requirements
+
+<Steps>
+  <Step title="Connect Code Repository">
+    <Check>GitHub or GitLab must be connected to Glean as a datasource</Check>
+  </Step>
+  
+  <Step title="Index Content">
+    <Check>GitHub/GitLab has been fully crawled and indexed (showing "synchronized" status)</Check>
+  </Step>
+  
+  <Step title="Enable Assistant">
+    <Check>Glean Assistant has been enabled</Check>
+  </Step>
+  
+  <Step title="Complete ML Cycle">
+    <Check>One cycle of Machine Learning (ML) has been completed since GitHub/GitLab was connected</Check>
+  </Step>
+</Steps>
+
+<Info>
+**About Machine Learning Workflows**
+
+Glean runs several ML workflows monthly on your search index to:
+
+- Understand organizational synonyms, acronyms, and semantics (including code comprehension)
+- Enhance search result relevance and people suggestions
+- Enable query suggestions and predictive text
+- Train your organization's unique language model for Glean Chat and Assistant
+
+Contact Glean support or your Glean engineer to request workflows outside the regular schedule.
+
+<Card title="Learn More" icon="arrow-right" href="../../getting-started/learning#about-machine-learning-ml">
+  Read about Machine Learning (ML)
+</Card>
+</Info>
+
+<Warning>
+If Glean Assistant isn't performing code searches or incorporating code in responses after linking GitHub/GitLab, the required machine learning workflows likely haven't run on your indexed code yet. Contact Glean support to request a manual workflow execution.
+</Warning>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Which datasources are supported?">
+    Currently, code repositories in GitHub and GitLab are supported.
+  </Accordion>
+  
+  <Accordion title="What permissions are required?">
+    The permissions match those of the Glean GitHub and GitLab connectors exactly.
+  </Accordion>
+  
+  <Accordion title="Is code search supported in search results?">
+    Currently, indexed code is only used for Glean Assistant responses. Glean Search matches PR descriptions and file names, but not code contents directly, to reduce result noise.
+  </Accordion>
+  
+  <Accordion title="How is my data secured?">
+    Code snippets become part of your organization's Glean Knowledge Graph, ensuring:
+    - Only users with existing code access can access it via Glean Assistant
+    - Code snippets follow the same privacy guarantees as all other indexed Glean content
+  </Accordion>
+  
+  <Accordion title="What code file types are supported?">
+    Glean Assistant searches through code in:
+    - PR and Merge Request differentials
+    - Latest commit and Main/Master branch files with extensions including (but not limited to):
+      - Common languages: .js, .py, .java, .cpp, .go, .rb, .php
+      - Web technologies: .html, .css, .scss
+      - Configuration: .ini, .cfg, .cnf
+      - And many more specialized formats
+      
+    <Info>
+      For a complete list of supported file extensions, please contact Glean support.
+    </Info>
+  </Accordion>
+</AccordionGroup>

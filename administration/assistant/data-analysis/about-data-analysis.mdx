@@ -1,0 +1,114 @@
+---
+title: "Data Analysis: Overview"
+description: "Learn how to analyze structured data, including CSV, XLSX, and JSON files, using Glean's data analysis capabilities in Assistant"
+icon: "file-csv"
+---
+
+## Overview
+
+Glean's Data Analysis for Structured Files feature in Assistant enables users to analyze CSV, XLSX, and JSON files directly through the chat interface. This powerful capability helps users across finance, sales, support, and IT teams save significant time on ad hoc analyses.
+
+### Example Analysis Capabilities
+
+You can ask questions about your data in various ways:
+
+<AccordionGroup>
+<Accordion title="Dataset Exploration">
+  Example: "What columns does my data contain?"
+</Accordion>
+
+<Accordion title="Column Statistics">
+  Example: Calculate averages, sums, and counts
+</Accordion>
+
+<Accordion title="Data Distribution">
+  Examples:
+  - Find top/bottom x values
+  - Determine the range of values in a column
+  - List all unique values in a column
+</Accordion>
+
+<Accordion title="Data Relationships">
+  Example: "How does conversion change by lead source?"
+</Accordion>
+
+<Accordion title="Time-Series Analysis">
+  Example: "What product area has seen increased tickets compared to previous months?"
+</Accordion>
+</AccordionGroup>
+## Key Features
+
+<Card title="Assistant UX" icon="message-bot">
+  Analyze data from uploaded files or indexed files by tagging them or pasting their link in Assistant. Generate output files and engage in multi-turn conversations about your data.
+</Card>
+
+<Card title="API Support" icon="code">
+  Developer platform users can access the [File Upload APIs documentation](https://docs.google.com/document/d/1YwsNVGIHF--oj6PcmOysTfDX0HVinKASq47uRp4SMr8/edit?usp=sharing) or visit developers.glean.com.
+</Card>
+
+<Card title="Security" icon="shield-check">
+  Analysis is performed in a sandboxed environment for each user, ensuring security throughout the file lifecycle. For details, see the [security whitepaper](https://help.glean.com/en/articles/10115207-customer-security-whitepaper-code-sandbox-for-data-analysis).
+</Card>
+
+## Supported File Formats
+
+<AccordionGroup>
+<Accordion title="Spreadsheet Files">
+  - XLS
+  - XLSX
+</Accordion>
+
+<Accordion title="Text Files">
+  - CSV
+  - JSON
+</Accordion>
+</AccordionGroup>
+
+## Known Limitations
+
+<Info>
+Before using the feature, be aware of these current limitations:
+</Info>
+
+<Steps>
+  <Step title="Multi-media Support">
+    Visualization generation is not supported in this release.
+  </Step>
+  
+  <Step title="File Upload Limits">
+    Only single-file uploads are supported. Note that a single XLS/XLSX file can contain multiple tabs.
+  </Step>
+  
+  <Step title="Data Retention">
+    Default policies include 24-hour file retention and 30-day metadata retention. Users can manage retention by disabling chat session history or manually deleting sessions.
+  </Step>
+  
+  <Step title="Complex Sheet Handling">
+    Beta version has limited support for complex sheets with merged cells, hierarchical tables, charts, diagrams, and sentiment analysis.
+  </Step>
+  
+  <Step title="Model Performance">
+    Users of Gemini models may experience degraded performance with very large files.
+  </Step>
+</Steps>
+
+## Configuration & Setup
+
+### Enabling Data Analysis
+
+<Note>
+The feature is enabled by default unless you have opted out of new features.
+</Note>
+
+As a Glean admin, you can manage user access through:
+
+1. Navigate to Admin Console
+2. Go to Platform > Assistant > Settings
+3. Select Data Analysis
+4. Choose your preferred configuration options
+
+For a visual guide, watch the [Data Analysis Admin Self-Serve video](https://drive.google.com/file/d/10jQRs0cIvXYWeEn7sRPcjXrhN8hkUMEB/view?usp=sharing).
+
+### Security Documentation
+
+For detailed information about security measures, refer to our [security whitepaper](https://help.glean.com/en/articles/10115207-customer-security-whitepaper-code-sandbox-for-data-analysis).

@@ -1,0 +1,408 @@
+---
+title: "Entra ID (OIDC)"
+description: "Step-by-step guide for configuring Microsoft Entra ID as the SSO provider for Glean using OIDC authentication."
+icon: "microsoft"
+---
+
+import { SettingsAuthentication } from "/snippets/navigation.mdx"
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216172456568.webp" alt="Entra ID OIDC Configuration" />
+</Frame>
+
+This guide provides step-by-step instructions on how to configure Microsoft Entra ID (Azure AD) as the SSO provider for Glean using OIDC.
+
+Single Sign-On (SSO) is a user authentication service that permits a user to use one set of login credentials to access multiple applications. Glean supports SSO through OIDC (preferred) or SAML 2.0, both of which enhance security while simplifying the login process.
+
+<Info>
+  Customized instructions for your Glean environment are available in the Admin Console:
+  <SettingsAuthentication />
+</Info>
+
+## Prerequisites
+
+Before you begin the setup process, ensure you have the following:
+
+- An active Microsoft Entra ID (Azure AD) administrator account.
+- Access to your Glean admin account with **Admin** or **Setup Admin** roles to configure SSO settings.
+- Basic understanding of SSO concepts.
+
+<Warning>
+  Glean restricts SSO authentication to domains that have been pre-approved. Ensure that you have notified Glean of all domains that will be used for user authentication or else SSO will fail.
+
+  For example: `company.com`, `company.co.jp`, `subsidiary.co`, etc.
+</Warning>
+
+## Entra ID Configuration
+
+### 1 - Application Setup
+Create a new App Registration in the Entra ID portal to complete the SSO integration and synchronize your user directory with Glean.
+
+<Tip>
+  You will need your tenant ID and/or tenant backend domain for this step. This will take the form of: `tenant_name-be.glean.com`
+
+  If you are unsure of this, contact your Glean engineer or Glean support.
+</Tip>
+
+1. In the Azure portal, open the [Microsoft Entra ID service blade](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ActiveDirectoryMenuBlade).
+
+2. From the left sidebar menu, select **App registration**, then click **New Registration**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215224519101.webp" alt="App registration" />
+</Frame>
+
+4. Set the following values on the **Register an application** page, then click **Register**:
+
+| Field Name                     | Value                                                                                     |
+|--------------------------------|-------------------------------------------------------------------------------------------|
+| Name                           | `Glean SSO`                                                                              |
+| Supported account type         | ✓ Accounts in this organizational directory only                                          |
+| Redirect URI (platform)        | Web                                                                                       |
+| Redirect URI (URI)             | `https://[tenant_name]-be.glean.com/authorization-code/callback?isExtension=1`           |
+
+Replace `[tenant_name]` with your actual tenant ID. 
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215224548895.webp" alt="Register application" />
+</Frame>
+
+### 2 - Add Redirect URI
+
+1. Once the App Registration for Glean SSO has been created, select **Authentication** from the left sidebar menu.
+
+2. Under **Web - Redirect URIs**, click **Add URI** and paste the following as a *second* URI:
+
+```
+https://tenant_name-be.glean.com/authorization-code/callback
+```
+
+Replace `tenant_name` with your actual tenant ID.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215224912047.webp" alt="Add redirect URI" />
+</Frame>
+
+<Warning>
+  You should have **two** redirect URIs listed:
+
+  ```
+  https://tenant_name-be.glean.com/authorization-code/callback?isExtension=1
+  https://tenant_name-be.glean.com/authorization-code/callback
+  ```
+
+  Both are mandatory. Not adding one of the URIs will result in SSO failing to redirect.
+</Warning>
+
+### 3 - Configure Permissions
+In this section, you will configure the granular read-only permissions required by Glean. These permissions allow access to the Microsoft Graph API for verifying and synchronizing user identity information.
+
+1. On the left sidebar menu, select **API permissions**.
+
+2. Click **Add a permission** and select **Microsoft Graph**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215233904071.webp" alt="API permissions" />
+</Frame>
+
+3. Select **Application permissions** and add each of the following:
+
+```
+Directory.Read.All
+User.Read.All
+```
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215234106514.webp" alt="Application permissions" />
+</Frame>
+
+<Warning>
+  These two permissions **must** be Application Permissions. They cannot be Delegated Permissions.
+</Warning>
+
+<Accordion icon="circle-info" title="About these permissions">
+  These permissions allow Glean to fetch and validate user and group identity information within Entra ID, and Application Permissions allow Glean to do this asynchronously. This ensures that changes in your directory are reflected within Glean immediately, which is vital for security.
+  
+  * For example: You onboard a new employee, change user information, or deactivate a terminated employee.
+
+  Additionally, without up-to-date identity information, Glean cannot accurately enforce permissions for results in search.
+</Accordion>
+
+4. Click **Add a permission** again, and select **Microsoft Graph**. Select **Delegated permissions** and add each of the following:
+
+```
+openid
+email
+offline_access
+profile
+```
+
+<Frame>
+  <img src="assets/entraid-oidc.20240215234240768.webp" alt="Delegated permissions" />
+</Frame>
+
+<Accordion icon="circle-info"  title="About these permissions">
+  These permissions allow Glean to validate information regarding the user request for authorized login to the platform. Only delegated permissions are needed, as it is not necessary for this information to be fetched asynchronously: only on user login and re-authentication.
+
+  Glean only requests the default permissions specified in the Microsoft Authentication Library (MSAL) for authorization and token requests (`openid`, `email`, `offline_access`, and `profile`).
+
+  More specifically (from the [Microsoft Graph Permissions Reference document](https://learn.microsoft.com/en-us/graph/permissions-reference)):
+  
+  * [**openid**](https://learn.microsoft.com/en-us/graph/permissions-reference#openid):<br/> Allows users to sign in to the app (Glean) with their work or school accounts and allows the app (Glean) to see basic user profile information.
+  * [**email**](https://learn.microsoft.com/en-us/graph/permissions-reference#email):<br/>Allows the app (Glean) to read your users' primary email address.
+  * [**offline_access**](https://learn.microsoft.com/en-us/graph/permissions-reference#offline_access):<br/> Allows the app (Glean) to see and update the data you gave it access to, even when users are not currently using the app (Glean). This does not give the app (Glean) any additional permissions.
+  * [**profile**](https://learn.microsoft.com/en-us/graph/permissions-reference#profile):<br/> Allows the app (Glean) to see your users' basic profile (e.g., name, picture, user name, email address).
+</Accordion>
+
+5. Before proceeding to the next step, ensure that you have assigned each of the below permissions with the correct permission type.
+
+| Permission         | Type        |
+|--------------------|-------------|
+| Directory.Read.All | Application |
+| email              | Delegated   |
+| offline_access     | Delegated   |
+| openid             | Delegated   |
+| profile            | Delegated   |
+| User.Read.All      | Application |
+
+### 4 - Grant Admin Consent
+
+<Info>
+  This next step must be completed by a user signed into Azure with one of the following roles: Global Administrator, Application Administrator, or Cloud Application Administrator.
+</Info>
+
+As Application Permissions were requested in the previous step, these must be authorized by an Azure administrator with either the Global, Application, or Cloud Application Administrator roles.
+
+1. On the same screen (API permissions), click the **Grant admin consent** button to authorize the selected permissions. If this button is not visible to you, it means that you do not have the appropriate role to grant the auorization.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216151315177.webp" alt="Grant admin consent" />
+</Frame>
+
+2. Once admin consent has been granted, you will see a green checkmark in the status field of each permision.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216151320720.webp" alt="Admin consent granted" />
+</Frame>
+
+### 5 - Generate Secret
+Next, you will create a secret token that Glean will use to access the Microsoft Graph API.
+
+1. From the left sidebar menu, select **Certificates & Secrets**, then click **New client secret**.
+
+2. Enter **Glean SSO** as the name, and select **24 months** for the expiry time.
+
+<Warning>
+  It is your responsibility to ensure that any secret tokens or API keys that Glean relies on for access to your systems are rotated before expiration.
+</Warning>
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171358882.webp" alt="Generate secret" />
+</Frame>
+
+3. Under the **Client secrets** section, copy the **Value** (not the Secret ID). You will need this later when configuring Glean.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171407755.webp" alt="Copy secret value" />
+</Frame>
+
+### 6 - Copy App & Directory IDs
+
+1. From the left sidebar menu, select **Overview**.
+
+2. Copy both the **Application (client) ID** and the **Tenant (directory) ID**. You will need these later when configuring Glean.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171418910.webp" alt="Copy IDs" />
+</Frame>
+
+### 7 - Upload Icon
+
+1. From the left sidebar menu, select **Branding & Properties**.
+
+2. Fill in the fields as per the table below.
+
+| Field                            | Value                                                                                            |
+|----------------------------------|--------------------------------------------------------------------------------------------------|
+| Logo                             | [Download this Glean icon](https://app.askscio.com/images/logo3-512.png) to set as the app logo. |
+| Home page URL (optional)         | `https://glean.com`                                                                              |
+| Terms of service URL (optional)  | `https://www.glean.com/terms`                                                                    |
+| Privacy statement URL (optional) | `https://www.glean.com/privacy-policy`                                                           |
+
+3. Leave all other fields blank, and click **Save**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171429494.webp" alt="Upload icon" />
+</Frame>
+
+### 8 - (Optional) Restrict Users
+
+By default, enabling SSO permits any valid user in your organization to sign into Glean. To assist with organic growth and adoption of Glean, Glean recommends that you do not restrict access to the app.
+
+If you wish to restrict access to only approved users, Glean recommends adding all approved users to a group called **Glean Users** and restricting access based on this group.
+
+<Accordion icon="circle-question" title="How to: Create a new group in Entra ID">
+  To create a new group in Entra ID and add users to it:
+
+  1. From the main Entra ID dashboard, select **Groups**, then **New group**.
+  2. Enter the information as follows:
+
+      | Field             | Value                                                                                                                                      |
+      |-------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
+      | Group type        | Security                                                                                                                                   |
+      | Group name        | Glean Users                                                                                                                                |
+      | Group description | Users that are permitted to access the Glean Enterprise Search app.                                                                        |
+      | Entra ID roles    | No                                                                                                                                         |
+      | Membership type   | Assigned                                                                                                                                   |
+      | Owners            | -                                                                                                                                          |
+      | Members           | Select the users to be part of the group.<br/>(DO NOT select other groups here, as nested groups are not supported for app user assignment). |
+
+  3. Click **Create** to create the group.
+</Accordion>
+
+To restrict which users can sign into Glean:
+
+1. Return to the main Entra ID dashboard and select **Enterprise applications**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171450358.webp" alt="Enterprise applications" />
+</Frame>
+
+2. Creating the App Registration for Glean also creates a corresponding Enterprise Application, called Glean SSO. Select **Glean SSO** from your list of Enterprise Apps.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171455011.webp" alt="Select Glean SSO" />
+</Frame>
+
+3. From the left sidebar menu, select **Users and groups**, then click **Add user/group**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171501797.webp" alt="Add users and groups" />
+</Frame>
+
+4. Select the group(s) and/or individual users that you wish to restrict Glean access to, and then click **Assign**.
+
+<Warning>
+  Nested groups are not supported by Entra ID when assigning groups to apps.
+</Warning>
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171508255.webp" alt="Assign users" />
+</Frame>
+
+5. From the left sidebar menu, click **Properties**.
+
+6. Set **Assignment required?** to **Yes**, then click **Save**. Access to Glean is now restricted to the assigned users/groups.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216171512962.webp" alt="Enable assignment" />
+</Frame>
+
+## Glean Configuration
+
+### 1 - Configure Azure SSO
+
+1. In the Glean UI, navigate to [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/auth).
+2. Select **Azure SSO** from the list of SSO Providers.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216172023035.webp" alt="Select Azure SSO" />
+</Frame>
+
+3. Paste the **Client secret**, **Application (client) ID**, and **Directory (tenant) ID** values copied from Entra ID into their respective fields in the Glean UI.
+4. Click **Save**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216172028763.webp" alt="Configure Azure SSO" />
+</Frame>
+
+### 2 - Activate SSO
+You must activate SSO in Workspace Settings before your users can sign in to Glean using SSO.
+
+1. Return to the [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/apps) screen.
+2. Under the *Switch to logging into Glean via SSO* section, click the **Switch to Azure SSO** button.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216172048519.webp" alt="Switch to Azure SSO" />
+</Frame>
+
+1. You will be prompted to confirm the switch.
+2. After SSO has been activated, you will see Azure SSO present in the list of Authentication apps with a Status of **Connected**.
+
+<Frame>
+  <img src="assets/entraid-oidc.20240216172056548.webp" alt="SSO Connected" />
+</Frame>
+
+<Info>
+  If you don't see the **Switch to Azure SSO** button, it means that your Glean tenant is still provisioning and you will not be able to make the switch just yet.
+
+  You can skip ahead to the [Connect Datasources](../../../getting-started/datasources.md) section of the Getting Started guide and return to this point later.
+</Info>
+
+### 3 - Sync People Data
+
+Glean synchronizes your directory from Entra ID so that it can properly map and honor user permissions when displaying search results. In this step, we will initialize the initial synchronization; after which the process will be automated.
+
+1. In the Glean UI, navigate to [Workspace Settings > Setup > People Data](https://app.glean.com/admin/setup/apps).
+2. Under **Ready to sync** you should see **Azure** listed. Click **Azure**.
+
+<Frame>
+ <img src="assets/entraid-oidc.20240216172105182.webp" alt="Ready to Sync Azure" />
+</Frame>
+
+3. Glean will show you a summary of the data that will be synchronized.
+
+   * If this does not look correct, check:
+
+       1. That each user in your directory in Entra ID has their First Name, Last Name, Email, Title, Department, and (optionally) Manager fields populated.
+       2. You have correctly provided the Glean SSO App Registration with the `Directory.Read.All` and `User.Read.All` **Application** (not Delegated) permissions.
+       3. That your Client Secret, Directory ID, and Application ID are correct.
+
+4. Click **Start sync** to begin the initial synchronization.
+
+<Frame>
+ <img src="assets/entraid-oidc.20240216172111121.webp" alt="Start Sync" />
+</Frame>
+
+5. Over the next few hours, you will start to see your users synchronized to Glean under [Workspace Settings > Setup > People Data](https://app.glean.com/admin/setup/apps). If 24 hours elapse without any data populating, please contact your Glean engineer or Glean support.
+
+<Frame>
+ <img src="assets/entraid-oidc.20240216172118965.webp" alt="People Data Synced" />
+</Frame>
+
+<Check>
+ You have successfully configured SSO and directory synchronization for Glean with Entra ID.
+</Check>
+
+## Testing the Configuration
+
+There are two key phases of SSO to test: The Glean to Microsoft Online redirect, and the Microsoft Online back to Glean redirect.
+
+### Glean to Entra ID
+
+To test your SSO configuration, open a new **Incognito** or **Private Browsing** window and navigate to [https://app.glean.com](https://app.glean.com). Enter your work email and click **Log In**.
+
+You should be redirected to your SSO platform successfully.
+
+<Tip>
+ Testing in a Private Window is crucial to prevent existing browser cache, storage, sessions, and cookies from affecting the result.
+</Tip>
+
+### Entra ID to Glean
+
+When you have been redirected to Entra ID, attempt to sign in. You should be redirected back to Glean and successfully signed in.
+
+### Troubleshooting
+
+If any of the above SSO flows fail, consult the table below. If you have issues that persist, or issues not mentioned below, please contact Glean support.
+
+| Issue | Description | Fix |
+|-------|-------------|-----|
+| SSO code exchange failed [Error Code 13] | The Directory ID, Application ID, or Client Secret token is/are incorrect. | Double check that you have copied the Directory ID, Application ID, and Client Secret values correctly into the Glean UI. |
+| Cannot authenticate user from access token [Error Code 14] | A key field that Glean needs to authenticate the user is missing from the access token provided by them on sign-in. | Check the profile of the user in Entra ID. Ensure that the Email attribute is populated, along with First Name, Last Name, Display Name, Department, and Title. |
+| Cannot authenticate user from access token [Error Code 14] | In addition to the above, this error code may indicate that Glean cannot validate the email domain being used for sign-in. | Glean checks the email domain of every user that authenticates via SSO against a list of known company domains that are assigned to your tenant. If Glean is not aware of the email domain that your user is attempting to SSO with, it denies access to your Glean environment for security reasons. Notify your Glean engineer or Glean support of all email domains that your users will be authenticating from. |
+| Microsoft error: "You can't get there from here" | User authentication to Glean is being blocked by a Conditional Access policy. | Amend your Conditional Access policy to include and permit the Glean SSO Enterprise App. |
+| Microsoft error: "Need admin approval" | Admin consent has not been granted to the permissions requested by the Glean SSO App Registration. | Ensure that you have granted admin consent for the Application and Delegated permissions requested under "API permissions" of the Glean SSO App Registration. |
+| Users are being asked to approve permissions when signing in to Glean | The type of permissions granted to the Glean SSO App Registration are incorrect (or missing). | Ensure that the `Directory.Read.All` and `User.Read.All` permissions are assigned to the Glean SSO app registration and are of **Application** type.<br/>Ensure that the `email`, `openid`, `offline_access`, and `profile` permissions are assigned to the Glean SSO app registration and are of **Delegated** type. |
+| SSO is successful, but the Glean is stuck at the login page | Glean cannot validate the email domain being used for sign-in. | Glean checks the email domain of every user that authenticates via SSO against a list of known company domains that are assigned to your tenant. If Glean is not aware of the email domain that your user is attempting to SSO with, it denies access to your Glean environment for security reasons. Notify your Glean engineer or Glean support of all email domains that your users will be authenticating from. |
+| SSO is successful, but Glean returns an internal server error or some other error. | You likely have IP restrictions assigned to your Azure/Entra ID tenant which are preventing the access token from being validated. | Contact your Glean engineer or Glean support who can advise you on the static IP addresses assigned to your Glean tenant that you will need to allowlist. |

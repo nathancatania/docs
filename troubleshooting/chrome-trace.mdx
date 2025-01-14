@@ -1,0 +1,53 @@
+---
+title: "Record a Trace"
+description: "Learn how to record and share Chrome traces to help diagnose performance issues"
+icon: "gauge-high"
+---
+
+When you experience performance issues, our engineering team may request a Chrome trace to diagnose and resolve the problem.
+
+<Info>
+  Chrome traces help our engineers understand exactly what's causing performance bottlenecks, allowing us to optimize the experience for you.
+</Info>
+
+<Warning>
+  **Privacy Considerations**
+
+  Chrome traces may contain sensitive information including:
+  - URLs and titles of open tabs
+  - Running browser extensions
+
+  To protect your privacy, consider closing unnecessary tabs before recording. Note that traces do **not** include your browser history.
+
+  We recommend using the [CloudFlare HAR File Sanitizer](https://har-sanitizer.pages.dev/) to remove any sensitive information from the trace file before sharing it with Glean.
+</Warning>
+
+## Recording a Trace
+
+<Steps>
+  <Step title="Open Chrome Tracing">
+    In a new Chrome tab, navigate to **chrome://tracing**
+  </Step>
+
+  <Step title="Initialize Recording">
+    Click the **Record** button located in the upper left corner
+  </Step>
+
+  <Step title="Configure Settings">
+    1. Click **Manually select settings**
+    2. In the Record categories section, click the **All** button in the left column
+    3. Click **Record** to begin
+  </Step>
+
+  <Step title="Reproduce the Issue">
+    Perform the action that was experiencing slowness (such as executing a search or opening a new tab)
+  </Step>
+
+  <Step title="Save the Trace">
+    1. Return to the tracing tab
+    2. Click **Stop**
+    3. Click **Save** in the upper left corner
+    4. Share the resulting trace file with our support team
+  </Step>
+</Steps>
+

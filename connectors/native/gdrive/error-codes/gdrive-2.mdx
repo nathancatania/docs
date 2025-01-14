@@ -1,0 +1,37 @@
+---
+title: GDRIVE-2
+description: GDRIVE-2 Error Code
+---
+
+## Issue
+
+We are unable to make an API request for a required API scope. The error message displayed in the console should display the specific scope we're unable to validate.
+
+## Resolution
+
+**Verify that the directory admin user is setup correctly**
+
+- In your Google Admin console (at [admin.google.com](http://admin.google.com/)),
+- Go to [Menu > Directory > Users](https://admin.google.com/ac/users).
+- Search for the directory admin email and navigate to the user’s page
+- Verify that the user has the right privileges
+    - Under Admin roles and privileges > Privileges, verify that the user has all the right privileges that are [here](https://docs.google.com/document/d/1I67s1U6iViZdwlOm1JI-mM5jS4hhAR_1MBqkJfb11DY/edit#bookmark=id.b74k05pbc8mi)
+- Verify that the user has logged in at least once in to Google Workspace and accepted the Terms of Service
+- Verify that the user has access to the GDrive app
+    - Under Apps, verify that **Drive and Docs** is ON
+
+    <Frame><img src="https://support.glean.com/hc/article_attachments/26479059048603"/></Frame>
+
+
+**Verify that the Drive SDK is available to the user**
+
+- On the admin portal ([admin.google.com](http://admin.google.com/)), from the left sidebar click Apps → Google Workspace → Drive and Docs
+- Then click Features and Applications, and under Users search for the directory admin email
+- Verify that under Drive SDK, the setting Allow users to access Google Drive with the Drive SDK API is ON
+
+    <Frame><img src="https://support.glean.com/hc/article_attachments/26479059048603"/></Frame>
+
+
+For more information on the specified API scope: [https://developers.google.com/drive/api/guides/api-specific-auth](https://developers.google.com/drive/api/guides/api-specific-auth)
+
+If you are still having difficulty please reach out to us: [https://support.glean.com](https://support.glean.com)

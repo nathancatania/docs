@@ -1,0 +1,97 @@
+---
+title: "Troubleshooting"
+description: "Debugging endpoints and tools to investigate indexing API issues in Glean"
+---
+
+This article reviews helpful debug endpoints you can use to investigate indexing API issues. For a comprehensive document on the different endpoints available for debugging, please review this [troubleshooting document](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/). If you require further assistance debugging, the Next Steps section describes what information to share with Glean Support when raising a ticket.
+
+## Debug Data Source Status
+### Documentation [Link](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1status/post/)
+
+<CodeGroup>
+```bash Request
+curl -i -X POST \
+  'https://domain-be.glean.com/api/index/v1/debug/{datasource}/status' \
+  -H 'Authorization: Bearer <YOUR_TOKEN_HERE>'
+```
+</CodeGroup>
+
+### When to Use
+
+If you want to confirm whether your indexing job was successful, you can use this endpoint to verify if your documents have been uploaded and indexed. The **bulkUploadHistory** will show the details of your document indexing endpoint time. After documents are uploaded, they will be queued for processing. New documents will be available in search results when the **processingHistory** timestamp is after the **bulkUploadHistory**.
+
+## Debug Data Source Document
+### Documentation [Link](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1document/post/)
+
+<CodeGroup>
+```bash Request
+curl -i -X POST \
+  'https://domain-be.glean.com/api/index/v1/debug/{datasource}/document' \
+  -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+  -H 'Content-Type: application/json; charset=UTF-8' \
+  -d '{
+    "objectType": "Article",
+    "docId": "art123"
+  }'
+```
+</CodeGroup>
+
+### When to Use
+
+If a user reports a missing document, this endpoint can be used to confirm if a document is present in the data source index and verify what permissions this document has. A user will be able to view a document if any of the below criteria is met:
+
+- **allowAnonymousAccess** is **true**
+- **allowAllDatasourceUsersAccess** is **true** and user has been indexed as a user of the data source
+- user is a member of the **allowedGroups** and in the list of **allowedUsers** OR **allowedGroupIntersections**
+
+## Debug Data Source User
+### Documentation [Link](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1user/post/)
+
+<CodeGroup>
+```bash Request
+curl -i -X POST \
+  'https://domain-be.glean.com/api/index/v1/debug/{datasource}/user' \
+  -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+  -H 'Content-Type: application/json; charset=UTF-8' \
+  -d '{
+    "email": "u1@foo.com"
+  }'
+```
+</CodeGroup>
+
+### When to Use
+
+This endpoint can be used along with debug data source document to confirm if a user is in the group(s) provisioned to have access to the document.
+
+## Check Document Access
+### Documentation [Link](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1checkdocumentaccess/post/)
+
+<CodeGroup>
+```bash Request
+curl -i -X POST \
+  https://domain-be.glean.com/api/index/v1/checkdocumentaccess \
+  -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+  -H 'Content-Type: application/json' \
+  -d '{
+    "datasource": "string",
+    "objectType": "string",
+    "docId": "string",
+    "userEmail": "string"
+  }'
+```
+</CodeGroup>
+
+### When to Use
+
+To check if a user has access to view a document in Glean. The response will show **true** or **false**. If **false**, review the debug endpoints debug data source user and debug data source document to check permissions.
+
+## Next Steps
+
+<Info>
+If you need help debugging your issue, please contact Support and provide the following details:
+
+- Description of the issue including error message
+- Endpoint URL and request body schema
+- Data source name
+- Timestamp/timezone of when you encountered the error
+</Info>

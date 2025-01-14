@@ -1,0 +1,121 @@
+---
+title: "Slackbot"
+description: "Learn how to use Glean in Slack to automatically answer questions, summarize content, and streamline team communication"
+---
+
+We all know that Slack is a rich source of knowledge in a company - a constant exchange of conversations, information, and documentation.
+
+However, it is also a source of chaos. People ask questions and get blocked on finding answers. At the same time, teammates spend time and effort manually answering questions. Glean in Slack - also known as Gleanbot - addresses both of these problems. It jumps in automatically when it knows the answer to a question, and it responds when tagged by name.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/894480196/6f799547878dc0ffa0739f65/Gleanbot+Nov.gif?expires=1736575200&signature=2eb0f3fa16a020c0e1fa7af477f98aed7a7e916db52e73d3f91947a57963190c&req=fCkjEsF%2BnIhZFb4f3HP0gO8V0wqRz%2B2Y6m1T32OugyPSNRjtvBbZA%2BhXiMH%2F%0A14aJSszR1TXhYYrSCQ%3D%3D%0A" alt="Glean automatically answers questions and responds when tagged" />
+</Frame>
+
+*Glean automatically answers questions and responds when tagged*
+
+You can configure this in **Admin console** (wrench icon) **> Data sources > Slack > Glean in Slack.**
+
+<Note>
+Note: In the past, Glean in Slack surfaced results based on matching [Answers](https://help.glean.com/en/collections/2489439-answers). This legacy version of Glean in Slack was deprecated in February 2024.
+</Note>
+
+## What you can do with Glean in Slack
+
+### 1. Answer questions
+
+When a teammate asks a question in a Slack channel, Glean can jump in with a helpful answer. It can respond either automatically when a question is detected, or when someone mentions @Glean in a message.
+
+**How it works**
+
+First, Glean must be enabled in either your entire Slack workspace or in a particular channel. When Glean registers a question, it searches across all the knowledge in the company - previous Slack messages, knowledge articles, etc. - to generate a response to the person's question.
+
+The answer is shown privately to the person who asked the question, and just like Glean Search and Glean Chat, it respects the content permissions of that person. In other words, answers are personalized and only based on content that you have access to. If the response was helpful, you can choose to share it publicly. If it wasn't helpful, you can mark it as "Not helpful" to help Glean get better.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/585736823/5c8c3f37fcaeebc4b6d2989c/image.png?expires=1736575200&signature=b9775aea901455eae2e0c969f5c10b30294a54c6e90a0f294622417df398e98f&req=cSgiEcp4lYNcFb4f3HP0gIbnZL3OlICMq0ZLk%2FIt%2FIWvHOpS36JXS8TW6dLE%0AGWTUk%2BfMYqxwxXly%2BA%3D%3D%0A" alt="Glean response example" />
+</Frame>
+
+If the person who has asked the question has neither shared nor dismissed Glean's response, Glean posts a message allowing teammates to request their own response.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1036600196/2d0215ca94a1fc5598207a34/image.png?expires=1736575200&signature=99bd7b12da118a3f9593b693f673bd5b326e9def452400ced15381c171a8592a&req=dSAkEM9%2BnYBWX%2FMW1HO4zVP0HLgoaQGv%2BPcTYS3I7VnQPrHxCSi2aZCc7XlI%0AXAf2vUPT7LHL%2BXasdoQ%3D%0A" alt="Request Glean response" width="320" />
+</Frame>
+
+Glean adds emoji reactions to the original message where it detected a question, to let teammates know it might have a relevant suggestion. Reactions will only appear in channels where Glean is explicitly added. By default, the reactions are:
+
+- 👀 for suggestion made
+- ✅ for suggestion shared in channel
+- 👎 for suggestion not helpful
+
+**Configuring when Glean responds**
+
+By default, Glean only responds automatically when it has a confident answer to a question. This is by design, to avoid creating noise. In certain channels, you may want to but you can tune how often Glean responds in a particular channel by typing `/glean configure` within Slack and selecting from a menu of options.
+
+<Frame>
+  <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/1036602020/a5e413148714b868418c07b7/6WRpEPvWI1u3HKeQPSh2W9hI9V2FhxT-HeYZORg3Md43S_hcUZOumwKAZcLA2gB0hNhniLsHYI9Id7T260l7aXUDo9cgHBk_pG4kOXomc12Yf5Qk4M4wE8bby4V3betOcHQ1pBFGZdtzhwD4Osox3H4?expires=1736575200&signature=63dc9c8dad61c44040d7249e157e2250edfd42ebffcb4d9ddc9571976d1f390c&req=dSAkEM9%2Bn4FdWfMW1HO4zYi2i484H5cRW%2F4VxPaKy%2FKkngjToNrlJlzOfd8c%0AkB398VFl3RtlKSK1dgo%3D%0A" alt="Configuring Glean responses" width="400" />
+</Frame>
+
+If you want a guaranteed response from Glean in a channel or a thread, you can enable responses when someone mentions @Glean explicitly. You can ask Glean to answer questions, summarize a thread, or anything else. As always, Glean's response is personalized to the person who asked the question, and only based on content that person has permission to access.
+
+While you can configure how often Glean responds, certain behaviors are not configurable:
+
+- Glean will not respond in channels that include external parties, so as to avoid inadvertently leaking information
+- Glean will not automatically respond in threaded messages, so as to avoid noise
+- Glean will only respond to queries by people who have access to Glean Assistant
+- Glean may not respond if calls have exceeded a rate limit
+
+### 2. Search from any channel with `/glean`
+
+In addition to answering questions, you can search Glean directly within Slack. Simply type `/glean` followed by your search query in any channel. The results will only be visible to you, and you have the option to share search results publicly.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/585749693/7f0fd345f7f3c8f520d5ca60/image.png?expires=1736575200&signature=e976ab07e9c00b6b3a81ce59be615a2bcffe28f819b5bc00e098a49f6dfe810a&req=cSgiEc13m4hcFb4f3HP0gKfykkVqEmU4hsDjLamCzks7hRdapbviq02w4o%2Bs%0AjZBHI0UM%2Bsr5WEHv%2BA%3D%3D%0A" alt="Searching with /glean command" />
+</Frame>
+
+This feature is enabled by default, and can't be modified. It is available to all Glean customers who have installed Glean's Slack app, and it does not require Glean Assistant access.
+
+## Set up
+
+As part of configuration, you will need to deploy the Glean app in Slack. The scopes required for the Glean app are provided in Glean's setup page for Slack. Admin console > Data sources > [Slack]() > Setup > Create an App.
+
+Then, click on the **Glean in Slack** tab and toggle on "Search with /glean" and "Answer questions".
+
+Expand the menu for "Answer questions" to configure settings such as which channels Glean can reply in.
+
+<Frame>
+  <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/1036602036/9eee83eacb2ed5f02bfb4a14/0PCk3qrYqCBqGC9bFr9jTZ943FNJVOUS2hXxBDKKPEXHYqPT_50elqR3l7BTPBPyZ86P841VOXNaXObdRBRGIekb99QuuiYnsg5AbExo8QnqKmqofPdsfMb0ceU16BkcLkPzNNTRFBmaRtIyUJHGp2c?expires=1736575200&signature=922ce6580c51f8ca5d8a059ed6f80021eed4df465ae2f1abaf619b9ba8138949&req=dSAkEM9%2Bn4FcX%2FMW1HO4zWF4KGgLPCDyUUvKnMvAOwOFxreAy5DR8%2BFR9GCX%0ArG%2F5kOeM%2FHb65E4vZHg%3D%0A" alt="Glean in Slack settings" width="400" />
+</Frame>
+
+If you'd like to restrict Glean to only reply in certain channels, choose the last option, and enter or select the channels to enable. Then, add Glean to each of these channels within Slack by typing /add, selecting "Add apps to this channel", and selecting Glean. Or, see [Slack's full instructions](https://slack.com/help/articles/360001537467-Guide-to-apps-in-Slack#find-apps) for how to add apps to a channel.
+
+<Frame>
+  <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/1036602039/b7a76c091622f7080ce66b64/2ud8A_Zpq9INRd6MWjV2oyQEF6_eWB7AoGRx1He2Gc0jzOuMqvud7XPm5UUifEkvR1fA06UJvE1bU0uETbwt9jznt9YtCC439ZSHgkMd5i-VEJdAP12hYlm1rkqxbhZhGQ6rDRPfzDemwh2B6f-3vVM?expires=1736575200&signature=9d339060b03ea8ac0e6df937bdee0ddc4edf9f62bec497ed54e7f41e71df8d0e&req=dSAkEM9%2Bn4FcUPMW1HO4zf58c2xm5s2EYOk7fnWOVrcAPb%2FS5BG7PvU0SsK3%0AUkpZVqGFOzlAJfAx%2FBk%3D%0A" alt="Configuring Glean channels" width="400" />
+</Frame>
+
+You can also manually enter channels as channel IDs under the "Advanced" dropdown.
+
+<Frame>
+  <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/1036602049/12cc101be8ddfd6dc3409199/BmH6QJMyiBTNCR-sN9G2iyxPdvv81rJ4BrumEHxjdzs7OoQP7RORWfgNCNt6iOXoJBeKpsKa-OJi5zcTR7X-hYVeGbL6pa_RHhwXqWXXRtQnGZztmKlySLjLqwOtJdZTY0FFPuNL5K5FlyuM5Ufm6sU?expires=1736575200&signature=41c45cd55adec891383ddbc588c9c6e7a8b1ea3659c78c0a3b78195a54c60daf&req=dSAkEM9%2Bn4FbUPMW1HO4zUX7vAEtwZUgAYyB0OZ7PMw0yXU52oy%2FO4FgC42g%0AJHMP8lBPeNWaqjYd%2Bno%3D%0A" alt="Adding channel IDs" />
+</Frame>
+
+To find a channel's channel ID, go to the channel in Slack and click on the channel name in the top bar. In the modal that appears, scroll down to the bottom of the "About" tab. Copy the channel ID shown and paste it into Glean.
+
+<Frame>
+  <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/1036602055/bd4fd25917a87b7a1251ed5c/7Em14iYzXKN96vKyA_D4aaDGJFw8BNhJfanTi4pNoR-Wr5bLoMKF5cZDNM_HDPQ6AnOAfr5oNYSzzxNIXYEz6Ays6o7Y-yCOGN6EHNS8I7tEgmsdWFT8FJRGrCE8994Rru1r3R4tb8xk3RixYCAxab0?expires=1736575200&signature=20f7410b10a7eb55571de8afcb321c2f3cfb937e48e7fb0d013a09c0b403b566&req=dSAkEM9%2Bn4FaXPMW1HO4zcvETsO1EjG9IbPVbgDqmKoqwghLEQiLlXPB7Duw%0A57FFKDCmQ2f304wmyDk%3D%0A" alt="Finding channel ID in Slack" width="400" />
+</Frame>
+
+You'll also need to make sure that Events are enabled in Slack - visit the [Slack App configuration page](http://api.slack.com/apps), choose the app you're working on, select Features > Event Subscriptions, and turn on Enable Events.
+
+### Turn off responses from Glean in Slack
+
+If you want Glean to stop responding to questions in particular channels, you can do one of two things:
+
+1. **Configure Glean to not respond in the channel.** Go to the channel in Slack, type `/glean configure`, and select "Don't respond".
+
+2. **Remove Glean from the channel.** First, ensure that Glean is not set to respond in all channels in Glean Workspace Settings (see [Setup](#set-up)). Then, make sure that Glean is removed from the channel in Slack. You can remove the Glean app from a channel by typing `/remove @Glean`.
+
+If you want to stop Glean from responding to questions in your entire Slack workspace, toggle off "Answer questions" in Glean Workspace Settings (see [Setup](#set-up)).
+
+### Estimating cost
+
+Glean in Slack uses Glean Assistant and generative AI under the hood. If you are using [Glean's Azure OpenAI key](https://help.glean.com/en/articles/7951592-generative-ai-model-api-keys), there is no additional cost to you. If you are using your own key, then turning on automatic answers in channels incurs cost. Please work with Glean sales or customer success to get an estimated range of the cost, depending on the number of channels in which you enable Glean.

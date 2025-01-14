@@ -1,0 +1,159 @@
+---
+title: "User Roles"
+description: "An overview of the Member and Moderator roles for Glean platform users, their access rights, and customizable privileges"
+icon: "user-lock"
+---
+
+Glean implements a streamlined approach to user roles with a single primary role: **Member**. Members can receive additional **Moderator** permissions from Admins or Super Admins to manage content within specific platform features. Importantly, users with the Member role (including those with Moderator permissions) cannot access the Admin UI or Workspace Settings.
+
+## Member Role
+
+The Member role provides users with the following base permissions:
+
+| Feature | View | Create | Edit | Delete |
+|-|-|-|-|-|
+| Announcements | ✓ | ✗ | ✗ | ✗ |
+| Answers | ✓ | ✗ | ✗ | ✗ |
+| Collections | ✓ | ✗ | ✓ | ✓ |
+| Go Links (own) | ✓ | ✗ | ✓ | ✓ |
+| Go Links (public) | ✓ | ✗ | ✗ | ✗ |
+| Pins (own) | ✓ | ✓ | ✓ | ✓ |
+| Pins (public) | ✓ | ✗ | ✗ | ✗ |
+| Teams (own) | ✓ | ✗ | ✓ | ✗ |
+| Teams (public) | ✓ | ✗ | ✗ | ✗ |
+| Verification (own docs) | ✓ | ✓ | ✓ | ✓ |
+| Verification (all docs) | ✓ | ✗ | ✗ | ✗ |
+| Insights | ✗ | N/A | N/A | N/A |
+| AI App Builder | ✗ | ✗ | ✗ | ✗ |
+
+### Core Member Capabilities
+
+<Card title="Feature Access">
+Members can:
+- View, edit, and delete Answers they are added as an editor to
+- View and modify items in anyone's Collections, including thumbnails and banners
+- Access all content they have permission to view
+- Edit and delete their own Go Links, while viewing others' Go Links
+- Create private Pins visible only to them and view Pins where they are in the audience
+- Edit team pages where they are a member
+- Verify and deprecate their own documents
+</Card>
+
+### Customizable Member Permissions
+
+<Info>
+Administrators with Admin and Super Admin roles can extend the default Member permissions to include:
+- Creating new Answers
+- Creating new Collections
+- Creating public Pins
+- Creating public Go Links
+</Info>
+
+## Moderator Permissions
+
+Moderator permissions can be selectively assigned by Admins or Super Admins for specific knowledge management features.
+
+### Content Management Moderators
+
+<AccordionGroup>
+  <Accordion title="Announcements Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Announcements | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Answers Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Answers | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Collections Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Collections | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Go Links Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Go Links (own) | ✓ | ✓ | ✓ | ✓ |
+    | Go Links (public) | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Pins Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Pins (own) | ✓ | ✓ | ✓ | ✓ |
+    | Pins (public) | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Teams Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Teams (own) | ✓ | ✓ | ✓ | ✓ |
+    | Teams (public) | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+
+  <Accordion title="Verification Moderator">
+    | Feature | View | Create | Edit | Delete |
+    |-|-|-|-|-|
+    | Verification (own docs) | ✓ | ✓ | ✓ | ✓ |
+    | Verification (all docs) | ✓ | ✓ | ✓ | ✓ |
+  </Accordion>
+</AccordionGroup>
+
+## Special Access Permissions
+
+These additional permissions require more careful consideration when assigning to users.
+
+<Card title="Insights Moderator">
+Provides access to the Insights dashboard and CSV downloads of organizational Glean usage data.
+
+<Info>
+Recommended for Senior Leadership only
+</Info>
+
+| Feature | View | Create | Edit | Delete |
+|-|-|-|-|-|
+| Insights | ✓ | N/A | N/A | N/A |
+</Card>
+
+<Card title="AI App Creator">
+Enables access to AI App Builder, including viewing others' apps and managing their own.
+
+<Info>
+Recommended for developers and engineering teams only
+</Info>
+
+| Feature | View | Create | Edit | Delete |
+|-|-|-|-|-|
+| AI App Builder (own apps) | ✓ | ✓ | ✓ | ✓ |
+| AI App Builder (public apps) | ✓ | ✓ | ✗ | ✗ |
+</Card>
+
+### Security-Related Permissions
+
+<Card title="Admin Search">
+<Warning>
+This role requires Super Admin assignment and should be restricted to security team members only.
+</Warning>
+
+Enables searching across all company documents for sensitive data and ownership determination.
+
+| Feature | View | Create | Edit | Delete |
+|-|-|-|-|-|
+| Admin Search | ✓ | ✓ | N/A | N/A |
+</Card>
+
+<Card title="Sensitive Content Moderator">
+<Warning>
+This role requires Super Admin assignment and should be restricted to security team members only.
+</Warning>
+
+Provides access to Sensitive Content (DLP) features and DLP Findings Reports management.
+
+| Feature | View | Create | Edit | Delete |
+|-|-|-|-|-|
+| DLP Reporting | ✓ | ✓ | ✓ | ✓ |
+</Card>

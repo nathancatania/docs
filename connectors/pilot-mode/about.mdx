@@ -1,0 +1,30 @@
+---
+title: "About Pilot Mode"
+description: "Experience Glean's core functionalities with a limited dataset to evaluate its capabilities before full deployment"
+---
+
+Pilot Mode is a feature designed to help organizations trial Glean with a limited dataset before fully committing to the service. It allows you to experience the core functionalities of Glean without the need to crawl and index your entire data corpus. This mode is particularly useful for businesses that want to evaluate Glean's capabilities on a smaller scale.
+
+## What is it for?
+
+Pilot Mode is intended to provide a controlled and efficient way for organizations to set up and test Glean. It ensures that the initial setup is manageable and that the system's performance can be evaluated without overwhelming the infrastructure with a large volume of data. This mode is especially beneficial for large organizations that need to ensure Glean meets their needs before a full-scale deployment.
+
+## Benefits of Pilot Mode
+
+1. **Quick Setup**: By limiting the amount of data crawled, Pilot Mode allows for a faster setup process. Organizations can start using Glean sooner and see results without waiting for a full data crawl.
+2. **Focused Evaluation**: Pilot Mode enables organizations to focus on a specific subset of their data, making it easier to assess Glean's effectiveness and relevance to their needs.
+3. **Resource Management**: By constraining the data volume, Pilot Mode helps manage resources more efficiently, preventing potential performance issues that could arise from indexing a large dataset.
+4. **Custom Configuration**: Organizations can set up specific configurations, such as POC (Proof of Concept) identity groups and redlist/greenlist settings, to tailor the pilot experience to their requirements.
+5. **Easy Transition**: Transitioning from Pilot Mode to Regular Mode is straightforward. Once organizations are satisfied with the pilot, they can opt to crawl more data and fully deploy Glean across their organization.
+6. **User Awareness**: During the pilot, users are informed that they are in a restricted mode through banners or other forms of communication, setting clear expectations about the data available for search and chat.
+
+## Content Restrictions in Pilot Mode
+
+1. **Crawling Range**: Only a subset of your organization's data is crawled in Pilot Mode. For example, content created or modified within the last 6-12 months is typically included.
+2. **Identity Group**: In Pilot Mode, you must provide an identity group (e.g. Entra ID security group, AD group, etc) as part of the setup process. Only data from users included in this group is crawled.
+3. **Redlist/Greenlist Configurations**: Organizations can specify redlists and greenlists to include or exclude certain data sources or specific parts of data sources.
+4. **Trial User Group Size**: The pilot user group is typically kept small, ideally fewer than 100 users, to ensure a manageable and focused evaluation.
+
+* More information: [Data Source Restrictions in Pilot Mode](/connectors/pilot-mode/data-source-restrictions)
+
+Pilot Mode is a strategic approach to ensure that organizations can effectively evaluate Glean's capabilities in a controlled environment, leading to a smoother and more confident transition to full deployment.

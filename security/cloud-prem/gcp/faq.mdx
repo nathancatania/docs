@@ -1,0 +1,39 @@
+---
+title: "GCP FAQ"
+description: "Frequently asked questions about Glean's GCP deployment options, infrastructure requirements, and feature support"
+---
+
+## Security
+
+<AccordionGroup>
+  <Accordion icon="circle-question" title="I don't want to provide Glean with a service account and/or project owner role. Can I build everything myself?">
+    No. Glean utilizes Infrastructure as Code (IaC) and as such, all of our build systems are automated. This ensures consistency, reliability, and security in our deployments.
+  </Accordion>
+
+  <Accordion icon="circle-question" title="What can Glean access in my environment with the Service Account with Project Owner role?">
+    A service account that is generated with an owner role for a specific project in Google Cloud Platform (GCP) is limited to the resources and services within that specific project. It does not have permissions to access or modify resources outside of that project, even if it's within the same GCP tenant.
+    
+    The permissions of a service account are defined by the roles that are granted to it. **The owner role grants full access to all resources in the project where it is assigned, but it does not extend to other projects in the GCP tenant.**
+
+    * More information: [GCP Service Account with Owner Role](../../../architecture/cloud-prem/gcp/owner-role.md)
+  </Accordion>
+
+  <Accordion icon="circle-question" title="Can I revoke/delete the service account created and associated JSON key after the build is complete?">
+    Yes. As part of the build, Glean automatically creates a maintenance service account that is used by our systems to automatically manage, update, and patch your environment. The original JSON key and associated account that you provided Glean can be revoked.
+  </Accordion>
+
+  <Accordion icon="circle-question" title="I don't want Glean to be able to access the completed build at all for security reasons. Can I revoke the maintenance account as well?">
+    No. Glean requires this account in order to roll updates to your tenant (including new features and security fixes).
+
+    <Warning>
+    Deliberately restricting or blocking Glean's access to your tenant will void Glean's Service and Support SLAs, and will impact the ability of our support teams to assist you when troubleshooting issues.
+    </Warning>
+
+    <Info>
+    Glean is not a traditional self-hosted service: Your Glean tenant is run as a managed service by Glean and is kept up-to-date alongside our SaaS tenants and infrastructure.
+
+    We require approproate access to be able to provide ongoing management of your tenant's services and this is via the maintenance service account.
+    </Info>
+
+  </Accordion>
+</AccordionGroup>

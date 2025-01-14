@@ -1,0 +1,89 @@
+---
+title: "Crawling FAQ"
+description: "A list of Frequently Asked Questions regarding Glean Connectors and the Crawling of datasources."
+icon: "circle-question"
+---
+
+## Common Questions About Crawling
+
+<AccordionGroup>
+  <Accordion title="How long will my crawl take?">
+    The initial crawl duration for any datasource varies based on two key factors:
+    
+    <Steps>
+      <Step title="Datasource Size">
+        The total volume of content, including the number of documents/messages and their individual sizes, directly impacts crawl time.
+      </Step>
+      <Step title="API Rate Limits">
+        The datasource's API rate limit affects how quickly Glean can retrieve items. Lower rate limits result in longer crawl times.
+      </Step>
+    </Steps>
+
+    For typical enterprise datasources, initial crawls generally take between 3 to 10 days, with larger datasources or those with low API rate limits trending toward the longer end of this range.
+  </Accordion>
+
+  <Accordion title="What if my crawl is taking a long time?">
+    Crawl duration is primarily determined by your datasource's size. Larger datasets or applications with low API rate limits naturally require more time to process. If your crawl duration exceeds expectations, we recommend contacting Glean support for assistance.
+  </Accordion>
+
+  <Accordion title="How can I restrict what Glean crawls?">
+    While some connectors (like GitHub) offer restriction configuration during setup through the UI, most datasources require Glean support assistance for implementing crawl restrictions. Available restriction methods include:
+
+    <CardGroup cols={2}>
+      <Card title="Time-based" icon="clock">
+        Limit crawling to content created or accessed within a specific timeframe (e.g., last 6 months)
+      </Card>
+      <Card title="User-based" icon="user">
+        Restrict crawling to content from specified users
+      </Card>
+      <Card title="Group-based" icon="users">
+        Limit crawling to content from specific AD groups
+      </Card>
+      <Card title="Site/Channel-based" icon="sitemap">
+        Restrict crawling to specific sites or channels
+      </Card>
+    </CardGroup>
+
+    <Info>
+      Available restrictions depend on the datasource's API capabilities. Most applications support both greenlisting (explicit inclusion) and redlisting (explicit exclusion).
+    </Info>
+  </Accordion>
+
+  <Accordion title="What should I do if I see errors in my crawl status?">
+    If you encounter errors in your crawl status, this may indicate connectivity issues with your datasource or problems with the data itself. We recommend:
+
+    1. Verifying your datasource configuration
+    2. Contacting Glean support if issues persist
+  </Accordion>
+
+  <Accordion title="Can I crawl multiple datasources simultaneously?">
+    Yes, Glean fully supports concurrent crawling of multiple datasources.
+  </Accordion>
+
+  <Accordion title="How can I monitor crawl progress?">
+    Crawl status can be monitored under the **Content crawling** heading in the apps table:
+    
+    - **Job in progress**: Indicates an active crawl
+    - **Synced**: Indicates a completed crawl
+
+    <Note>
+      Detailed progress indicators and ETAs are not currently available.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Why is my crawl stuck at 'Job in progress'?">
+    The **Job in progress** status indicates an active crawl of your datasource. Since full crawls typically take several days to complete, this status will persist throughout the crawling process.
+  </Accordion>
+
+  <Accordion title="How do I delete a datasource?">
+    Datasource deletion must be handled through Glean support. Please contact them for assistance with removing any datasources.
+  </Accordion>
+
+  <Accordion title="How do I stop or restart a crawl?">
+    Crawl management operations must be performed by Glean support. Please contact them for assistance with stopping or restarting crawls.
+  </Accordion>
+</AccordionGroup>
+
+<Tip>
+  For any questions not addressed here or for specific assistance with your crawls, don't hesitate to contact Glean support.
+</Tip>

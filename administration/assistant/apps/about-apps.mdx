@@ -1,0 +1,276 @@
+---
+title: "Glean Apps Overview"
+description: "How to create and configure custom AI assistants using Glean Apps"
+icon: "robot"
+---
+
+## What are Glean Apps?
+
+Glean Apps empower everyone at a company to create no-code custom generative AI assistants tailored to specific business needs. Apps are published in the app library for easy discovery by other teammates in the organization. Additionally, apps can integrate into communication tools like Slack or published as a Chat API endpoint.
+
+Apps leverage all of Glean's core competencies including enterprise search, conversational AI assistant, enterprise data connectors, user permissions, and data governance.
+
+---
+
+## Part 1: Creating an app
+
+### Who can create apps?
+
+Admins, setup admins, and members with the app creator role can create apps. Refer to [How to enable your organization to create apps](https://help.glean.com/en/articles/8870002-how-to-enable-teammates-to-create-ai-apps) to learn how an admin can assign the app creator role to teammates.
+
+### Navigate to apps
+
+Go to *Chat* on the left navigation and then click on *Apps*.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267034616/91b3e373e53dea84b6c045be735d/image.png" />
+</Frame>
+
+Click the *Create app* button at the top of the page.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1266973182/5aa0e5dbc1c0ea48ba9e9d75ac39/AD_4nXcXaQYFf0t3TO9o32mknImuviEdIogaQem5j5Upg0e_rYDwenBoFer_ceI8W9GdLFYVvjSqxk2VvG4F7_wE5tJlMQTIxI5BxR5n-wBqmJ2UsTf0I5HZueMBwhDkgx96AieoLUII7w" />
+</Frame>
+
+On the left side of the screen, you can specify basic info, knowledge source, instruction, and publish settings. Under *advanced settings*, you will find options to add editors, actions, and triggering instructions. On the right side of the screen, you can preview your app.
+
+### Basic info
+
+To start, choose an icon and provide a name and description to help others understand the purpose of your app.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1266999940/69ac3977d7b8c7705d83698f8b0c/image.png" />
+</Frame>
+
+### Knowledge sources
+
+Choose the knowledge sources the app should reference, whether company or world knowledge.
+
+#### Company knowledge
+
+For company knowledge, you can paste a URL or search for and add the names of files, folders, entire data sources, and more. [Learn more about company knowledge](https://help.glean.com/en/articles/9744866-knowledge-source-setup)
+
+To add a URL, paste the link into the input field and press *Enter*. If the link has been indexed by Glean, a chip with the name of the source will display.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1301964396/ff1b1d1f42d6e5112b546827f344/image.png" />
+</Frame>
+
+To search for a source, click the input field and start entering the names of the knowledge source you'd like to add.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1301964860/92eee2d40a5eaedbc4e012db8fbf/image.png" />
+</Frame>
+
+If you don't see what you're looking for in the dropdown, click on "See all results for [text]" at the bottom. This will open a search modal where you can conduct a more comprehensive search.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1289038973/967220e162704baf1c25d2d020b3/Screenshot+2024-12-09+at+10_46_27%E2%80%AFAM.png" />
+</Frame>
+
+#### Adding a container as a knowledge source
+
+A container is a group of documents (e.g. folder, Slack channel). There are two ways to add a container as a knowledge source:
+
+1. Search for the name of the container. If you find it in the dropdown or in the search modal, click on the "Add item" button.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1289072541/31a0d700d1003a206eb347ce750a/image.png" />
+</Frame>
+
+2. Search for an item *inside* the container.
+   - To use this method, you must click on "See all results" in the autocomplete dropdown to go to the search results modal.
+   - In the modal, hover over the search result you're interested in.
+   - If the search result is in a container that can be added as a knowledge source, you will see two buttons: "Add container" or "Add item."
+   - Click "Add container."
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1289073762/19edf4059083483726793caff9cb/image.png" />
+</Frame>
+
+If there is no applicable container for the search result, you will only see "Add item" when you hover on the search result item.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1289079897/3adf2401c3671ef4ceb87b591a8d/image.png" />
+</Frame>
+
+#### Not adding any knowledge source with company knowledge selected
+
+<Info>
+If you choose company knowledge and leave the input field blank, the app will reference all available information at your company.
+
+All of an app's results are secure and permissions-enforced, so only the teammates who have access to the source knowledge will get access to it.
+</Info>
+
+#### World knowledge
+
+Choose world knowledge if you want the app to use publicly available LLM-trained information.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1301965623/24281fc3db589faace78fb509185/image.png" />
+</Frame>
+
+### Instructions
+
+Add instructions if you want to specify how the app should respond in terms of tone of voice, length, and format.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267014160/20b9441522d9e7871ee0d0f74064/image.png" />
+</Frame>
+
+Example instruction types:
+
+- How the app should structure its response
+  - *Whenever a user asks a question comparing two products, always respond in tabular form. That table should include a column that lays out why Acme is superior to the competitor.*
+
+- What action to take if the app can complete its task
+  - *Always offer to compose an email to a prospective customer that includes this information*
+
+- What to do if the app can't complete its task
+  - *If you cannot answer the question, instruct the user to contact \<Person>.*
+
+For more examples, see [Instruction best practices](https://help.glean.com/en/articles/9744772-instruction-best-practices).
+
+### Publish settings
+
+Specify where to publish your app. By default, an app is not visible to anyone. Click *Edit* to change the publish settings.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267015063/bbb0fcb68d26ffbf0410a1cc9a8c/image.png" />
+</Frame>
+
+You can currently publish to Chat or to Slack. All apps are enabled to be published as a Chat API endpoint.
+
+#### Chat
+
+Select *Visible to all* or *Visible to some teammates* to publish your app to the app library.
+
+<Tip>
+To make the app visible only to you in the app library, add your name under "Visible to some teammates"
+</Tip>
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267023040/cd6755ab04125420fe8803188a89/image.png" />
+</Frame>
+
+#### Slack
+
+- To publish an app to Slack, choose a Slack channel where you want the app to respond.
+  - If your deployment has multiple Slack instances, you will see an option to first choose the instance and then the channel.
+- If you don't see the channel in the list of dropdown, click on *Can't find a channel* and add the Slack channel ID by following the directions below.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267023244/410866bf4840e0d54c04d5b2d962/image.png" />
+</Frame>
+
+##### How to find channel IDs
+
+To find a channel's *channel ID*, go to the channel in Slack and click on the channel name in the top bar. In the modal that appears, scroll down to the bottom of the "About" tab. Copy the channel ID shown and paste it into Glean.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1049916800/6aaad022db66f1c0dedc1a11/7Em14iYzXKN96vKyA_D4aaDGJFw8BNhJfanTi4pNoR-.png" />
+</Frame>
+
+### Live preview
+
+You can test your app response by entering a question in the live preview on the right screen.
+
+### Advanced settings
+
+Click *Advanced settings* to manage editors, actions, and triggering conditions.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267028729/43b16d53014e680e6875c12c2b3c/image.png" />
+</Frame>
+
+### Editors
+
+Add teammates who can also edit this app. Only those with the app creator role can be editors.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267025634/b00429a2d0b09805d481f229a063/image.png" />
+</Frame>
+
+### Actions
+
+Enable additional functionalities for your app by specifying actions. Each app can have up to 5 actions.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267026501/0f6d33473c75a3f94824546706b8/image.png" />
+</Frame>
+
+### Triggering (beta)
+
+<Warning>
+This is currently a beta feature.
+</Warning>
+
+Specify triggering instructions to allow Assistant to intelligently invoke your app to answer questions.
+
+Triggering instructions should be detailed and include example phrases. For example, for an HR Assistant, you might include the following:
+
+*Automatically trigger this app when a user asks about HR and administrative questions including company culture, benefits, professional development, work-life balance, 401(k), PTO, vacation policy, and company holidays. Example phrases:*
+
+- *When is the next company holiday?*
+- *What is our allowance for a gym membership?*
+- *How much can I expense for a hotel while traveling for work?*
+- *What are the commuter benefits?*
+
+Only an admin can enable triggering for all or some teammates.
+
+Triggering occurs in all surfaces where the app is published, e.g. Chat, Slack, or API. Test to verify that Assistant correctly triggers your app and maintains chat quality. Assistant may not trigger this app in rare instances even if the instructions are met.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267027033/e3a79ec011d800441e0e27d1b7da/image.png" />
+</Frame>
+
+### Finalize and publish
+
+When done, click the *Save* button.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267031068/902467f777c14d24efbb2f7cc32c/image.png" />
+</Frame>
+
+---
+
+## Part 2: Using an app
+
+### Chat
+
+If you publish to the app library, your teammates will be able to access your app from Chat.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1072332833/7b65000b56b787c824dd2428/Screenshot+2024-06-05+at+5_50_52%E2%80%AFAM.png" />
+</Frame>
+
+You can also use the "Copy link" button to copy and paste the app link in your web browser to open the app.
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1267031640/9af435b6d7e8d96d6ff33cd28bf1/Screenshot+2024-11-26+at+3_24_42%E2%80%AFPM.png" />
+</Frame>
+
+If triggering is enabled for your app, Assistant will intelligently invoke your app if it determines that the app is best qualified to answer a question.
+
+### Slack
+
+If you published to Slack, add the Glean app to each channel listed above. The scope will be confined to what you specified when setting up the app.
+
+1. Type `/add` and click `Add apps to this channel`
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1031423820/c67a8518e05f5c1cf5d6f083/Screenshot+2024-04-24+at+10_48_03+AM.png" />
+</Frame>
+
+2. Select `Glean`
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1031424913/ac115f35b9762e3eea354589/Screenshot+2024-04-24+at+10_55_02+AM.png" />
+</Frame>
+
+Start asking your app some questions! Your app will generate answers based on the knowledge sources and instructions you've provided.
+
+## Additional Resources
+
+- [FAQ](https://help.glean.com/en/articles/9758115-glean-app-faq)
+- [Insights for Glean Apps](https://help.glean.com/en/articles/9904405-insights-for-glean-apps)

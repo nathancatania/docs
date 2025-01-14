@@ -1,0 +1,60 @@
+---
+title: "Glean IP Ranges"
+description: "Configure your network security to allow connectivity with Glean services by allowlisting the required IP ranges"
+icon: "network-wired"
+---
+
+For successful connectivity with Glean services, you need to allowlist specific IP ranges through your firewalls and security controls. This configuration is essential for two purposes:
+- Enabling Glean to receive data from connected data sources
+- Allowing users to connect to Glean services
+
+There are two distinct categories of IP addresses that require allowlisting: Glean Central addresses and your specific Glean tenant addresses.
+
+## Glean Central
+
+Glean Central serves as the centralized control plane tenant for the service. This critical infrastructure component is responsible for:
+
+- Orchestrating all underlying customer environments
+- Pushing service updates to all tenancies
+- Handling tenancy lookup and redirection during user login
+- Aggregating health data and anonymized analytics for each tenancy
+- Managing front-end and routing of OAuth flows from certain apps (like Box, Jira, etc.) to the corresponding customer tenancy
+
+### Glean Central IP Addresses
+
+The following static IP addresses are used by Glean Central and should be allowlisted:
+
+```text
+104.154.230.46/32
+35.239.35.180/32
+34.120.39.18/32
+35.238.31.70/32
+34.120.90.191/32
+34.120.148.20/32
+34.111.103.238/32
+34.160.40.155/32
+```
+
+<Note>
+Last updated: August 19, 2024
+</Note>
+
+## Customer Tenant Configuration
+
+Each Glean customer deployment operates in isolation with its own dedicated backend domain (e.g., `companyname-be.glean.com`). Your tenancy is assigned three (3) public IP addresses that serve the following purposes:
+
+<Card title="Inbound Webhooks" icon="bell">
+Handles notifications and webhooks from connected applications
+</Card>
+
+<Card title="Crawler Egress" icon="spider">
+Manages outbound connections for data crawling operations
+</Card>
+
+<Card title="Load Balancing" icon="server">
+Handles inbound user queries from the Glean application interface and API requests
+</Card>
+
+<Info>
+To obtain the specific IP addresses associated with your Glean environment, please contact Glean Support.
+</Info>

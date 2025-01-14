@@ -1,0 +1,13 @@
+---
+title: GDRIVE_8
+description: GDRIVE_8 Error Code
+---
+
+## Issue:
+
+- The supplied directory admin email is a google service account email (identified with having `iam.gserviceaccount` in the domain). This should have been a user from Google workspace
+
+
+## Resolution:
+
+- Either supply an existing user from the Google Workspace that has the necessary permissions OR create a new user under that google workspace with the necessary permissions and supply that email instead.

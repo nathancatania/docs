@@ -1,0 +1,83 @@
+---
+title: "Create Announcements from Slack"
+description: "Configure Gleanbot to allow employees to create announcements in Glean directly from Slack messages"
+---
+
+## Overview
+
+Glean offers seamless integration with Slack, allowing employees to create announcements directly from Slack messages. This capability requires proper configuration of the Gleanbot Slack application. This guide provides step-by-step instructions for administrators to enable this functionality.
+
+<Note>
+  Before beginning this process, ensure you have administrative access to both your organization's Slack workspace and Glean implementation.
+</Note>
+
+<Steps>
+  <Step title="Access Slack API Console">
+    First, navigate to the [Slack API console](https://api.slack.com) and select Glean from the drop-down menu. This will take you to the configuration page for your Glean Slack integration.
+
+    <Frame>
+      <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/558046296/ac9be5f69b9992e025312e9e/Cqn_w-uD1wO5Fk307sAOIyIV2vca-TLuJIe1rDR9qV3q7wGP2iFOgEZiplwyngnLBQHApsAEadz_Y6mL4D5jV_HlF2uiFAWs6a7_FCrVtwxVjN7fJ5-5k24Cx0ESi2pnY1sjtCDyBiE1s2Dx-gSWrw" alt="Slack API Console showing Glean selection" />
+    </Frame>
+  </Step>
+
+  <Step title="Navigate to Shortcuts Settings">
+    In the left navigation bar, locate and select **Interactivity & Shortcuts**. This section allows you to configure how users can interact with Gleanbot through Slack's interface.
+
+    <Frame>
+      <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/558046299/3923035d9f1d0155bb50baa1/fMPoCD5IWYB4NtzeldLRWRa3zdy_eC7BOyo-FPTJ7w6FOInydNkZoowXXQ7gLkEYD4oBORleKthJWwa6a3YKiMOi-a0RpaUenQzWKgUldOiu-UvhW7FEVQTy65U01XmjSSEG8p8NmXMxOnMJZmXqNg" alt="Interactivity & Shortcuts section in Slack settings" />
+    </Frame>
+  </Step>
+
+  <Step title="Create Message Shortcut">
+    Within the Shortcuts section, create a new **Message Shortcut**. Ensure you select the option for the shortcut to appear **On Messages**, as this enables users to create announcements from existing Slack messages.
+
+    <Frame>
+      <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/558046306/9c8e4e54b3df1eb4ee2c4486/AFBi4QwQDcbVsGtrsEHnwqjwqdqPhiK6-z8YfKwa1o3ItowmcUFAZyCbGWUwZKGoWWXr8XbzqmrZZdqqmJBgPC8m4xIiOQXmhRxOaIMxFznacSoSsxFS1XPL6hKxfH8TBBpHScsGkW86u8eTPlKGBQ" alt="Creating a new message shortcut" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure Shortcut Details">
+    Configure the shortcut with the following specific parameters:
+
+    | Field | Required Value |
+    |-------|---------------|
+    | Name | **Create announcement in** |
+    | Description | **Creates an announcement in Glean** |
+    | Callback ID | **create_announcement** |
+
+    <Warning>
+      The Callback ID must be exactly `create_announcement` for the integration to function properly.
+    </Warning>
+
+    <Frame>
+      <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/558046310/bfa7a65d8bb58b77ad186a6d/nXFQdyFe3a19fiOgUp7XkDiiUO5GhJa0K_sSRxYfbH-U-rDyjxLAmZlRZUpAmJQRj5lZQZ5VDf5AwNz_AWEFfvtX56QHBfh3QLHbwTZOaFEoEEkjvMzRr5gJNWfxEVOLEijoo_pnKbk6sUrzP7LZnA" alt="Shortcut configuration settings" />
+    </Frame>
+  </Step>
+
+  <Step title="Using the Shortcut">
+    After configuration, users can create announcements by following these steps:
+
+    1. Click the three-dot menu (⋮) on any Slack message
+    2. Select **Create announcement in Glean** from the menu options
+
+    <Info>
+      If users don't see the shortcut immediately in the context menu, they should select **More message shortcuts...** to access it. The shortcut will appear in this expanded menu.
+    </Info>
+
+    <Frame>
+      <img src="https://glean-c15d22ef0c81.intercom-attachments-7.com/i/o/558046317/33d17ef55cbacb0409855679/Ix_knm7cvOeoxyu-psepH112XRV1IuX7JJ9U3wZEtl0HJo7CFYedwCTvmBoZT7J0UgyRJZ8039ohlSkpp_TMmSdQYNjIwrJqNw5Z1prwfoQwrA_kqxqbegZ8GUe1UuXuyhlH91kv1beQ6SJWsQLu2g" alt="Using the Create announcement shortcut" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Verification
+
+After completing the configuration, it's recommended to verify the setup by:
+
+1. Testing the shortcut on a test message
+2. Confirming the announcement appears correctly in Glean
+3. Checking that all team members who need access can see and use the shortcut
+
+<Card title="Need Help?" icon="question-circle">
+  If you encounter any issues during setup or verification, please contact Glean Support for assistance.
+</Card>

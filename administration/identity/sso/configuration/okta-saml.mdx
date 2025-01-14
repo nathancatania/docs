@@ -1,0 +1,281 @@
+---
+title: "Okta (SAML)"
+description: "Configure Okta as your SSO provider for Glean using SAML 2.0 authentication"
+icon: "user-lock"
+---
+
+<img className="rounded-md" src="assets/okta-saml.20240213105225948.webp" alt="Okta SAML Configuration" />
+
+This guide provides step-by-step instructions for configuring Okta as your SSO provider for Glean using SAML 2.0. Single Sign-On (SSO) enables users to access multiple applications with one set of login credentials. Glean supports SSO through OIDC (preferred) or SAML 2.0, both enhancing security while simplifying the login process.
+
+<Info>
+  Customized instructions for your tenant are available in the Glean UI at [Workspace Settings > Setup > Authentication > Okta SAML](https://app.glean.com/admin/setup/apps/okta_saml_sso)
+</Info>
+
+## Prerequisites
+
+<Card>
+Before beginning the setup process, ensure you have:
+- An active Okta administrator account
+- Access to your Glean admin account with **Admin** or **Setup Admin** roles
+- Basic understanding of SAML 2.0, SCIM 2.0, and SSO concepts
+</Card>
+
+<Warning>
+  Glean limits SSO authentication to pre-approved domains. Ensure that you have notified Glean of all domains that will be used for user authentication (e.g., `company.com`, `company.co.jp`, `subsidiary.co`) or SSO will fail.
+</Warning>
+
+## Okta SAML Configuration
+
+<Steps>
+  <Step title="Application Setup">
+    First, create a new Application in the Okta Admin Dashboard:
+
+    1. Navigate to **Applications > Applications**
+    2. Click **Create App Integration**
+    3. Select **SAML 2.0** and click **Next**
+
+    <Frame>
+      <img src="assets/okta-saml.20240212232016048.webp" alt="Create App Integration" />
+    </Frame>
+
+    <Frame>
+      <img src="assets/okta-saml.20240212232030045.webp" alt="Select SAML 2.0" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure General Settings">
+    Set the following values:
+
+    <ResponseField name="App name" type="string" required>
+      `Glean Search`
+    </ResponseField>
+
+    <ResponseField name="App logo" type="string">
+      Download the [Glean icon](https://app.askscio.com/images/logo3-512.png)
+    </ResponseField>
+
+    <ResponseField name="App visibility" type="boolean">
+      Check **Do not display application icon to users**
+    </ResponseField>
+
+    <Frame>
+      <img src="assets/okta-saml.20240212234604883.webp" alt="General Settings" />
+    </Frame>
+
+    <Info>
+      Glean doesn't support IdP initiated SSO. To include a Glean tile in the Okta App Library, create a [Bookmark App](https://support.okta.com/help/s/article/How-do-you-create-a-bookmark-app) linking to `https://app.glean.com`
+    </Info>
+  </Step>
+
+  <Step title="Configure SAML Settings">
+    <Info>
+      You'll need your tenant ID and/or tenant backend domain (format: `tenant_name-be.glean.com`). Contact Glean support if unsure.
+    </Info>
+
+    Configure the following SAML settings:
+
+    | Field | Value |
+    |-------|--------|
+    | Single sign-on URL | `https://tenant_name-be.glean.com/authorization-code/callback` |
+    | Use this for Recipient URL and Destination URL | ✓ |
+    | Audience URI (SP Entity ID) | `https://tenant_name-be.glean.com` |
+    | Default RelayState | Leave empty |
+    | Name ID format | `EmailAddress` |
+    | Application username | `Email` |
+    | Update application username on | `Create and update` |
+
+    Under **Attribute Statements**, add:
+
+    | Name | Name format | Value |
+    |------|-------------|--------|
+    | `Name` | `Unspecified` | `String.join(" ", user.firstName, user.lastName)` |
+
+    <Frame>
+      <img src="assets/okta-saml.20240213000557193.webp" alt="SAML Settings" />
+    </Frame>
+  </Step>
+
+  <Step title="Complete Okta Setup">
+    1. Select **I'm an Okta customer adding an internal app**
+    2. Skip remaining sections and click **Finish**
+    
+    <Frame>
+      <img src="assets/okta-saml.20240213001118548.webp" alt="Okta Feedback" />
+    </Frame>
+  </Step>
+
+  <Step title="Copy the Metadata URL">
+    Under the Sign On tab, copy the **Metadata URL** for use in Glean.
+
+    <Frame>
+      <img src="assets/okta-saml.20240213001557971.webp" alt="Metadata URL" />
+    </Frame>
+  </Step>
+
+  <Step title="Assign Users & Groups">
+    <Info>
+      Users must be assigned to access Glean via SSO. We recommend creating a dedicated group (e.g., `Glean Users`).
+    </Info>
+
+    1. Select the **Assignments** tab
+    2. Click **Assign**
+    3. Choose **Assign to People** or **Assign to Groups**
+
+    <Frame>
+      <img src="assets/okta-saml.20240213002241690.webp" alt="Assign Users" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Glean SAML Configuration
+
+<Steps>
+  <Step title="Configure Okta SAML">
+    1. Navigate to [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/apps)
+    2. Select **Okta SAML**
+    3. Paste the Okta Metadata URL
+    4. Click **Save**
+
+    <Frame>
+      <img src="assets/okta-saml.20240213004824553.webp" alt="Glean SAML Config" />
+    </Frame>
+
+    <Frame>
+      <img src="assets/okta-saml.20240213004831809.webp" alt="Metadata URL Input" />
+    </Frame>
+  </Step>
+
+  <Step title="Activate SSO">
+    1. Return to [Authentication Settings](https://app.glean.com/admin/setup/apps)
+    2. Click **Switch to Okta SAML SSO**
+    3. Confirm the switch
+    4. Verify Okta SAML shows as **Connected**
+
+    <Info>
+      If the switch button isn't visible, your Glean tenant may still be provisioning. You can proceed with [connecting datasources](../../../getting-started/datasources.md) and return later.
+    </Info>
+
+    <Frame>
+      <img src="assets/okta-saml.20240213005439971.webp" alt="Activate SSO" />
+    </Frame>
+
+    <Frame>
+      <img src="assets/okta-saml.20240213005449593.webp" alt="SSO Activated" />
+    </Frame>
+  </Step>
+</Steps>
+
+## (Optional) SCIM Provisioning
+
+Glean supports user deprovisioning via SCIM 2.0. When configured, users removed from Okta are immediately logged out of Glean rather than waiting for session expiration.
+
+<Steps>
+  <Step title="Configure Glean">
+    1. Go to [Workspace Settings > Setup > Apps](https://app.glean.com/admin/setup/apps)
+    2. Add **Okta SCIM**
+    3. Copy the **bearer token**
+    4. Note the **SCIM connector base URL** (format: `https://tenant_id-be.glean.com/instance/api/scim/v2`)
+    5. Enable **SCIM-based user deprovisioning**
+    
+    <Frame>
+      <img src="assets/okta-saml.20240213164406713.webp" alt="SCIM Configuration" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure Okta SCIM">
+    1. In your Okta admin dashboard, select the **Glean Search** app
+    2. Enable SCIM provisioning under **App Settings**
+    3. Configure the **Provisioning** tab with:
+       - SCIM connector base URL from Glean
+       - Unique identifier: `email`
+       - Enable all provisioning actions
+       - Authentication: HTTP Header with Bearer Token
+    4. Test the connection
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165032531.webp" alt="Enable SCIM" />
+    </Frame>
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165046197.webp" alt="SCIM Settings" />
+    </Frame>
+  </Step>
+
+  <Step title="Configure Provisioning">
+    Enable the following options:
+    - Create Users
+    - Update User Attributes
+    - Deactivate Users
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165056396.webp" alt="Provisioning Options" />
+    </Frame>
+
+    Keep only these attribute mappings:
+    - Username
+    - Given name
+    - Family name
+    - Email
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165104877.webp" alt="Attribute Mappings" />
+    </Frame>
+  </Step>
+
+  <Step title="Complete Configuration">
+    1. Push initial users via the **Provision User** button
+    2. Verify SCIM events in Okta's System Log
+    3. Return to Glean and save the SCIM configuration
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165115235.webp" alt="Push Users" />
+    </Frame>
+
+    <Frame>
+      <img src="assets/okta-saml.20240213165123952.webp" alt="System Log" />
+    </Frame>
+  </Step>
+</Steps>
+
+## Testing the Configuration
+
+### Test Glean to Okta
+
+1. Open a new **Incognito/Private** window
+2. Navigate to [https://app.glean.com](https://app.glean.com)
+3. Enter your work email and click **Log In**
+4. Verify successful redirection to Okta
+
+<Accordion title="Troubleshooting: Redirect to Okta fails">
+If redirection fails:
+1. Create a new Okta application
+2. Carefully follow the configuration steps
+3. Contact Glean support if issues persist
+</Accordion>
+
+### Test Okta to Glean
+
+Attempt to sign in through Okta and verify successful redirection back to Glean.
+
+<Accordion title="Common Issues">
+- **User not assigned**: Ensure user is assigned to the Glean Search app
+- **Redirect fails**: Verify Single Sign-On URL and Audience URI
+- **Login fails**: Check Name ID format, Application username, and Attribute Statements
+- **Domain issues**: Ensure all authentication domains are approved by Glean
+</Accordion>
+
+### Test SCIM Provisioning
+
+Verify SCIM configuration by checking:
+1. Bearer Token and SCIM URL accuracy
+2. Enabled provisioning options
+3. User/group assignments
+4. System logs for successful sync events
+
+<Accordion title="Error: Empty SCIM users">
+If you see "Found empty SCIM users!":
+1. Verify Okta configuration
+2. Confirm user synchronization
+3. Retry saving the Glean configuration
+</Accordion>

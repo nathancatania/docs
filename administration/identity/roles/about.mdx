@@ -1,0 +1,52 @@
+---
+title: "About Role Based Access Control (RBAC)"
+description: "Glean offers a robust Role-Based Access Control (RBAC) system that allows for management of user and administrator permissions within the platform"
+icon: "shield-lock"
+---
+
+Glean's Role-Based Access Control (RBAC) system provides comprehensive management of user and administrator permissions within the platform. This system ensures that both users and administrators have appropriate access to features and data while maintaining security and organizational control.
+
+<Info>
+  Only users with the **Admin** or **Super Admin** roles can manage RBAC within Glean.
+</Info>
+
+## Administrator Roles
+
+Administrator roles in Glean follow a hierarchical structure with increasing levels of privilege. The platform offers three distinct administrator roles:
+
+<CardGroup cols={1}>
+<Card title="Setup Admin" icon="wrench">
+  Setup Admins can:
+  - Configure Single Sign-On
+  - Set up integrations between Glean and data sources (M365, Google, GitHub, Atlassian, etc.)
+  - Initiate content crawls
+</Card>
+
+<Card title="Admin" icon="user-shield">
+  Admins have comprehensive control including:
+  - Full access to Glean Workspace settings
+  - Management of roles and permissions for other users
+  - Configuration of general settings (UI theme, company name, feature enablement)
+</Card>
+
+<Card title="Super Admin" icon="shield-check">
+  The Super Admin role is reserved for security team members and provides:
+  - Access to security tooling like Sensitive Content Search and DLP
+  - Enhanced security management capabilities
+  
+  <Warning>
+    This role requires written authorization from your company's CISO or Security Manager due to its access to sensitive content.
+  </Warning>
+</Card>
+</CardGroup>
+For detailed information about administrator roles and their specific capabilities, see the [Administrator Roles](admin.md) documentation.
+
+## User Roles
+
+Glean implements a streamlined approach to user roles with a single primary role: **Member**. 
+
+<Info>
+Members can receive additional **Moderator** permissions from Admins or Super Admins, allowing them to manage content within specific features of the Glean platform. However, Members (including those with Moderator permissions) cannot access the Admin UI or Workspace Settings.
+</Info>
+
+For more information about user roles and moderator permissions, refer to our [User Roles](user.md) documentation.

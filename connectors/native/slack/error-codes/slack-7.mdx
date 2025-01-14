@@ -1,0 +1,15 @@
+---
+title: SLACK-7
+description: SLACK-7 Error Code
+---
+
+## Issue:
+
+- Slack list users API failed using the user token
+
+## Resolution:
+
+- Please reauthenticate a user token with the required scopes: `users:read.email`, `channels:read`
+- We can search for users.list API failed with error in the logs which will show the specific error encountered. Then, we can check against the list of errors to see what the issue is.
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

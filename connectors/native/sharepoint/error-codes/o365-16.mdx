@@ -1,0 +1,32 @@
+---
+title: O365_16
+description: O365_16 Error Code
+---
+
+## Issue
+
+The certificate and private key uploaded is incompatible with the associated application. Either:
+
+- The private key uploaded was not used to sign the certificate,
+- The private key is not in `PKCS#8` format (e.g. starts with `BEGIN PRIVATE KEY` as opposed to `BEGIN RSA PRIVATE KEY`), and/or
+- The certificate was not uploaded to the Azure portal.
+
+## Resolution
+
+- Regenerate the certificate and private key:
+    ```
+    openssl genrsa -out tempprivatekey.key 2048
+    openssl pkcs8 -topk8 -inform PEM -outform PEM -in tempprivatekey.key -out privatekey.key -nocrypt
+    openssl req -new -key privatekey.key -out request.csr
+    openssl x509 -req -days 365 -in request.csr -signkey privatekey.key -out certificate.crt
+    ```
+
+- Upload the certificate to the associated Azure application.
+    - Navigate to App Registrations and click on your created application.
+    - Then, under Manage, navigate to Certificates & secrets and upload the certificate (certificate.crt)
+
+<Frame><img src="https://support.glean.com/hc/article_attachments/32658037207707"/></Frame>
+
+- Reupload the certificate and private key to Glean.
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

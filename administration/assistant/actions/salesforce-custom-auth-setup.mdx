@@ -1,0 +1,32 @@
+---
+title: Salesforce Custom Auth Setup
+---
+
+### Setting up the Salesforce OAuth App
+
+1. Login to Salesforce.
+2. Click on **Setup** (top right).
+3. Go to App Manager (you can search it under Quick Find).
+4. Click on **New Connected App.**
+5. Name your app appropriately - to indicate that Glean will have access to this data - eg. “Glean Sales App”
+6. Enable Oauth Settings and under **callback URL** - copy over the callback URL from the Authentication section of the SOQL Action page.
+
+![authenticate-actions-in-salesforce-0](/images/administration/salesforce-custom-auth-setup-0.png)
+
+7. Ensure **Use digital signature**is **unchecked.**​
+
+8. Add **api** and **refresh_token, offline_access** scopes.​
+
+![authenticate-actions-in-salesforce-1](/images/administration/salesforce-custom-auth-setup-1.png)
+
+9**. Remember to Uncheck “**Require Proof Key for Code Exchange (PKCE) Extension for Supported Authorization Flows”.
+
+10. Hit **Save.**​
+
+11. From API > Consumer Key and Secret, click Manage Consumer Details and copy the **Consumer Key** and **Consumer Secret** on to the SOQL Action page.
+
+![authenticate-actions-in-salesforce-2](/images/administration/salesforce-custom-auth-setup-2.png)
+
+12. Under Manage Apps > Connected Apps, find your app and under OAuth Policies make sure that in Permitted Users you have selected ‘All users may self-authorize’
+
+![authenticate-actions-in-salesforce-3](/images/administration/salesforce-custom-auth-setup-3.png)

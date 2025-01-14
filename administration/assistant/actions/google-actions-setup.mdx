@@ -1,0 +1,46 @@
+---
+title: Google Actions Setup
+description: Create Google Docs, Sheets and Emails using Glean Assistant
+---
+
+Glean is launching Google Actions in Assistant. This feature will allow users to export any assistant response to Google Docs, Google Sheets and as a draft in Gmail.
+
+### Key Features
+
+1. **Export to Google Docs:**All assistant responses will have an option to export to google docs, clicking on which a google doc will be created containing the entire assistant response, with the formatting preserved.
+2. **Export to Google Sheets:**All tables generated in Glean Assistant will have an option to Export to Google sheets, clicking on which a google sheet will be created containing the table response, with headings preserved.
+3. **Export to Email:**All assistant responses will have an option to export to email, clicking on which users will be taken to Gmail where they can view the assistant response as a draft email, with the formatting preserved.
+
+![google-actions-0](/images/administration/google-actions-setup-0.png)
+
+### Setup
+
+Admins can enable this feature by going to [Glean](https://app.glean.com/admin/platform/tools) and navigating to Admin -> Actions
+
+1. Click on Add Action and select Google Actions
+2. Select the Google Drive datasource you want to link these actions to, this is the instance where docs/sheets would get created.
+3. Setup Authentication.
+
+Click on "How to authenticate Drive" to see the exact instructions for your setup.
+
+##### Setup Instructions
+
+1. Go to the [Domain-wide Delegation section in Google Admin Console](https://admin.google.com/ac/owl/domainwidedelegation). You’ll need to be signed in as an admin.
+2. Click “Add new” and paste the 21-digit Unique ID that is shown in the instructions in your Google Actions setup into the Client ID field.Note: This is a new Client ID that is generated only for Google actions, this is different from any existing Client ID you may have used earlier for Glean/Google setup.Please refer to the instructions inside "How to authenticate Drive" in your Google Actions setup to find the Client ID to use here.
+3. Copy and paste the following into the OAuth scopes (comma-delimited) field and then click Authorize: [https://www.googleapis.com/auth/drive.file,https://www.googleapis.com/auth/gmail.compose](https://www.googleapis.com/auth/drive.file,https://www.googleapis.com/auth/gmail.compose)[](https://downloads.intercomcdn.com/i/o/ust8wgzi/1224172464/691ecd5e02dbe62efefeb327f45b/Screenshot+2024-10-22+at+11_07_23%E2%80%AFAM.png?expires=1736579700&signature=bd22553461cf78154e6a0fd08e7fcb7ba834eb06261b92556a0c2f771c378b2f&req=dSIlEsh5n4VZXfMW1HO4zRUviW%2Fb%2F5V8EuOn3jS%2BG5dMlxbU%2FINgjY2UiMUG%0AevbO%0A)If you would like to use only the Google Docs, Sheets actions and not the Email action - you can only add the [https://www.googleapis.com/auth/drive.file](https://www.googleapis.com/auth/drive.file,https://www.googleapis.com/auth/gmail.compose) scope above, and not add the [https://www.googleapis.com/auth/gmail.compose](https://www.googleapis.com/auth/drive.file,https://www.googleapis.com/auth/gmail.compose) scope when adding the OAuth scopes. The email export option will not show if the gmail scope is not added.
+
+#### That’s it, you can now click on Save and start using these actions!
+
+Once enabled, please go to Glean Assistant and try exporting an Assistant response to Docs. Sheets or Email.
+
+![google-actions-1](/images/administration/google-actions-setup-1.png)
+
+Reach out to your CSM if the export options are not appearing or not working as expected. Excited to see you use this new feature!
+
+##### Details about Authentication
+
+There is a new Service Account that is created only for the Google actions, which is separate from the service account used for Google Drive connector. The Client ID for this new service account for you should be visible in the Google actions setup instructions.
+
+Google’s [DWD](https://support.google.com/a/answer/162106?hl=en) allows Glean to act on behalf of the logged-in Glean user to create documents/sheets or emails. Only the 2 scopes limited to creating new documents/sheets and drafting new emails are to be added here.
+
+Documents are created on behalf of the logged-in Glean user, stored in the user’s drive and respect the default org settings for a new document (generally this is: Create with Restricted access, only visible to the user/creator of the document)

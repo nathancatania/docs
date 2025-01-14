@@ -1,0 +1,161 @@
+---
+title: "Generic SAML"
+description: "Configure any SSO provider for Glean using SAML 2.0 authentication"
+icon: "key"
+---
+
+<img className="rounded-md" src="assets/generic-saml.20240217145136029.webp" alt="Generic SAML Configuration" />
+
+If your SSO provider isn't explicitly listed as supported in Glean, you can still configure SSO using the SAML parameters outlined in this guide. Single Sign-On (SSO) enables users to access multiple applications with one set of login credentials.
+
+## Prerequisites
+
+<Card>
+Before beginning the setup process, ensure you have:
+- An active administrator account in your SSO provider
+- Access to your Glean admin account with **Admin** or **Setup Admin** roles
+- Basic understanding of SAML 2.0 and SSO concepts
+</Card>
+
+<Warning>
+  Glean limits SSO authentication to pre-approved domains. Ensure that you have notified Glean of all domains that will be used for user authentication (e.g., `company.com`, `company.co.jp`, `subsidiary.co`) or SSO will fail.
+</Warning>
+
+## SSO Provider Configuration
+
+<Steps>
+  <Step title="Create a new SAML App">
+    Create a new SAML application in your SSO provider's management console.
+
+    <Info>
+      You'll need your tenant ID and/or tenant backend domain (format: `tenant_name-be.glean.com`).
+      You can find your tenant ID by following the [instructions here](../../tenant-id.md). Contact Glean support if unsure.
+    </Info>
+
+    Configure the following fields (some may not be required by your provider):
+
+    | Field | Value |
+    |-------|--------|
+    | Single Sign-On (SSO) URL | `https://tenant_name-be.glean.com/authorization-code/callback` |
+    | Recipient / Destination URL | `https://tenant_name-be.glean.com/authorization-code/callback` |
+    | ACS (Consumer) URL | `https://tenant_name-be.glean.com/authorization-code/callback` |
+    | Audience URI (SP Entity ID) | `https://tenant_name-be.glean.com` |
+    | Default RelayState | Leave blank |
+    | Login URL | `https://tenant_name-be.glean.com/login` |
+    | Logout URL | `https://tenant_name-be.glean.com/logout` |
+    | SAML initiator | Service Provider (Glean) |
+    | SAML signature element | Assertion |
+    | Name ID format | emailAddress |
+    | Sign requests? | True |
+    | X.509 signature | Standard Strength Certificate (2048-bit) |
+    | X.509 signature algorithm | SHA-512 |
+  </Step>
+
+  <Step title="Copy the IdP Metadata XML URL">
+    Glean requires a publicly accessible IdP Metadata XML URL to configure SSO. Direct XML file uploads are not supported.
+
+    <Accordion title="What if my SSO provider doesn't provide an accessible metadata URL?">
+      If your SSO provider doesn't offer a publicly accessible URL, you should host the file at a location within your organization that Glean can access. Contact Glean support if this isn't feasible.
+    </Accordion>
+
+    <Accordion title="What if my SSO provider doesn't provide a metadata XML file or URL?">
+      If your provider doesn't supply an IdP Metadata file or URL, you'll need to create one manually. Here's a sample template:
+
+      ```xml
+      <md:EntityDescriptor entityID="http://www.your-sso-provider.com/exkn1czW8bjf9XXYb5dl">
+          <md:IDPSSODescriptor WantAuthnRequestsSigned="false" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+              <md:KeyDescriptor use="signing">
+                  <ds:KeyInfo>
+                      <ds:X509Data>
+                          <ds:X509Certificate>
+                              MIIDqDCCApCgAwIBAgIGAY2L4lsNMA0GCSqGSIb3DQEBCwUAMIGUMQswCQYDVQQGEwJVUzETMBEG
+                              <!-- Replace with your certificate -->
+                          </ds:X509Certificate>
+                      </ds:X509Data>
+                  </ds:KeyInfo>
+              </md:KeyDescriptor>
+              <md:NameIDFormat>
+                  urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress
+              </md:NameIDFormat>
+              <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST" 
+                  Location="https://www.your-sso-provider.com/app/gleansearchsaml_1/exkn1czW8bjf9XXYb5dl/sso/saml"/>
+              <md:SingleSignOnService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" 
+                  Location="https://www.your-sso-provider.com/app/gleansearchsaml_1/exkn1czW8bjf9XXYb5dl/sso/saml"/>
+          </md:IDPSSODescriptor>
+      </md:EntityDescriptor>
+      ```
+
+      Replace the `entityID`, `X509Certificate`, and `Location` fields with your SAML IdP details.
+    </Accordion>
+  </Step>
+</Steps>
+
+## Glean Configuration
+
+<Steps>
+  <Step title="Configure SAML">
+    1. Navigate to [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/auth)
+    2. Select **Okta SAML** from the SSO Providers list
+
+    <Info>
+      You can use this option for any SAML provider - not just Okta.
+    </Info>
+
+    <Frame>
+      <img src="assets/generic-saml.20240217135604521.webp" alt="Select SAML Provider" />
+    </Frame>
+
+    3. Paste your SAML Metadata URL into the **Okta metadata URL** field
+
+    <Warning>
+      The SAML Metadata URL must be **publicly accessible**. Contact Glean support if you need assistance with hosting.
+    </Warning>
+
+    4. Click **Save**
+
+    <Frame>
+      <img src="assets/generic-saml.20240217135617585.webp" alt="Configure SAML" />
+    </Frame>
+  </Step>
+
+  <Step title="Activate SSO">
+    1. Return to [Authentication Settings](https://app.glean.com/admin/setup/apps)
+    2. Click **Switch to Okta SAML SSO**
+
+    <Frame>
+      <img src="assets/generic-saml.20240217135646491.webp" alt="Activate SSO" />
+    </Frame>
+
+    3. Confirm the switch
+    4. Verify the status shows as **Connected**
+
+    <Frame>
+      <img src="assets/generic-saml.20240217135702425.webp" alt="SSO Connected" />
+    </Frame>
+
+    <Info>
+      If you don't see the switch button, your Glean tenant may still be provisioning. You can proceed with [connecting datasources](../../../getting-started/datasources.md) and return later.
+    </Info>
+  </Step>
+</Steps>
+
+## Testing the Configuration
+
+To verify your SSO setup:
+
+1. Open a new **Incognito** or **Private Browsing** window
+2. Navigate to [https://app.glean.com](https://app.glean.com)
+3. Enter your work email and click **Log In**
+4. Verify successful redirection to your SSO provider
+
+<Tip>
+  Always test using a Private Window to ensure browser cache and existing sessions don't affect the results.
+</Tip>
+
+<Card title="Test both SSO phases">
+Two key phases need testing:
+1. Glean to SSO provider redirect
+2. SSO provider back to Glean redirect
+
+If either phase fails, verify your configuration settings and ensure all domains are approved by Glean.
+</Card>

@@ -1,0 +1,62 @@
+---
+title: "Hiding Data Sources"
+description: "Configure which data sources appear in search results for your team or specific groups"
+icon: "magnifying-glass"
+---
+
+## Managing Data Source Visibility
+
+To control whether a data source appears in search results:
+
+<Steps>
+  <Step title="Access Admin Console">
+    Navigate to the [admin console](https://app.glean.com/admin/) > [Data sources](https://app.glean.com/admin/setup/apps)
+
+    <Info>You must have Glean admin privileges to access these pages.</Info>
+  </Step>
+
+  <Step title="Select Data Source">
+    Click on the specific data source you want to configure.
+  </Step>
+
+  <Step title="Configure Search Results">
+    In the Overview tab, locate the "Search results" section. Here you can:
+    - Add the data source to search results
+    - Remove the data source from search results
+    - Limit search results to a select group of teammates (e.g., "test group")
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/635178347/41550fa3cd54c276230eec18/image.png" />
+</Frame>
+
+## Test Groups
+
+When setting up a new data source in Glean, you may want to test with a smaller group before enabling it for everyone. This ensures proper setup and expected search results.
+
+### Setting Up a Test Group
+
+<Steps>
+  <Step title="Navigate to Test Group Settings">
+    Go to [admin console](https://app.glean.com/admin/) > [Data sources](https://app.glean.com/admin/setup/apps)
+  </Step>
+  
+  <Step title="Access Test Group Management">
+    Click on the "Manage test group" button
+  </Step>
+  
+  <Step title="Add Team Members">
+    Add teammates who already have access to Glean to the test group. Note that teammates will only see results from apps they have access to.
+  </Step>
+</Steps>
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/635187848/e59bcf2a551c76b3a4cdde81/image.png" />
+</Frame>
+
+<Warning>
+Changes may take up to 30 minutes to take effect. During this period:
+- Newly added teammates may not see results from the data source
+- Removed teammates may still see results temporarily
+</Warning>

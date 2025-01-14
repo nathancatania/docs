@@ -1,0 +1,16 @@
+---
+title: GITHUB_2
+description: GITHUB_2 Error Code
+---
+
+## Issue
+
+We're unable to fetch GitHub resources such as members, issues, repositories, or repository content from the customer's GitHub organization.
+
+## Resolution
+
+- Ensure that the correct scopes have been granted.
+- Ensure that there is at least one of the resource that is failing. Ie the organization cannot have empty members, repositories, or issues. Issues also includes pull requests according to the GitHub API documentation.
+- If installing or updating the glean-github-app for GitHub Cloud, we've noticed it may take up to 10 minutes for the changes to propagate. Please wait 10 minutes and try again.
+
+If you are still having difficulty please reach out to us: [https://support.glean.com](https://support.glean.com)

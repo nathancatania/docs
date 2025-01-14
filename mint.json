@@ -1,34 +1,66 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "name": "Glean Documentation",
+  "theme": "prism",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
-    "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
-    }
+    "primary": "#343CED",
+    "light": "#9297F4",
+    "dark": "#343CED"
   },
   "topbarLinks": [
     {
-      "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "name": "Support Portal",
+      "url": "https://support.glean.com"
+    },
+    {
+      "name": "Trust Portal",
+      "url": "https://trust.glean.com"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Go to Glean",
+    "url": "https://app.glean.com"
+  },
+  "primaryTab": {
+    "name": "Home"
   },
   "tabs": [
     {
-      "name": "API Reference",
-      "url": "api-reference"
+      "name": "Home",
+      "url": "home"
+    },
+    {
+      "name": "Get Started",
+      "url": "get-started"
+    },
+    {
+      "name": "Connectors",
+      "url": "connectors"
+    },
+    {
+      "name": "Administration",
+      "url": "administration"
+    },
+    {
+      "name": "Security & Infra",
+      "url": "security"
+    },
+    {
+      "name": "Developers",
+      "url": "developers"
+    },
+    {
+      "name": "Release Notes",
+      "url": "release-notes"
+    },
+    {
+      "name": "User Guide",
+      "url": "user-guide"
     }
   ],
   "anchors": [
@@ -41,45 +73,998 @@
       "name": "Community",
       "icon": "slack",
       "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
     }
   ],
   "navigation": [
     {
+      "group": "Home",
+      "pages": [
+        "home"
+      ]
+    },
+    {
       "group": "Get Started",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "get-started/welcome"
       ]
     },
     {
-      "group": "Essentials",
+      "group": "Stage 1: Prepare",
       "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "get-started/prepare/items-to-prepare",
+        "get-started/prepare/pre-deployment-checklist"
       ]
     },
     {
-      "group": "API Documentation",
+      "group": "Stage 2: Build",
       "pages": [
-        "api-reference/introduction"
+        "get-started/build/about-self-hosted",
+        {
+          "group": "Self-Hosted GCP",
+          "icon": "google",
+          "pages": [
+            "get-started/build/gcp/deploy-gcp",
+            "get-started/build/gcp/supported-gcp-regions",
+            {
+              "group": "Troubleshooting",
+              "pages": [
+                "get-started/build/gcp/troubleshooting/setup-key-1",
+                "get-started/build/gcp/troubleshooting/setup-key-2",
+                "get-started/build/gcp/troubleshooting/setup-key-3",
+                "get-started/build/gcp/troubleshooting/setup-key-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Self-Hosted AWS",
+          "icon": "amazon",
+          "pages": [
+            "get-started/build/aws/deploy-aws",
+            "get-started/build/aws/supported-aws-regions"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Stage 3: Setup",
+      "pages": [
+        "get-started/setup/setup-checklist",
+        "get-started/setup/access-the-admin-ui",
+        "get-started/setup/configure-sso",
+        "get-started/setup/sync-people-data",
+        "get-started/setup/connect-data-sources"
+      ]
+    },
+    {
+      "group": "Stage 4: Learn",
+      "pages": [
+        "get-started/learn/crawling-and-learning"
+      ]
+    },
+    {
+      "group": "Stage 5: Go Live",
+      "pages": [
+        "get-started/golive/populate-content",
+        "get-started/golive/customize-branding",
+        "get-started/golive/setup-glean-assistant",
+        "get-started/golive/deploy-apps",
+        "get-started/golive/launch-preparation"
+      ]
+    },
+    {
+      "group": "Stage 6: Post-Launch",
+      "pages": [
+        "get-started/start/post-launch-tasks"
+      ]
+    },
+    {
+      "group": "General",
+      "pages": [
+        "connectors/home",
+        "connectors/about",
+        "connectors/crawling-faq",
+        "connectors/crawling-frequency",
+        "connectors/restricting-content",
+        "connectors/monitoring",
+        {
+          "group": "Pilot Mode",
+          "icon": "vial",
+          "pages": [
+            "connectors/pilot-mode/about",
+            "connectors/pilot-mode/data-source-restrictions"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Native Connectors",
+      "pages": [
+        {
+          "group": "BitBucket",
+          "icon": "bitbucket",
+          "pages": [
+            "connectors/native/bitbucket/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/bitbucket/error-codes/bitbucket-1",
+                "connectors/native/bitbucket/error-codes/bitbucket-2",
+                "connectors/native/bitbucket/error-codes/bitbucket-3",
+                "connectors/native/bitbucket/error-codes/bitbucket-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Confluence",
+          "icon": "confluence",
+          "pages": [
+            "connectors/native/confluence/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/confluence/error-codes/confluence-1",
+                "connectors/native/confluence/error-codes/confluence-2",
+                "connectors/native/confluence/error-codes/confluence-3",
+                "connectors/native/confluence/error-codes/confluence-4",
+                "connectors/native/confluence/error-codes/confluence-5",
+                "connectors/native/confluence/error-codes/confluence-6",
+                "connectors/native/confluence/error-codes/confluence-7",
+                "connectors/native/confluence/error-codes/confluence-8"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Google Calendar",
+          "icon": "google",
+          "pages": [
+            "connectors/native/gcal/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gcal/error-codes/googlecalendar-1"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Google Chat",
+          "icon": "google",
+          "pages": [
+            "connectors/native/gchat/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gchat/error-codes/gchat-1",
+                "connectors/native/gchat/error-codes/gchat-2",
+                "connectors/native/gchat/error-codes/gchat-3",
+                "connectors/native/gchat/error-codes/gchat-4",
+                "connectors/native/gchat/error-codes/gchat-5",
+                "connectors/native/gchat/error-codes/gchat-6"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Google Drive",
+          "icon": "google-drive",
+          "pages": [
+            "connectors/native/gdrive/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gdrive/error-codes/gdrive-1",
+                "connectors/native/gdrive/error-codes/gdrive-2",
+                "connectors/native/gdrive/error-codes/gdrive-3",
+                "connectors/native/gdrive/error-codes/gdrive-4",
+                "connectors/native/gdrive/error-codes/gdrive-5",
+                "connectors/native/gdrive/error-codes/gdrive-6",
+                "connectors/native/gdrive/error-codes/gdrive-7",
+                "connectors/native/gdrive/error-codes/google-1"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Google Groups",
+          "icon": "google",
+          "pages": [
+            "connectors/native/ggroups/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/ggroups/error-codes/google-groups-1",
+                "connectors/native/ggroups/error-codes/google-groups-2",
+                "connectors/native/ggroups/error-codes/google-groups-3"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Gmail",
+          "icon": "google",
+          "pages": [
+            "connectors/native/gmail/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gmail/error-codes/gmail-2",
+                "connectors/native/gmail/error-codes/gmail-3"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Google Sites",
+          "icon": "google",
+          "pages": [
+            "connectors/native/gsites/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gsites/error-codes/google-sites-1",
+                "connectors/native/gsites/error-codes/google-sites-2"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "GitHub",
+          "icon": "github",
+          "pages": [
+            "connectors/native/github/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/github/error-codes/github-1",
+                "connectors/native/github/error-codes/github-2",
+                "connectors/native/github/error-codes/github-3",
+                "connectors/native/github/error-codes/github-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "GitLab",
+          "icon": "gitlab",
+          "pages": [
+            "connectors/native/gitlab/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gitlab/error-codes/gitlab-1",
+                "connectors/native/gitlab/error-codes/gitlab-2",
+                "connectors/native/gitlab/error-codes/gitlab-3"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Jira",
+          "icon": "jira",
+          "pages": [
+            "connectors/native/jira/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/jira/error-codes/jira-1",
+                "connectors/native/jira/error-codes/jira-2",
+                "connectors/native/jira/error-codes/jira-3",
+                "connectors/native/jira/error-codes/jira-4",
+                "connectors/native/jira/error-codes/jira-5",
+                "connectors/native/jira/error-codes/jira-6",
+                "connectors/native/jira/error-codes/jira-7",
+                "connectors/native/jira/error-codes/jira-8",
+                "connectors/native/jira/error-codes/jira-9",
+                "connectors/native/jira/error-codes/jira-11"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Outlook",
+          "icon": "microsoft",
+          "pages": [
+            "connectors/native/outlook/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/outlook/error-codes/outlook-1",
+                "connectors/native/outlook/error-codes/outlook-2"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Salesforce",
+          "icon": "salesforce",
+          "pages": [
+            "connectors/native/salesforce/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/salesforce/error-codes/salesforce-1",
+                "connectors/native/salesforce/error-codes/salesforce-2",
+                "connectors/native/salesforce/error-codes/salesforce-3"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "ServiceNow",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/servicenow/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/servicenow/error-codes/servicenow-1",
+                "connectors/native/servicenow/error-codes/servicenow-2",
+                "connectors/native/servicenow/error-codes/servicenow-3",
+                "connectors/native/servicenow/error-codes/servicenow-4",
+                "connectors/native/servicenow/error-codes/servicenow-5",
+                "connectors/native/servicenow/error-codes/servicenow-6",
+                "connectors/native/servicenow/error-codes/servicenow-7"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "SharePoint & OneDrive",
+          "icon": "microsoft",
+          "pages": [
+            "connectors/native/sharepoint/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/sharepoint/error-codes/o365-1",
+                "connectors/native/sharepoint/error-codes/o365-2",
+                "connectors/native/sharepoint/error-codes/o365-3",
+                "connectors/native/sharepoint/error-codes/o365-4",
+                "connectors/native/sharepoint/error-codes/o365-5",
+                "connectors/native/sharepoint/error-codes/o365-6",
+                "connectors/native/sharepoint/error-codes/o365-7",
+                "connectors/native/sharepoint/error-codes/o365-8",
+                "connectors/native/sharepoint/error-codes/o365-9",
+                "connectors/native/sharepoint/error-codes/o365-10",
+                "connectors/native/sharepoint/error-codes/o365-11",
+                "connectors/native/sharepoint/error-codes/o365-12",
+                "connectors/native/sharepoint/error-codes/o365-13",
+                "connectors/native/sharepoint/error-codes/o365-14",
+                "connectors/native/sharepoint/error-codes/o365-15",
+                "connectors/native/sharepoint/error-codes/o365-16"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "SharePoint On-Prem",
+          "icon": "microsoft",
+          "pages": [
+            "connectors/native/sharepoint-onprem/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/sharepoint-onprem/error-codes/sharepointonprem-1"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Slack",
+          "icon": "slack",
+          "pages": [
+            "connectors/native/slack/home",
+            "connectors/native/slack/about-slackbot",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/slack/error-codes/slack-1",
+                "connectors/native/slack/error-codes/slack-2",
+                "connectors/native/slack/error-codes/slack-3",
+                "connectors/native/slack/error-codes/slack-4",
+                "connectors/native/slack/error-codes/slack-5",
+                "connectors/native/slack/error-codes/slack-6",
+                "connectors/native/slack/error-codes/slack-7"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Slack Enterprise Grid",
+          "icon": "slack",
+          "pages": [
+            "connectors/native/slackentgrid/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/slackentgrid/error-codes/slackentgrid-1",
+                "connectors/native/slackentgrid/error-codes/slackentgrid-2",
+                "connectors/native/slackentgrid/error-codes/slackentgrid-3",
+                "connectors/native/slackentgrid/error-codes/slackentgrid-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Teams",
+          "icon": "microsoft",
+          "pages": [
+            "connectors/native/teams/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/teams/error-codes/teams-1"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Web Crawler",
+          "icon": "microsoft",
+          "pages": [
+            "connectors/native/web-crawler/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/web-crawler/error-codes/web-1",
+                "connectors/native/web-crawler/error-codes/web-2",
+                "connectors/native/web-crawler/error-codes/web-3",
+                "connectors/native/web-crawler/error-codes/web-4",
+                "connectors/native/web-crawler/error-codes/web-5",
+                "connectors/native/web-crawler/error-codes/web-6",
+                "connectors/native/web-crawler/error-codes/web-7",
+                "connectors/native/web-crawler/error-codes/web-8",
+                "connectors/native/web-crawler/error-codes/web-9",
+                "connectors/native/web-crawler/error-codes/web-10",
+                "connectors/native/web-crawler/error-codes/web-11",
+                "connectors/native/web-crawler/error-codes/web-12"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Workday",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/workday/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/workday/error-codes/workday-1",
+                "connectors/native/workday/error-codes/workday-2",
+                "connectors/native/workday/error-codes/workday-3",
+                "connectors/native/workday/error-codes/workday-4",
+                "connectors/native/workday/error-codes/workday-5",
+                "connectors/native/workday/error-codes/workday-6",
+                "connectors/native/workday/error-codes/workday-7"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Zendesk",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/zendesk/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/zendesk/error-codes/zendesk-1",
+                "connectors/native/zendesk/error-codes/zendesk-2",
+                "connectors/native/zendesk/error-codes/zendesk-3",
+                "connectors/native/zendesk/error-codes/zendesk-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Zoom",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/zoom/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/zoom/error-codes/zoom-1",
+                "connectors/native/zoom/error-codes/zoom-2",
+                "connectors/native/zoom/error-codes/zoom-3",
+                "connectors/native/zoom/error-codes/zoom-4",
+                "connectors/native/zoom/error-codes/zoom-5",
+                "connectors/native/zoom/error-codes/zoom-6",
+                "connectors/native/zoom/error-codes/zoom-7",
+                "connectors/native/zoom/error-codes/zoom-8",
+                "connectors/native/zoom/error-codes/zoom-9"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Push API Connectors",
+      "pages": [
+        {
+          "group": "Custom",
+          "icon": "database",
+          "pages": [
+            "connectors/custom/about",
+            "connectors/custom/glean-apis",
+            "connectors/custom/faq",
+            "connectors/custom/troubleshooting"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Web History Connectors",
+      "pages": [
+        "connectors/history/about"
+      ]
+    },
+    {
+      "group": "General",
+      "pages": [
+        "administration/about",
+        "administration/tenant-id"
+      ]
+    },
+    {
+      "group": "Identity",
+      "pages": [
+        {
+          "group": "SSO",
+          "icon": "key",
+          "pages": [
+            "administration/identity/sso/about",
+            "administration/identity/sso/supported-sso-providers",
+            "administration/identity/sso/oidc-saml",
+            {
+              "group": "Configuration",
+              "icon": "gear",
+              "pages": [
+                "administration/identity/sso/configuration/entra-id-oidc",
+                "administration/identity/sso/configuration/google-oidc",
+                "administration/identity/sso/configuration/okta-saml",
+                "administration/identity/sso/configuration/generic-saml"
+              ]
+            },
+            {
+              "group": "Troubleshooting",
+              "icon": "wrench",
+              "pages": [
+                "administration/identity/sso/troubleshooting/troubleshoot-azure-sso"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Roles",
+          "icon": "crown",
+          "pages": [
+            "administration/identity/roles/about",
+            "administration/identity/roles/admin-roles",
+            "administration/identity/roles/user-roles",
+            "administration/identity/roles/faq"
+          ]
+        },
+        {
+          "group": "People & Teams",
+          "icon": "people-group",
+          "pages": [
+            {
+              "group": "Org Chart",
+              "icon": "code-merge",
+              "pages": [
+                "administration/identity/people-and-teams/org-chart/org-chart-export"
+              ]
+            },
+            {
+              "group": "Teams",
+              "icon": "users",
+              "pages": [
+                "administration/identity/people-and-teams/teams/configure-teams"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Search",
+      "pages": [
+        "administration/search/about",
+        "administration/search/datasource-visibility",
+        "administration/search/search-result-visibility",
+        "administration/search/troubleshooting",
+        "administration/search/faq"
+      ]
+    },
+    {
+      "group": "Assistant",
+      "pages": [
+        {
+          "group": "Configuration",
+          "icon": "gear",
+          "pages": [
+            "administration/assistant/configuration/supported-llms",
+            "administration/assistant/configuration/chat-history",
+            "administration/assistant/configuration/code-tool"
+          ]
+        },
+        {
+          "group": "Features",
+          "icon": "rocket",
+          "pages": [
+            "administration/assistant/features/file-upload"
+          ]
+        },
+        {
+          "group": "Apps",
+          "icon": "stars",
+          "pages": [
+            "administration/assistant/apps/about-apps",
+            "administration/assistant/apps/role-based-access",
+            "administration/assistant/apps/knowledge-source-types",
+            "administration/assistant/apps/best-practices",
+            "administration/assistant/apps/faq"
+          ]
+        },
+        {
+          "group": "Actions",
+          "icon": "diagram-subtask",
+          "pages": [
+            "administration/assistant/actions/redirect-actions",
+            "administration/assistant/actions/google-actions-setup",
+            "administration/assistant/actions/jira-actions-setup",
+            "administration/assistant/actions/jira-custom-auth-setup",
+            "administration/assistant/actions/salesforce-custom-auth-setup"
+          ]
+        },
+        {
+          "group": "Data Analysis",
+          "icon": "chart-line",
+          "pages": [
+            "administration/assistant/data-analysis/about-data-analysis",
+            "administration/assistant/data-analysis/cost-calculation",
+            "administration/assistant/data-analysis/file-security",
+            "administration/assistant/data-analysis/technical-overview"
+          ]
+        },
+        {
+          "group": "Slackbot",
+          "icon": "slack",
+          "pages": [
+            "administration/assistant/slackbot/best-practices"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Knowledge",
+      "pages": [
+        {
+          "group": "Announcements",
+          "icon": "bullhorn",
+          "pages": [
+            "administration/knowledge/announcements/announcements-slack"
+          ]
+        },
+        {
+          "group": "Answers",
+          "icon": "block-question",
+          "pages": [
+            "administration/knowledge/answers/answer-boards"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Management",
+      "pages": [
+        {
+          "group": "Alerts",
+          "icon": "bell",
+          "pages": [
+            "administration/management/alerts/about",
+            "administration/management/alerts/datasource-failure-alerts"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Insights",
+      "pages": [
+        "administration/insights/glean-assist",
+        "administration/insights/glean-apps"
+      ]
+    },
+    {
+      "group": "Security & Infra",
+      "pages": [
+        "security/home",
+        "security/knowledge-graph"
+      ]
+    },
+    {
+      "group": "Architecture",
+      "pages": [
+        "security/architecture/data-flow",
+        "security/architecture/shared-responsibility",
+        "security/architecture/sdlc"
+      ]
+    },
+    {
+      "group": "Networking",
+      "pages": [
+        "security/networking/glean-ip-ranges"
+      ]
+    },
+    {
+      "group": "Cloud-Prem",
+      "pages": [
+        {
+          "group": "GCP",
+          "icon": "google",
+          "pages": [
+            "security/cloud-prem/gcp/home",
+            "security/cloud-prem/gcp/faq",
+            "security/cloud-prem/gcp/owner-role"
+          ]
+        },
+        {
+          "group": "AWS",
+          "icon": "aws",
+          "pages": [
+            "security/cloud-prem/aws/home",
+            "security/cloud-prem/aws/faq"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "About Glean",
+      "pages": [
+        "user-guide/about/what-is-glean",
+        "user-guide/about/first-day-faqs",
+        "user-guide/about/end-user-quick-start-guide",
+        "user-guide/about/glean-for-engineering",
+        "user-guide/about/glean-for-support",
+        "user-guide/about/glean-for-sales"
+      ]
+    },
+    {
+      "group": "Glean Basics",
+      "pages": [
+        "user-guide/basics/how-to-search-in-glean",
+        "user-guide/basics/search-from-wherever-you-work",
+        "user-guide/basics/a-beginner-s-guide-to-chat",
+        "user-guide/basics/customizing-your-glean-profile",
+        "user-guide/basics/improve-search-quality-by-giving-feedback-on-results"
+      ]
+    },
+    {
+      "group": "Accessibility",
+      "pages": [
+        "user-guide/accessibility/glean-accessibility-statement"
+      ]
+    },
+    {
+      "group": "Glean Assistant",
+      "pages": [
+        "user-guide/assistant/glean-chat",
+        "user-guide/assistant/ai-answers",
+        "user-guide/assistant/best-practices",
+        "user-guide/assistant/code-generation",
+        {
+          "group": "Prompt Library",
+          "icon": "books",
+          "pages": [
+            "user-guide/assistant/prompt-library/guide-to-prompts"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Glean Apps",
+      "pages": [
+        "user-guide/apps/installing-the-browser-extension",
+        "user-guide/apps/why-does-the-chrome-extension-ask-for-those-permissions",
+        "user-guide/apps/glean-extension-via-company-push",
+        "user-guide/apps/get-the-desktop-app"
+      ]
+    },
+    {
+      "group": "Knowledge Tools",
+      "pages": [
+        {
+          "group": "Announcements",
+          "icon": "bullhorn",
+          "pages": [
+            "user-guide/knowledge/announcements/how-announcements-work"
+          ]
+        },
+        {
+          "group": "Answers",
+          "icon": "block-question",
+          "pages": [
+            "user-guide/knowledge/answers/what-are-answers-and-how-do-they-work",
+            "user-guide/knowledge/answers/how-to-write-effective-answers",
+            "user-guide/knowledge/answers/how-to-organize-answers-and-manage-in-bulk"
+          ]
+        },
+        {
+          "group": "Collections",
+          "icon": "object-group",
+          "pages": [
+            "user-guide/knowledge/collections/how-collections-work",
+            "user-guide/knowledge/collections/organizing-collections-using-headers",
+            "user-guide/knowledge/collections/providing-informational-hierarchy-using-subcollections",
+            "user-guide/knowledge/collections/updating-permissions-on-collections"
+          ]
+        },
+        {
+          "group": "Go Links",
+          "icon": "link",
+          "pages": [
+            "user-guide/knowledge/go-links/how-go-links-work",
+            "user-guide/knowledge/go-links/how-to-make-the-most-of-go-links",
+            "user-guide/knowledge/go-links/unlisted-go-links",
+            "user-guide/knowledge/go-links/create-variable-go-links"
+          ]
+        },
+        {
+          "group": "Pins",
+          "icon": "map-pin",
+          "pages": [
+            "user-guide/knowledge/pins/how-pins-work"
+          ]
+        },
+        {
+          "group": "Document Verification",
+          "icon": "shield-check",
+          "pages": [
+            "user-guide/knowledge/verification/how-verification-works",
+            "user-guide/knowledge/verification/what-does-verification-mean",
+            "user-guide/knowledge/verification/which-documents-should-i-verify",
+            "user-guide/knowledge/verification/what-should-i-do-with-documents-that-are-completely-out-of-date"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "People & Teams",
+      "pages": [
+        {
+          "group": "Teams",
+          "icon": "people-group",
+          "pages": [
+            "user-guide/people/teams/how-to-use-team-pages",
+            "user-guide/people/teams/setting-up-team-pages"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Advanced",
+      "pages": [
+        "user-guide/advanced/configuring-dark-mode"
+      ]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        "troubleshooting/home",
+        "troubleshooting/requesting-access",
+        "troubleshooting/raise-ticket",
+        "troubleshooting/chrome-trace",
+        {
+          "group": "Error Codes",
+          "icon": "bug",
+          "pages": [
+            "troubleshooting/error-codes/generic/oauth-1"
+          ]
+        }
       ]
     },
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "developers/samples/get",
+        "developers/samples/create",
+        "developers/samples/delete"
+      ]
+    },
+    {
+      "group": "Indexing API",
+      "pages": [
+        "developers/indexing/getting-started",
+        {
+          "group": "Documents",
+          "pages": [
+            "developers/indexing/documents/index-document",
+            "developers/indexing/documents/index-documents",
+            "developers/indexing/documents/bulk-index-documents",
+            "developers/indexing/documents/schedules-the-processing-of-uploaded-documents",
+            "developers/indexing/documents/delete-document"
+          ]
+        },
+        {
+          "group": "Permissions",
+          "pages": [
+            "developers/indexing/permissions/index-user",
+            "developers/indexing/permissions/bulk-index-users",
+            "developers/indexing/permissions/index-group",
+            "developers/indexing/permissions/bulk-index-groups",
+            "developers/indexing/permissions/index-membership",
+            "developers/indexing/permissions/bulk-index-memberships-for-a-group",
+            "developers/indexing/permissions/schedules-the-processing-of-group-memberships",
+            "developers/indexing/permissions/delete-user",
+            "developers/indexing/permissions/delete-group",
+            "developers/indexing/permissions/delete-membership",
+            "developers/indexing/permissions/beta-users"
+          ]
+        },
+        {
+          "group": "Troubleshooting",
+          "pages": [
+            "developers/indexing/troubleshooting/beta:-get-datasource-status",
+            "developers/indexing/troubleshooting/beta:-get-document-information",
+            "developers/indexing/troubleshooting/beta:-get-user-information",
+            "developers/indexing/troubleshooting/check-document-access",
+            "developers/indexing/troubleshooting/get-document-upload-and-indexing-status",
+            "developers/indexing/troubleshooting/get-document-count",
+            "developers/indexing/troubleshooting/get-user-count"
+          ]
+        },
+        {
+          "group": "Datasources",
+          "pages": [
+            "developers/indexing/datasources/add-or-update-datasource",
+            "developers/indexing/datasources/get-datasource-config"
+          ]
+        },
+        {
+          "group": "Authentication",
+          "pages": [
+            "developers/indexing/authentication/rotate-token"
+          ]
+        },
+        {
+          "group": "People",
+          "pages": [
+            "developers/indexing/people/index-employee",
+            "developers/indexing/people/bulk-index-employees",
+            "developers/indexing/people/bulk-index-employees-1",
+            "developers/indexing/people/schedules-the-processing-of-uploaded-employees-and-teams",
+            "developers/indexing/people/delete-employee",
+            "developers/indexing/people/index-team",
+            "developers/indexing/people/delete-team",
+            "developers/indexing/people/bulk-index-teams"
+          ]
+        },
+        {
+          "group": "Shortcuts",
+          "pages": [
+            "developers/indexing/shortcuts/bulk-index-external-shortcuts",
+            "developers/indexing/shortcuts/upload-shortcuts"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Troubleshooting",
+      "pages": [
+        "developers/troubleshooting/error-codes",
+        "developers/troubleshooting/debug-endpoints"
+      ]
+    },
+    {
+      "group": "Release Notes",
+      "pages": [
+        "release-notes/home"
       ]
     }
   ],
@@ -87,5 +1072,19 @@
     "x": "https://x.com/mintlify",
     "github": "https://github.com/mintlify",
     "linkedin": "https://linkedin.com/company/mintlify"
+  },
+  "font": {
+    "headings": {
+      "family": "Polysans Neutral",
+      "weight": 400,
+      "url": "https://cdn.prod.website-files.com/6127a84dfe068e153ef20572/66b4a66d22e2c49832621144_PolySans-Neutral.woff2",
+      "format": "woff2"
+    },
+    "body": {
+      "family": "Polysans Neutral",
+      "weight": 400,
+      "url": "https://cdn.prod.website-files.com/6127a84dfe068e153ef20572/66b4a66d22e2c49832621144_PolySans-Neutral.woff2",
+      "format": "woff2"
+    }
   }
 }

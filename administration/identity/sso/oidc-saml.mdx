@@ -1,0 +1,102 @@
+---
+title: "OIDC & SAML in Glean"
+description: "A comparison of OIDC and SAML for SSO integration in Glean, highlighting Glean's preference for OIDC and its advantages for improved security and real-time update of identity information"
+icon: "key-change"
+---
+
+Single Sign-On (SSO) is a fundamental feature for enhancing enterprise security and user experience, enabling employees to access multiple applications with a single set of credentials. This streamlines the login process and enhances security by reducing potential attack vectors and simplifying credential management. The primary protocols for SSO integration are Security Assertion Markup Language (SAML) and OpenID Connect (OIDC).
+
+<Info>
+For enterprises integrating their systems with Glean, choosing the most effective SSO configuration is crucial. Although Glean supports both SAML and OIDC, it recommends OIDC for its modern architecture, fine-grained control over permissions, and efficient directory information synchronization, which is critical for its functionality. Most SSO and Identity Providers (IdPs), including Microsoft Entra ID, Okta, and Google Workspace, support both protocols.
+</Info>
+
+<CardGroup>
+  <Card 
+    title="About People Data in Glean" 
+    icon="users" 
+    href="../people-data/about"
+  >
+    Learn about how Glean manages and utilizes people data
+  </Card>
+  <Card 
+    title="Glean Knowledge Graph" 
+    icon="diagram-project" 
+    href="../../../search/knowledge-graph"
+  >
+    Understand Glean's Knowledge Graph architecture
+  </Card>
+</CardGroup>
+
+## Understanding SAML
+
+SAML is an XML-based standard for securely exchanging authentication and authorization data between IdPs and service providers. It is particularly suited for enterprise environments due to its robustness and comprehensive control over authentication and authorization processes.
+
+### Key Features
+
+<CardGroup cols={2}>
+  <Card title="Compatibility" icon="plug">
+    SAML's long-standing presence means it is often the default or only supported protocol for older systems and applications.
+  </Card>
+  <Card title="Established Trust Frameworks" icon="shield-check">
+    SAML is prevalent in sectors with existing federations or trust frameworks, making it a straightforward choice for entities needing to participate in these ecosystems.
+  </Card>
+</CardGroup>
+
+## Understanding OIDC
+
+OIDC, built on the OAuth 2.0 framework, adds an authentication layer, facilitating user identity verification using JSON Web Tokens (JWT) for secure user information transfer.
+
+### Key Features
+
+<CardGroup cols={2}>
+  <Card title="Modern and Lightweight" icon="feather">
+    OIDC uses JSON and RESTful APIs, making it a streamlined and modern solution suited for new web-based applications.
+  </Card>
+  <Card title="Fine-Grained Access Control" icon="shield-lock">
+    OIDC allows for nuanced control over permissions and data shared with the SaaS application.
+  </Card>
+  <Card title="Interoperability" icon="arrows-repeat">
+    OIDC's simplicity promotes easier integration with a broad array of applications and services.
+  </Card>
+</CardGroup>
+
+## Differences Between SAML and OIDC
+
+### Protocol and Data Format
+
+<CardGroup cols={2}>
+  <Card title="SAML" icon="file-xml">
+    Uses XML, which is secure and extensible but can be verbose, leading to larger payloads.
+  </Card>
+  <Card title="OIDC" icon="braces">
+    Employs JSON, providing a compact and web-friendly format, conducive to faster processing and improved performance.
+  </Card>
+</CardGroup>
+
+### Integration and Flexibility
+
+<CardGroup cols={2}>
+  <Card title="SAML" icon="server">
+    Widely supported by legacy and enterprise-specific applications due to its established presence.
+  </Card>
+  <Card title="OIDC" icon="cloud">
+    Offers more straightforward and flexible integration options, particularly for modern web-based applications, thanks to RESTful APIs.
+  </Card>
+</CardGroup>
+
+### Ability to Fetch and Synchronize Information
+
+<CardGroup cols={2}>
+  <Card title="SAML" icon="clock-rotate-left">
+    Updates information based on the SAML assertion token, which is only refreshed upon user login or re-authentication, potentially leading to delays in reflecting changes.
+  </Card>
+  <Card title="OIDC" icon="arrows-rotate">
+    Allows for asynchronous data synchronization based on granted permissions, enabling continuous updates without requiring user re-authentication, ensuring data remains current and accurate.
+  </Card>
+</CardGroup>
+
+## Glean's Preference for OIDC
+
+<Warning>
+Given the importance of accurate and up-to-date people data for Glean's operations, the choice of SSO integration method is crucial. While both SAML and OIDC are valuable in the enterprise SSO landscape, OIDC's detailed permission controls make it Glean's preferred option for organizations to integrate with the platform.
+</Warning>

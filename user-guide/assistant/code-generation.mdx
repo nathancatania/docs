@@ -1,0 +1,186 @@
+---
+title: "Code Generation"
+description: "Enhance software development workflows with Glean Assistant's intelligent code generation capabilities"
+icon: "code-branch"
+---
+
+<Frame>
+  <img src="assets/code-tool.20240526170746611.webp" alt="Code Tool Overview" />
+</Frame>
+
+When Glean is connected to your organization's code repositories like GitHub or GitLab, Glean Assistant gains powerful code generation capabilities that boost your software engineers' productivity. Unlike traditional generative AI or co-pilot tools, Glean provides a unique advantage by understanding and incorporating context from multiple sources - including code, design docs, technical documentation, tickets, PRs, issues, and discussion threads.
+
+## Overview
+
+By integrating with your organization's code repositories, Glean enriches its enterprise knowledge graph to provide:
+
+<Card title="Code Search" icon="magnifying-glass-code">
+  Advanced search capabilities across current and historical code content, including pull requests and commits, helping developers quickly find relevant code examples and references.
+</Card>
+
+<Card title="Code Generation" icon="code">
+  Intelligent code snippet generation that aligns with your organization's standards, accelerating feature development and bug fixes while maintaining consistency.
+</Card>
+
+### Key Benefits
+
+<CardGroup cols={2}>
+  <Card title="Rapid Error Resolution" icon="bug">
+    Quickly identify and resolve issues using a comprehensive database of code snippets, documentation, and previous solutions.
+  </Card>
+  
+  <Card title="Automated Code Generation" icon="wand-magic-sparkles">
+    Boost productivity with automatic generation of code snippets for both routine tasks and new feature development.
+  </Card>
+  
+  <Card title="Knowledge Sharing" icon="share-nodes">
+    Facilitate effective communication of coding practices and standards across your organization.
+  </Card>
+  
+  <Card title="Streamlined Onboarding" icon="user-plus">
+    Accelerate new engineer integration with structured learning resources and codebase insights.
+  </Card>
+</CardGroup>
+
+## Example Queries
+
+### Code Context
+- "How is `[system]` implemented at our company?"
+- "How do I debug/solve `[error]`?"
+- "Help me write code to do `X` in `[language]`"
+- "Where is the code file that does `X`?"
+- "Help me write unit tests for `[file]`"
+
+### Process & Customer Context
+- "What is the status of this week's backend release?"
+- "Who can I ask about `[system or feature]`?"
+- "How do I set up my dev environment?"
+- "Which customers are using `[feature]`?"
+- "What customers have raised issues this week?"
+
+
+## Usage Scenarios
+
+### Adding to Existing Code
+<Steps>
+  <Step title="Situation">
+    An engineer needs to create a new evalset, working with code spread across multiple files and languages. They need to leverage existing code rather than starting from scratch.
+  </Step>
+  <Step title="Example Queries">
+    - "How do I add a new search evalset?"
+    - "How to create a new autocomplete evalset for history suggestions?"
+  </Step>
+  <Step title="Outcome">
+    <Frame>
+      <img src="assets/code-tool.20240526170746693.webp" alt="Adding to Existing Code Example" />
+    </Frame>
+    Glean Assistant identifies relevant files requiring changes and provides explanations with adaptable code snippets.
+  </Step>
+</Steps>
+
+### Debugging Errors
+<Steps>
+  <Step title="Situation">
+    An on-call engineer encounters a panic occurring in specific product situations.
+  </Step>
+  <Step title="Example Queries">
+    - "Help me debug [full panic error]"
+    - "Can you review the code and help me fix the panic?"
+    - "Give me a list of reviewers for this code change"
+    - "Can you create a PR description?"
+  </Step>
+  <Step title="Outcome">
+    <Frame>
+      <img src="assets/code-tool.20240526170746813.webp" alt="Debugging Process" />
+    </Frame>
+    <Frame>
+      <img src="assets/code-tool.20240526170746865.webp" alt="Error Resolution" />
+    </Frame>
+    Glean Assistant analyzes the stack trace, suggests fixes, and assists with PR creation.
+  </Step>
+</Steps>
+
+### Feature Status Check
+<Steps>
+  <Step title="Situation">
+    An engineer needs to determine a feature's implementation status and customer requests.
+  </Step>
+  <Step title="Example Queries">
+    - "Is [feature] enabled?"
+    - "What customers have asked for this feature?"
+  </Step>
+  <Step title="Outcome">
+    <Frame>
+      <img src="assets/code-tool.20240526170746975.webp" alt="Feature Status Example" />
+    </Frame>
+    Glean Assistant compiles information from design docs, code changes, and Jira tickets, including feature flags and customer requests.
+  </Step>
+</Steps>
+
+### Code Change Impact
+<Steps>
+  <Step title="Situation">
+    An engineer debugging an error needs to understand recent changes affecting their component.
+  </Step>
+  <Step title="Example Queries">
+    "What recent changes could have caused errors in runtime configs?"
+  </Step>
+  <Step title="Outcome">
+    <Frame>
+      <img src="assets/code-tool.20240526170747006.webp" alt="Code Change Impact Analysis" />
+    </Frame>
+    Glean Assistant analyzes recent changes across code, tickets, and discussions to provide a comprehensive summary.
+  </Step>
+</Steps>
+
+### Implementation Guidance
+<Steps>
+  <Step title="Situation">
+    An engineer starting a new implementation needs guidance on multi-file changes across the stack.
+  </Step>
+  <Step title="Example Queries">
+    "Where can I add a new endpoint for QE?"
+  </Step>
+  <Step title="Outcome">
+    <Frame>
+      <img src="assets/code-tool.20240526170747024.webp" alt="Implementation Guidance Example" />
+    </Frame>
+    Glean Assistant provides file locations and required changes based on similar past implementations.
+  </Step>
+</Steps>
+
+## FAQ
+
+<AccordionGroup>
+  <Accordion title="Which datasources are supported?">
+    Currently, code repositories in GitHub and GitLab are supported.
+  </Accordion>
+  
+  <Accordion title="What permissions are required?">
+    The permissions match those of the Glean GitHub and GitLab connectors exactly.
+  </Accordion>
+  
+  <Accordion title="Is code search supported in search results?">
+    Currently, indexed code is only used for Glean Assistant responses. Glean Search matches PR descriptions and file names, but not code contents directly, to reduce result noise.
+  </Accordion>
+  
+  <Accordion title="How is my data secured?">
+    Code snippets become part of your organization's Glean Knowledge Graph, ensuring:
+    - Only users with existing code access can access it via Glean Assistant
+    - Code snippets follow the same privacy guarantees as all other indexed Glean content
+  </Accordion>
+  
+  <Accordion title="What code file types are supported?">
+    Glean Assistant searches through code in:
+    - PR and Merge Request differentials
+    - Latest commit and Main/Master branch files with extensions including (but not limited to):
+      - Common languages: .js, .py, .java, .cpp, .go, .rb, .php
+      - Web technologies: .html, .css, .scss
+      - Configuration: .ini, .cfg, .cnf
+      - And many more specialized formats
+      
+    <Info>
+      For a complete list of supported file extensions, please contact Glean support.
+    </Info>
+  </Accordion>
+</AccordionGroup>

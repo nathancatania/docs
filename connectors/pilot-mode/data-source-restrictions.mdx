@@ -1,0 +1,58 @@
+---
+title: "Data Source Restrictions in Pilot Mode"
+---
+
+In Pilot Mode, some crawling restrictions are automatically enforced, while others are optional but strongly recommended.
+
+Restricting content to a smaller dataset ensures that your organization can get started using Glean quickly and evaluate the product without having to wait for a crawl to complete of all of your organization's data.
+
+## Time Restrictions
+
+Time-based crawling restrictions restrict the data that is crawled to a specific time range. Any data outside of this range is not crawled by Glean.
+
+Time-based restrictions typically consider both the creation and modification dates of the data. That is, as long as a document has been modified within the time range, it will be crawled.
+
+If a document excluded from crawling (because it was created or modified outside of the time range), is later modified to fall within the time range, it will be crawled by Glean; typically within 24 hours.
+
+
+## Identity Restrictions
+
+Identity restrictions restrict the data that is crawled to a specific "pilot" identity/user group. Only data from users included in this group is crawled.
+
+You should create a group in your Identity Provider (e.g. Entra ID, Google, Okta, etc) that contains the users who will be actively using Glean during the pilot. We suggest keeping this group relatively small, ideally fewer than 100 users.
+
+## Document Restrictions
+
+Document restrictions restrict the data that is crawled to a specific subset of documents. This could be individual documents/assets, or a group of documents/assets (e.g. a folder, user drive, site, space, etc).
+
+The type of document restrictions supported varies by the data source. Document restrictions can typically be applied as either greenlists (explicit inclusion) and redlists (explicit exclusion) depending on what is supported by the vendor's API.
+
+We recommend you apply the following restrictions to your pilot if you are using these apps:
+
+- **Sharepoint** - We require selecting specific sites to be crawled to mitigate the presence of non-relevant Sharepoint sites commonly found in large organizations.
+- **Github** - We recommend you select specific repositories if you have more than 50 repositories. 
+- **Confluence** - We recommend you select specific spaces if you have more than 2 million docs.
+- **Box** - We recommend you select specific folders or drives to crawl if you have more than 5 million files.
+
+<Note>
+You will be able to specify these values during Glean setup on the Glean Connectors Setup pages. Any datasources not explicitly mentioned will be crawled without limitation. 
+</Note>
+
+
+## Restrictions Applied in Pilot Mode
+
+| Datasource | Strategic Restriction | Required or Recommended |
+|------------|---------------------|------------------------|
+| Google Drive | documents created or modified in the last 12 months | Required |
+| OneDrive | documents owned by users of the pilot access group | Required |
+| Box | documents created or modified in the last 12 months | Required |
+| Slack | messages created or modified in the last 12 months | Required |
+| SlackEnterpriseGrid | messages created or modified in the last 12 months | Required |
+| Jira | documents created or modified in the last 12 months | Required |
+| Sharepoint | customer specified greenlist of specific sites | Required |
+| Github | customer specified greenlist of repositories | Recommended |
+| Confluence | customer specified greenlist of spaces | Recommended |
+
+<Note>
+Any datasources not explicitly mentioned will be crawled without limitation. 
+</Note>

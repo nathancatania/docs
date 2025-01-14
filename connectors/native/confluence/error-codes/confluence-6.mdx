@@ -1,0 +1,18 @@
+---
+title: CONFLUENCE_6
+description: CONFLUENCE_6 Error Code
+---
+
+## Issue
+
+- We are unable to validate if redlisted creators file is uploaded correctly.
+
+## Resolution:
+
+- Please ensure you've provided the redlisted creators file name you've provided exists in the sensitive configs bucket which is generally of the form:
+`sensitive-config-${PROJECT_ID}`
+
+- Please ensure that there is atleast one email added in the file. The file is a CSV, so an example would look like:
+`foo@domain.com,bar@domain.com,baz@domain.com`
+
+If you are still having difficulty, please reach out to us: [https://support.glean.com](https://support.glean.com)

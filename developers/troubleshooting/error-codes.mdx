@@ -1,0 +1,77 @@
+---
+title: "Error Codes"
+description: "A comprehensive guide to common REST API error codes, their causes, and troubleshooting steps"
+icon: "triangle-exclamation"
+---
+
+When working with Glean's REST APIs, you may encounter various error messages and status codes. This guide explains the most common errors you might experience, their causes, and steps to resolve them.
+
+## Common Error Codes
+
+<AccordionGroup>
+  <Accordion title="400 Bad Request" icon="circle-xmark">
+    **Description**  
+    This error occurs when the server cannot process the request due to malformed syntax or missing required fields in the request body.
+
+    **Solution**  
+    Review the API endpoint documentation carefully and verify that your request syntax matches the specifications. Pay particular attention to required fields and data formats.
+  </Accordion>
+
+  <Accordion title="401 Unauthorized" icon="lock">
+    **Description**  
+    This error indicates invalid or expired authentication credentials, such as an API token.
+
+    **Solution**  
+    Verify your authentication token's validity by checking the Admin Workspace > [API Tokens page](https://app.glean.com/admin/platform/tokenManagement). You can look up the token name to check its expiration status. If you cannot locate the token name, consider creating and testing a new token.
+  </Accordion>
+
+  <Accordion title="404 Missing Permissions" icon="user-slash">
+    **Description**  
+    The user lacks the necessary permissions to access the requested resource, often due to missing required token scopes.
+
+    **Solution**  
+    1. Navigate to Admin Workspace > [API Tokens page](https://app.glean.com/admin/platform/tokenManagement) to check your token's scopes
+    2. Review Glean's documentation on [Scopes](https://developers.glean.com/docs/client_api/client_api_scopes/#scopes) to confirm which permissions are needed for specific endpoints
+  </Accordion>
+
+  <Accordion title="405 Method Not Allowed / Name or Service Not Known" icon="network-wired">
+    **Description**  
+    This error typically indicates an incorrect request URL domain.
+
+    **Solution**  
+    To find your correct instance domain:
+
+    1. Open Glean in your browser
+    2. Access Developer Tools > Network tab
+    3. Select Fetch/XHR
+    4. Reload the page
+    5. Select any log event name
+    6. Look for the request URL in Headers > General section
+
+    For example, in the URL "https://support-sandbox-be.glean.com/api/v1/productstatus", the domain is "support-sandbox"
+  </Accordion>
+
+  <Accordion title="408 Request Timeout" icon="clock">
+    **Description**  
+    The server timed out while waiting for the request to complete.
+
+    **Solution**  
+    1. Verify your internet connection stability
+    2. Retry the request after a brief delay
+    3. If the issue persists, check if your request involves processing large amounts of data that might need optimization
+  </Accordion>
+
+  <Accordion title="429 Too Many Requests" icon="hand">
+    **Description**  
+    You have exceeded the rate limit by sending too many requests within a specific time frame.
+
+    **Solution**  
+    1. Reduce the frequency of your API requests
+    2. Implement request throttling or delays between calls
+    3. Consider batching multiple requests together when possible
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+If you continue to experience these errors after implementing the suggested solutions, please contact Glean Support for further assistance.
+</Note>

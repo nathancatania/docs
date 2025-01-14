@@ -1,0 +1,188 @@
+---
+title: Supported LLMs
+description: "Glean supports a variety of LLMs that can be leveraged for the platform's Generative AI features"
+---
+
+import { SettingsAssistantSetup } from "/snippets/navigation.mdx";
+
+To enable Glean's Generative AI features, you need to select a LLM provider. We recommend using Glean's Azure OpenAI key.
+We also provide the option to Bring Your Own LLM key (BYOK) with Azure OpenAI, Google Vertex AI (if your deployment is on GCP), and Amazon Bedrock (if your deployment is on AWS).
+
+This can can be setup in <SettingsAssistantSetup />
+
+Glean currently supports the following LLMs:
+| LLM                        | Glean Key | BYOK                          |
+|---------------------------|------------|-------------------------------|
+| GPT                       | ✅         | ✅ (Azure OpenAI & OpenAI)    |
+| Claude (Anthropic API)   | ❌         | ✅                            |
+| Claude (Bedrock)         | ❌         | ✅                            |
+| Claude (Vertex AI)       | ✅*        | ✅                            |
+| Gemini                    | ✅*        | ✅ (Google Vertex AI)         |
+
+*Glean Key is only supported for these models when leveraging Glean SaaS.
+
+## Supported LLM Options
+
+<AccordionGroup>
+  <Accordion title="Option 1: OpenAI GPT - Glean Key via Azure OpenAI (Recommended)">
+    Glean has a signed agreement with Azure OpenAI that provides:
+
+- **0-day retention**: Your data will not be stored by Azure
+- **No model training**: Data will not be used to train any custom large language models
+- **Data encryption**: All data is encrypted in transit
+- **Compliance**: Azure is compliant with various industry standards. See details [here](https://azure.microsoft.com/en-us/products/cognitive-services/openai-service#security)
+
+**Key Benefits:**
+
+- Guaranteed capacity to scale to all your users
+- Low latency performance
+- Access to all necessary models out of the box
+- 0-day retention (not available by default with Azure OpenAI)
+
+</Accordion>
+
+<Accordion title="Option 2: OpenAI GPT - BYOK via Azure OpenAI or OpenAI Direct">
+We currently support using either GPT-4o or GPT-4-Turbo as the primary model for query planning and answer generation.
+
+<Info>
+Fill out the [Azure OpenAI Service form](https://aka.ms/oai/access) to request access to the required models.
+</Info>
+
+| Model Name | How Glean Uses the Model |
+|------------|-------------------------|
+| **GPT-4o** or **GPT-4-Turbo** | Query planning and answer generation |
+| **GPT-4o-mini** or **GPT-3.5-Turbo** | Tool selection and followup question generation |
+| **Ada Embeddings** | Match sentences in the generated answer with retrieved search results to generate citations |
+
+For information about quotas and requesting additional capacity, see [Azure OpenAI Service quotas and limits](https://learn.microsoft.com/en-us/azure/ai-services/openai/quotas-limits).
+
+</Accordion>
+
+<Accordion title="Option 3: Anthropic Claude - BYOK via Amazon Bedrock (AWS only)">
+Log into the AWS Console with a user who has [permissions](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html#model-access-permissions) to subscribe to Bedrock models within the AWS account.
+
+<Info>
+If your AWS instance is in a supported region, we will send the LLM traffic to Amazon Bedrock in the same region. Otherwise, contact the Glean team to configure routing to the nearest supported region.
+</Info>
+
+**Supported Regions:**
+- us-east-1 (N. Virginia)
+- us-west-2 (Oregon) 
+- ap-northeast-1 (Tokyo)
+- eu-central-1 (Frankfurt)
+
+**Required Models:**
+
+Access these models via [Amazon Bedrock > Model access](https://console.aws.amazon.com/bedrock/home#/modelaccess):
+
+| Model Name | Version | Purpose |
+|------------|----------|----------|
+| **Anthropic > Claude 3.5 Sonnet** | anthropic.claude-3-5-sonnet-20240620-v1:0 | Query planning and answer generation |
+| **Anthropic > Claude 3 Haiku** | anthropic.claude-3-haiku-20240307-v1:0 | Tool selection and followup question generation |
+| **Amazon > Titan Embeddings G1 - Text** | amazon.titan-embed-text-v1 | Citation generation from search results |
+
+<Tip>
+When asked about use case, enter: **Generate answers to questions about internal company documents**
+</Tip>
+
+For quota information, see [Amazon Bedrock Quotas](https://docs.aws.amazon.com/bedrock/latest/userguide/quotas.html#quotas-prov-thru.html). Additional quota requires contacting your AWS account manager.
+
+<Warning>
+Glean does not currently support Provisioned Throughput on Bedrock, but can work with you and AWS to enable this in the future.
+</Warning>
+
+</Accordion>
+
+<Accordion title="Option 4: Anthropic Claude - BYOK via Google Vertex AI (GCP only)">
+Access the [Vertex AI Model Garden](https://console.cloud.google.com/vertex-ai/model-garden) and enable access to these foundation models from your GCP project:
+
+| Model Name | Version | Purpose |
+|------------|----------|----------|
+| [Claude 3.5 Sonnet](https://console.cloud.google.com/vertex-ai/publishers/anthropic/model-garden/claude-3-5-sonnet) | claude-3-5-sonnet@20240620 | Query planning and answer generation |
+| [Claude 3 Haiku](https://console.cloud.google.com/vertex-ai/publishers/anthropic/model-garden/claude-3-haiku) | claude-3-haiku@20240307 | Tool selection and followup question generation |
+| [Embeddings for Text](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/textembedding-gecko) | textembedding-gecko@002 | Citation generation from search results |
+
+**Quota Requirements:**
+
+Submit a standard [GCP quota request](https://console.cloud.google.com/iam-admin/quotas) for Requests Per Minute (RPM) and Tokens Per Minute (TPM). Filter for:
+- **base_model:** anthropic-claude-3-5-sonnet, anthropic-claude-3-haiku, textembedding-gecko
+- **region:** Your GCP project's region
+
+<Warning>
+The quota ensures fair use of shared capacity but does not guarantee availability during peak periods. For guaranteed capacity, contact your Google account team about [Provisioned Throughput](https://cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput).
+</Warning>
+
+</Accordion>
+
+<Accordion title="Option 5: Google Gemini - BYOK via Google Vertex AI (GCP only)">
+Access the [Vertex AI Model Garden](https://console.cloud.google.com/vertex-ai/model-garden) and enable these foundation models from your GCP project:
+
+| Model Name | Version | Purpose |
+|------------|----------|----------|
+| [Gemini 1.5 Pro](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemini-1.5-pro-002) | gemini-1.5-pro-002 | Query planning and answer generation |
+| [Gemini 1.5 Flash](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/gemini-1.5-flash-002) | gemini-1.5-flash-002 | Tool selection and followup question generation |
+| [Embeddings for Text](https://console.cloud.google.com/vertex-ai/publishers/google/model-garden/textembedding-gecko) | textembedding-gecko@002 | Citation generation from search results |
+
+Submit a standard [GCP quota request](https://console.cloud.google.com/iam-admin/quotas) for RPM and TPM. Filter for:
+- **base_model:** gemini-1.5-pro, gemini-1.5-flash, textembedding-gecko
+- **region:** Your GCP project's region
+
+<Warning>
+As with Claude models, the quota ensures fair use but not guaranteed availability. Contact your Google account team about [Provisioned Throughput](https://cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput) for guaranteed capacity.
+</Warning>
+
+</Accordion>
+
+</AccordionGroup>
+
+## Capacity Requirements
+
+### Query Planning and Answer Generation
+
+Capacity requirements for **GPT-4o**, **GPT-4 Turbo**, **Claude 3.5 Sonnet**, or **Gemini 1.5 Pro**:
+
+| Users | RPM | TPM |
+|-------|-----|-----|
+| 500 | 20 | 70,000 |
+| 1,000 | 40 | 135,000 |
+| 2,500 | 100 | 335,000 |
+| 5,000 | 200 | 665,000 |
+| 10,000 | 350 | 1,165,000 |
+| 20,000 | 500 | 1,665,000 |
+
+### Tool Selection and Followup Question Generation
+
+Capacity requirements for **GPT-4o mini**, **GPT-3.5-Turbo**, **Claude 3 Haiku**, or **Gemini 1.5 Flash**:
+
+| Users | RPM | TPM |
+|-------|-----|-----|
+| 500 | 10 | 15,000 |
+| 1,000 | 20 | 25,000 |
+| 2,500 | 50 | 60,000 |
+| 5,000 | 100 | 115,000 |
+| 10,000 | 175 | 205,000 |
+| 20,000 | 250 | 290,000 |
+
+### Citation Generation
+
+#### OpenAI Ada Embeddings or Google Embeddings for Text
+
+| Users | RPM | TPM |
+|-------|-----|-----|
+| 500 | 15 | 13,000 |
+| 1,000 | 30 | 25,000 |
+| 2,500 | 75 | 63,000 |
+| 5,000 | 150 | 125,000 |
+| 10,000 | 260 | 219,000 |
+| 20,000 | 375 | 313,000 |
+
+#### Amazon Titan Embeddings G1 - Text
+
+| Users | RPM | TPM |
+|-------|-----|-----|
+| 500 | 500 | 13,000 |
+| 1,000 | 1,000 | 25,000 |
+| 2,500 | 2,500 | 63,000 |
+| 5,000 | 5,000 | 125,000 |
+| 10,000 | 8,750 | 219,000 |
+| 20,000 | 12,500 | 313,000 |

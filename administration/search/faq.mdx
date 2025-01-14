@@ -1,0 +1,125 @@
+---
+title: "Search FAQ"
+description: "Answers to common questions about Glean Search, Knowledge Graph, and Connectors"
+icon: "circle-question"
+---
+
+## Enterprise Search Fundamentals
+
+<AccordionGroup>
+  <Accordion title="What is Enterprise Search and how is it different from normal search?">
+    Enterprise Search is a specialized tool designed to help users quickly and effectively access information needed for their jobs. Unlike regular internet search engines, Enterprise Search specifically focuses on your organization's internal systems:
+
+    - Internal documents
+    - Emails
+    - Reports
+    - Customer records
+    - Product data
+
+    <Card title="Learn More About Enterprise Search" icon="arrow-right" href="https://www.glean.com/blog/what-is-enterprise-search">
+      Discover how enterprise search can transform your organization's information access
+    </Card>
+  </Accordion>
+
+  <Accordion title="Can Glean search the internet?">
+    No, Glean is specifically designed to search through your organization's internal systems, databases, and repositories. It is not intended to provide internet search functionality.
+  </Accordion>
+</AccordionGroup>
+
+## Security and Permissions
+
+<AccordionGroup>
+  <Accordion title="Can users see content they don't have permission to access?">
+    No, users cannot see content they don't have permission to access. Glean strictly respects all permissions and access controls set within your organization's systems.
+  </Accordion>
+
+  <Accordion title="How does Glean ensure users can't see content they shouldn't?">
+    Glean implements comprehensive security measures by respecting your organization's existing permissions and access controls. When crawling a connected datasource, Glean fetches three essential types of information:
+
+    <Steps>
+      <Step title="Content">
+        The actual content of documents and resources
+      </Step>
+      <Step title="Activity Information">
+        - Creation date
+        - Edit history
+        - View history
+        - Comment history
+        - Share history
+      </Step>
+      <Step title="Identity Information">
+        - Content creator identification
+        - Edit history contributors
+        - Document viewers and their department/team affiliations
+        - User/group access permissions
+      </Step>
+    </Steps>
+
+    The identity information forms part of the Glean Knowledge Graph, which is used to determine search result visibility.
+
+    <Card title="Learn More About Knowledge Graph" icon="diagram-project" href="">
+      Understand how Glean's Knowledge Graph ensures secure and relevant search results
+    </Card>
+  </Accordion>
+</AccordionGroup>
+
+## Connectivity and Integration
+
+<AccordionGroup>
+  <Accordion title="What apps does Glean support?">
+    Glean provides native integration with over 80 different datasources out of the box.
+
+    <Card title="View Supported Connectors" icon="plug-circle-bolt" href="https://www.glean.com/connectors">
+      See the complete list of supported applications and services
+    </Card>
+  </Accordion>
+
+  <Accordion title="What if Glean doesn't support an app I use?">
+    If Glean doesn't currently support your application, you have several options:
+
+    1. Contact your Glean account team or Glean support - the app might be on our development roadmap
+    2. Use Glean's Indexing API and SDK to create your own connectors
+
+    <Info>
+      The Indexing API allows you to push data to Glean from within your environment, rather than requiring Glean to connect directly to your systems.
+    </Info>
+
+    <Card title="Explore the Indexing API" icon="code" href="https://developers.glean.com/docs/indexing_api/indexing_api_getting_started/">
+      Learn how to create custom connectors for your applications
+    </Card>
+  </Accordion>
+
+  <Accordion title="Can I connect a database (e.g., MySQL) to Glean?">
+    Yes, though you'll need to use the [Indexing API](https://developers.glean.com/docs/indexing_api/indexing_api_getting_started/) as Glean doesn't provide native database connectors.
+
+    <Warning>
+      Direct database connections can generate significant noise and may impact search result quality. We recommend connecting to the applications that query your databases rather than connecting directly to the databases themselves.
+    </Warning>
+  </Accordion>
+
+  <Accordion title="Can Glean connect to my on-premise Jira/Confluence server?">
+    Yes, on-premise connections are supported through either:
+    - Shared VPC
+    - Site-to-Site VPN
+
+    <Note>
+      Contact Glean support for detailed connectivity requirements and setup instructions.
+    </Note>
+  </Accordion>
+
+  <Accordion title="Can Glean connect to my emails?">
+    Yes, Glean provides out-of-the-box support for:
+    - Exchange Online (Outlook)
+    - Google Workplace (Gmail)
+
+    For other email systems, you can utilize the [Indexing API](https://developers.glean.com/docs/indexing_api/indexing_api_getting_started/).
+  </Accordion>
+
+  <Accordion title="Can Glean connect to on-premise SharePoint?">
+    While technically possible, on-premise SharePoint connection is not supported directly out-of-the-box.
+
+    <Note>
+      Please contact Glean support for additional information about on-premise SharePoint integration options.
+    </Note>
+  </Accordion>
+</AccordionGroup>

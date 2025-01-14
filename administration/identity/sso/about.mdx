@@ -1,0 +1,78 @@
+---
+title: "About Glean SSO"
+description: "Learn about Single Sign-On (SSO) implementation and configuration options in Glean"
+icon: "key-skeleton"
+---
+
+Single Sign-On (SSO) is mandatory for Glean and will be the first thing configured when setting up your organization's Glean environment.
+
+<Info>
+SSO allows users to securely authenticate with multiple applications and websites by using just one set of credentials. This simplifies the login process for end-users, as they can navigate between services seamlessly without the need to manage multiple passwords.
+</Info>
+
+## Understanding Glean SSO
+
+Glean SSO utilizes standard authentication protocols such as OpenID Connect (OIDC) and Security Assertion Markup Language (SAML) to establish a secure communication channel between Glean and an organization's identity provider (IdP). The IdP could be services like Okta, Entra ID, OneLogin, or Google. 
+
+<Tip>
+Glean recommends the use of OIDC over SAML due to the more granular control over permissioning that it provides.
+</Tip>
+
+When a user attempts to access Glean, they are redirected to their IdP to authenticate. Upon successful authentication, the IdP sends a response back to Glean, which then grants the user access. Glean further ensures that the user's email domain matches the expected customer domain before issuing a login cookie.
+
+## User Access Control
+
+All user access to Glean is controlled via your IdP.
+
+You can choose to restrict the users that can access Glean to only those users or groups assigned to the Glean configuration within your IdP.
+
+<Warning>
+Glean recommends that you configure an appropriately secure conditional access or conditional authentication policy that includes the use of Multi-Factor Authentication (MFA).
+</Warning>
+
+## Configuring SSO
+
+Please see the articles below for detailed instructions on how to configure Glean SSO for your IdP:
+
+<CardGroup cols={2}>
+  <Card 
+    title="Microsoft Entra ID" 
+    icon="microsoft" 
+    href="entraid-oidc"
+  >
+    Configure SSO with Microsoft Entra ID (formerly Azure AD)
+  </Card>
+  <Card 
+    title="Okta" 
+    icon="o" 
+    href="okta-oidc"
+  >
+    Configure SSO with Okta Identity Provider
+  </Card>
+  <Card 
+    title="Google" 
+    icon="google" 
+    href="google-oidc"
+  >
+    Configure SSO with Google Workspace
+  </Card>
+  <Card 
+    title="OneLogin" 
+    icon="keycdn"
+  >
+    Configure SSO with OneLogin
+  </Card>
+  <Card 
+    title="AD FS" 
+    icon="windows" 
+    href="adfs-saml"
+  >
+    Configure SSO with Active Directory Federated Services
+  </Card>
+  <Card 
+    title="Other SAML" 
+    icon="key"
+  >
+    Configure SSO with other SAML providers
+  </Card>
+</CardGroup>

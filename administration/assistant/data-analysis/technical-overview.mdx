@@ -1,0 +1,95 @@
+---
+title: "Data Analysis: Technical Overview"
+description: "Technical architecture and implementation details of the Data Analysis capability in Assistant"
+icon: "code"
+---
+
+This document provides an overview of the Data Analysis feature's architecture and request flow. For additional context, please refer to our [Data Analysis overview](/articles/data-analysis) and [Security Whitepaper](/articles/security-whitepaper).
+
+## Architecture
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1249464913/f834dba3d5fcb673283e90105304/AD_4nXcCeo3mK7WZE6ss9awo6l3xH0-OtXWkuA-PflP93F4fNcVuF1td7VvrolDccgxRc_rjmA8hFaeyPeqIBRuKSxjZvYVSK0vtv_OUXAYVHMJfTRxEeYyhXHuFvJ5fzox7R73NiFAH7gef2EOtSg-Tj5kImNA" />
+</Frame>
+
+All data analysis requests are processed as standard `/chat` requests through the Query Endpoint (QE). The data analysis flow is triggered when a user submits an analytical question about an uploaded or tagged spreadsheet (.xlsx, .xls, or .csv files). **Data analysis** is implemented as a Glean Action that iteratively generates and executes Python code to determine the answer. This action leverages LLMs for code generation and utilizes a dedicated Python sandbox for code execution.
+
+## Components
+
+### Cloud SQL
+Stores uploaded files. For detailed information about file storage, see the [File Upload Feature Technical Details](/articles/file-upload).
+
+### Query Endpoint
+A Glean Kubernetes service that handles `/chat` requests. Data analysis is triggered when:
+- The conversation contains uploaded or tagged spreadsheets
+- The user query is determined to be an analytical question requiring data analysis
+
+### Sandbox
+A dedicated environment for executing Python code generated during data analysis. Key characteristics:
+- Each chat session uses a dedicated sandbox instance
+- Uploaded files are copied into the sandbox for code execution
+- Isolated execution environment prevents data leakage between sessions
+
+### Sandbox Orchestrator
+Manages the provisioning and lifecycle of sandboxes.
+
+## Sandboxes for Data Analysis
+
+<Info>
+The sandbox orchestrator and sandboxes are deployed as Kubernetes pods in the Glean cluster with a dedicated namespace. Currently, all pods operate within a single node.
+</Info>
+
+### Sandbox Implementation
+The sandbox is implemented as a Flask server that provides APIs for:
+- File uploads
+- Python code execution
+- Local filesystem access for code operations
+
+This allows us to execute code that can read and work with the files. Each data analysis session uses a dedicated sandbox so there is no data leakage between sessions.
+
+### Security Measures
+The sandbox environment implements several security restrictions:
+
+- Resource limits:
+  - CPU: 500mCPU
+  - Memory: 500MiB
+- Network restrictions:
+  - No network egress (no internet access or access to other Glean services)
+  - Limited network ingress (only from QE pods)
+- Security controls:
+  - Non-root permissions
+  - GVisor implementation to prevent side-channel attacks (this prevents one sandbox being able to read data from another sandbox).
+  - Isolation between sandboxes
+
+### Sandbox Orchestrator Functionality
+
+The orchestrator is a Flask server that manages the lifecycle of the sandboxes themselves. It exposes APIs to requests for sandboxes and handles the initialization of the pod pool to fit the node and the destruction of stale sandboxes.
+
+It is responsible for the following operations:
+
+#### Initialization
+- Assigns unique sandbox instances per chat session
+- Enforces one sandbox per user limit
+- Resets and re-provisions sandbox on new session start
+
+#### Scaling
+- Handles concurrent file analysis executions
+- Enforces usage limits:
+  - Per-user sandbox limits
+  - Total concurrent sandbox limits
+
+#### Cleanup
+- Performs periodic cleanup of inactive sandboxes
+- Removes instances after specified inactivity period (e.g., 10 minutes)
+
+#### Resource Management
+- Enforces fixed memory and CPU limits per sandbox pod
+- Manages network policies:
+  - Blocks all network egress
+  - Allows ingress only from QE pods
+
+## Data Analysis Flow
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/ust8wgzi/1249464906/2702ce73d25132fce1c568239c91/AD_4nXdMsYepki_0XjSa3726Dti8B4x6NGgU6tq-u7fiinREkYLbcsG1BDnV1hC5duKWVVJZ9sXAexpd2GaIelCbzBmdZ3fXXzYq_KopXCPh0qho8TSeoznkbY5NkMlaINpkHKaVxuAGGw5OpMTsmQer7DcCZGG" />
+</Frame>

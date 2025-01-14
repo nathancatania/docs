@@ -1,0 +1,77 @@
+---
+title: "Administrator Roles"
+description: "A comprehensive overview of Glean's administrator roles and their associated permissions"
+icon: "crown"
+---
+
+Understanding administrative roles is crucial for maintaining a secure and well-managed Glean workspace. Glean provides three distinct administrator roles: **Setup Admin**, **Admin**, and **Super Admin**, each with specific responsibilities and access levels.
+
+## Permission Matrix
+
+| Feature | Setup Admin | Admin | Super Admin |
+|-|-|-|-|
+| Manage Authentication Settings (i.e. SSO) | ✓ | ✓ | ✓ |
+| Connect and Manage Datasources | ✓ | ✓ | ✓ |
+| Initiate Crawls of Datasources | ✓ | ✓ | ✓ |
+| View currently synchronized directory data | ✓ | ✓ | ✓ |
+| Manage members of the testing group | ✓ | ✓ | ✓ |
+| Create API Tokens | Indexing API only | ✓<sup>1</sup> | ✓<sup>2</sup> |
+| Manage general company settings | ✗ | ✓ | ✓ |
+| Customize the UI | ✗ | ✓ | ✓ |
+| Customize the Home Page | ✗ | ✓ | ✓ |
+| Manage roles and permissions within Glean | ✗ | ✓<sup>3</sup> | ✓ |
+| Manage access to in-product support | ✗ | ✓ | ✓ |
+| Manage Document Visibility in Search | ✗ | ✓ | ✓ |
+| Manage Environment Alerts | ✗ | ✓ | ✓ |
+| Manage Glean Assistant Settings | ✗ | ✓ | ✓ |
+| Manage Emails that are sent to Users | ✗ | ✓ | ✓ |
+| Manage Glean Invites & Adoption | ✗ | ✓ | ✓ |
+| Access Sensitive Content Search | ✗ | ✗ | ✓ |
+| Access DLP and Sensitive Content Reporting | ✗ | ✗ | ✓ |
+| Assign access to Sensitive Content Search & DLP | ✗ | ✗ | ✓ |
+
+<ResponseField name="Notes" type="object">
+  1. The **Admin** role can generate tokens for all Glean APIs and scopes, **except** global scope.
+  2. The **Super Admin** role can generate tokens for all Glean APIs and scopes, **including** global scope.
+  3. The **Admin** role cannot assign the Super Admin role or any permissions only assignable by the Super Admin.
+</ResponseField>
+
+## Role Descriptions
+
+### Setup Admin
+
+<Card title="Setup Admin Role" icon="wrench">
+The Setup Admin role is the most restrictive administrator role, focused specifically on application integration and setup. Their permissions include:
+
+- Connecting and managing Single Sign-On settings
+- Configuring and connecting datasource applications
+- Initiating crawls for configured datasource apps
+- Generating API tokens specifically for the Indexing API
+
+This role is ideal for administrators of specific datasources that need integration with Glean. For example, assigning this role to your M365 administrator allows them to connect Glean to Entra ID SSO and configure crawling for SharePoint, Teams, and OneDrive.
+</Card>
+
+### Admin
+
+<Card title="Admin Role" icon="user-shield">
+Admins possess broader capabilities compared to Setup Admins, including:
+
+- Managing roles and permissions for all users (except Super Admin role)
+- Configuring general Glean settings (company name, appearance, home page customizations)
+- Managing Glean feature configurations (Org Chat, Glean Assistant)
+- Generating API tokens for all Glean APIs (excluding global scope)
+</Card>
+
+### Super Admin
+
+<Card title="Super Admin Role" icon="shield-check">
+The Super Admin role encompasses all Admin permissions plus additional sensitive capabilities:
+
+- Assigning Admin Search role and DLP moderator role
+- Creating global scope API tokens
+- Assigning the Super Admin role and all other permissions
+
+<Info>
+  The Super Admin role is disabled by default and requires written authorization from your company's CISO or Security Manager for initial assignment by Glean support. This role is typically reserved for senior security team members due to its access to sensitive content.
+</Info>
+</Card>

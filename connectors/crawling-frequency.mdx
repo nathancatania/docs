@@ -1,0 +1,203 @@
+---
+title: "Crawling Strategy"
+description: "A comprehensive guide to Glean's crawling system, detailing how it optimizes data retrieval while respecting API limits and source application performance."
+icon: "spider"
+---
+
+## Overview
+
+The Glean crawling system implements a sophisticated approach to data retrieval and indexing. The system is built around two primary optimization goals:
+
+1. Minimizing latency when incorporating updates from source applications
+2. Maintaining API call volumes within acceptable limits to prevent source application overload
+
+## Configuration Flexibility
+
+<Info>
+All crawling frequencies described in this documentation represent default settings based on customer feedback. These values can be customized to meet specific organizational needs.
+</Info>
+
+Organizations can fine-tune their crawling configuration in several ways:
+
+<AccordionGroup>
+  <Accordion title="API Call Rate Management" icon="gauge">
+    Administrators can configure:
+    - The rate of API calls per second
+    - The number of concurrent API calls
+    - Dynamic exponential backoff parameters for handling overload scenarios
+  </Accordion>
+
+  <Accordion title="Time-Based Controls" icon="clock">
+    The system supports granular scheduling with different rates for:
+    - Peak operational hours
+    - Off-peak periods
+    - Specific days of the week
+    - Custom time windows
+  </Accordion>
+</AccordionGroup>
+
+## Core Concepts
+
+<ResponseField name="Full Content Crawl" type="Definition">
+  A comprehensive process that indexes the entire corpus of a datasource. These crawls are scheduled at regular intervals to ensure complete dataset accuracy in the search index.
+</ResponseField>
+
+<ResponseField name="Incremental Content Crawl" type="Definition">
+  An efficient update strategy that focuses on modified or newly added content since the previous crawl, optimizing resource usage by avoiding full repository scans.
+</ResponseField>
+
+<ResponseField name="People Data" type="Definition">
+  Organizational information about individuals, encompassing names, titles, email addresses, departmental affiliations, and other relevant attributes.
+</ResponseField>
+
+<ResponseField name="Identity Crawl" type="Definition">
+  A specialized process for retrieving and updating identity-related information across various datasources.
+</ResponseField>
+
+<ResponseField name="Activity Crawl" type="Definition">
+  A continuous monitoring process that tracks and indexes specific changes within a datasource, including content additions, updates, deletions, and permission modifications.
+</ResponseField>
+
+## Data Refresh Rates By Category
+
+<Note>
+These tables present the complete refresh rate information for all supported datasources. Time periods are denoted as:
+- d: days
+- h: hours
+- m: minutes
+</Note>
+
+### Communication & Collaboration Platforms
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| GChat | 28d | 5m | 30m | N/A | N/A | N/A | |
+| Microsoft Teams | 30d | 1h | 1h | N/A | N/A | N/A | |
+| Slack | 28d | 3h | 1h | N/A | &lt;5m | webhook | Incremental crawl addresses cases where webhook wasn't delivered |
+| Slack Enterprise | 28d | N/A | 1h | 10m | 5m | N/A | SEG uses activity crawl to find channels with recent activity, then queues incremental crawls |
+| Yammer | 1h | N/A | 1h | N/A | N/A | N/A | |
+
+### Document Management & Storage
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Box | 28d | 10m | 1h | 1m | 10m | API | Uses Events API to identify new/modified/deleted docs |
+| GDrive | 28d | 3h | 1h | 1m | 10m | API | Uses Reports API for 10-minute updates. Activity reports every 10m, with 12h recrawl for missed events |
+| OneDrive/SharePoint | 28d | 1h | 10m | 10m | 10m | API | Uses User Insights API for 10-minute updates with hourly incremental fetch |
+| Notion | 6h | N/A | 1h | N/A | N/A | N/A | |
+| Quip | 28d | 10m | 10m | 10m | N/A | API | |
+
+### Development & Project Management
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Asana | 7d | 10m | 1h | 10m | 10m | webhook | |
+| Bitbucket | 28d | 10m | 1h | N/A | N/A | N/A | |
+| GitHub | 28d | 10m | 10m | N/A | N/A | webhook | |
+| GitLab | 28d | 10m | 1h | N/A | &lgt;5m | webhook | PR/issue/comment updates trigger immediate crawls; 10m incremental crawls |
+| Jira | 7d | 3h | 10m | 30m | &lgt;5m | webhook | Webhooks for issue/comment modifications |
+| Trello | 1d | N/A | 30m | N/A | N/A | webhook | Requires Jira or Confluence setup |
+
+### HR & People Management
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Azure | N/A | N/A | 1h | N/A | N/A | N/A | Hourly people data crawl with additional hour for indexing |
+| BambooHR | N/A | N/A | 1h | N/A | N/A | N/A | Hourly people data crawl with additional hour for indexing |
+| Greenhouse | 28d | 1h | 10m | N/A | N/A | N/A | |
+| Lattice | 1d | N/A | 1h | N/A | N/A | N/A | Hourly people data crawl with additional hour for indexing |
+| Lever | 1h | 1h | 10m | N/A | N/A | N/A | |
+| People Data API | N/A | N/A | 1h | N/A | 1h | API | Real-time updates via push API |
+| Pingboard | N/A | N/A | 1h | N/A | N/A | N/A | |
+
+### Productivity & Knowledge Management
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Aha | 1d | 1h | 1h | N/A | N/A | N/A | |
+| Airtable | 1d | 1h | 1h | N/A | N/A | N/A | |
+| Coda | 7d | N/A | 1h | N/A | N/A | N/A | |
+| Confluence | 7d | 1h | 10m | N/A | 5m | webhook | New DC versions use webhooks for 5m updates; hourly fetch for older versions |
+| Guru | 1d | 10m | 1h | 10m | 1h | N/A | |
+| Miro | 1d | 1h | 30m | 10m | 1m | N/A | |
+| SmartSheet | 1h | 10m | 10m | N/A | N/A | N/A | |
+
+### Business Applications
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Salesforce | 28d | 10m | 1h | N/A | 10m | N/A | |
+| ServiceNow | 3d/30m* | 1h | 1h | 30m | 3d | N/A | *3d for Knowledge Articles, 30m for Catalog Items |
+| Zendesk | 28d | 1h | 1h | N/A | 1h | N/A | |
+| Freshservice | 1h | N/A | 10m | N/A | N/A | N/A | |
+| Monday.com | 1h | N/A | 10m | N/A | N/A | N/A | |
+| Pager Duty | 1h | 10m | 10m | 10m | N/A | API | |
+
+### Web & Content Management
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Brightspot | 1h | N/A | 10m | N/A | N/A | N/A | |
+| Google Sites | 1d | 4h | N/A | N/A | N/A | N/A | |
+| Web pages | 1d | N/A | N/A | N/A | 1d | N/A | Default daily crawl; fully configurable |
+| Wordpress | 12h | 10m | N/A | N/A | N/A | N/A | |
+
+### Additional Services
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Docebo | 1h | N/A | 1h | N/A | N/A | N/A | |
+| Egnyte | 1d | 10m | 1h | N/A | N/A | N/A | |
+| Fifteen Five | 1h | N/A | 1h | N/A | N/A | N/A | |
+| Figma | 30m | N/A | 30m | N/A | N/A | N/A | |
+| Gmail | N/A | N/A | N/A | N/A | 0m | N/A | Real-time updates via federated API |
+| Gong | 1h | N/A | 1h | N/A | N/A | N/A | |
+| Google Groups | 7d | 1d | N/A | N/A | N/A | N/A | |
+| Highspot | 4h | N/A | 1h | N/A | N/A | N/A | |
+| Looker | 1h | N/A | 1h | N/A | N/A | N/A | External connector |
+| LumApps | 1h | N/A | 10m | 10m | 1m | N/A | Hourly document fetch with corpus size-dependent processing |
+| Okta | 3h | N/A | 3h | 1h | N/A | N/A | Additional hour for people data indexing |
+| Seismic | 28d | 1d | 10m | 1d | N/A | API | |
+| Simpplr | 28d | 1h | 1h | N/A | N/A | N/A | |
+| Stack Overflow | 2h | N/A | 1h | N/A | 3h | N/A | |
+| Tableau | 1d | 45m | 45m | N/A | N/A | N/A | |
+
+### API Services
+
+| Platform | Full Crawl | Incremental | People Data | Activity | Update Rate | Webhook | Notes |
+|----------|------------|-------------|-------------|----------|-------------|---------|--------|
+| Push API for Content | N/A | N/A | N/A | N/A | N/A | N/A | Customer controls update frequency via bulk upload APIs and real-time CRUD operations |
+
+## Content Deletion Handling
+
+<Info>
+Glean handles content deletion through two primary mechanisms, depending on the capabilities of the source application.
+</Info>
+
+<CardGroup cols={2}>
+  <Card title="API/Webhook Deletion" icon="webhook">
+    For applications that provide deletion notifications through APIs or webhooks, content is removed from the index immediately upon notification.
+  </Card>
+  
+  <Card title="Full Crawl Cleanup" icon="broom">
+    For applications without deletion notifications, stale content is identified and removed during scheduled full crawls.
+  </Card>
+</CardGroup>
+
+<Warning>
+Deletion of derived information used in models and other auxiliary systems is governed by Glean's privacy policy.
+</Warning>
+
+## Support for Real-time Updates
+
+<Card title="Webhook Integration">
+Many modern platforms support webhook-based updates, enabling near real-time content synchronization. For example:
+
+- GitHub/GitLab: Updates within 5 minutes of changes
+- Slack: Near immediate updates via webhook
+- Confluence: 5-minute update window for newer versions
+</Card>
+
+<Note>
+For datasources that don't support webhooks, Glean implements regular polling with optimized intervals to maintain data freshness while respecting API limits.
+</Note>

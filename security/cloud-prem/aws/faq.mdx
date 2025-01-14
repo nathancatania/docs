@@ -1,0 +1,205 @@
+---
+title: "AWS FAQ"
+description: "Frequently asked questions about Glean's AWS deployment options, infrastructure requirements, and feature support"
+---
+
+If you have questions about Glean's AWS support that aren't covered below, please reach out to Glean Support or your designated Glean contact.
+
+## General Information
+<AccordionGroup>
+  <Accordion title="Is AWS region _____ supported?" icon="circle-question">
+    Generally yes. We now support any region that offers all of our required services.
+
+    However, certain regions have limitations. For example, as of early April 2024, VPC endpoints for specific managed services may be available only in us-east-1 and us-west-2.
+
+    We currently do not support GovCloud regions and have no immediate timeframe for supporting this.
+  </Accordion>
+</AccordionGroup>
+
+## LLM Support
+<AccordionGroup>
+  <Accordion title="Can we choose our LLM?" icon="circle-question">
+    Yes. As long as the LLM is supported by Glean, you can leverage it. Glean offers the following options:
+
+    - Anthropic Claude (via Bedrock - recommended)
+    - Anthropic Claude (BYOK)
+    - GPT - BYOK Azure OpenAI
+    - GPT - BYOK OpenAI
+    - GPT - Glean Account Key (additional charges apply)
+    - Gemini (BYOK)
+  </Accordion>
+</AccordionGroup>
+
+## Security
+<AccordionGroup>
+  <Accordion title="What access to the AWS account is required from Glean?" icon="circle-question">
+    Glean requires access from:
+    - The central Glean project which orchestrates setup and release deployments
+    - The Glean AWS account which hosts the images
+
+    More information is available in the following documents (Trust Portal Access Required):
+    - Glean AWS Account Access and Deployment Model
+    - Glean Architecture on AWS
+  </Accordion>
+
+  <Accordion title="Why does Glean request the customer to create an admin role?" icon="circle-question">
+    There are situations where the Glean on-call engineer needs admin-level access to remediate or mitigate escalations. They must get approval from Glean leadership to access a Glean-side internal admin GCP service account which can then be used for federated access to the AWS-side IAM admin role.
+  </Accordion>
+
+  <Accordion title="Will NAF and WAF be managed by Glean?" icon="circle-question">
+    Yes.
+  </Accordion>
+
+  <Accordion title="Which WAF are you using?" icon="circle-question">
+    We're using AWS WAF natively: [https://aws.amazon.com/waf/](https://aws.amazon.com/waf/)
+  </Accordion>
+
+  <Accordion title="Does WAF log to CloudWatch?" icon="circle-question">
+    Yes, this is enabled by default for all logs except for deny requests.
+  </Accordion>
+
+  <Accordion title="Do you apply data protection filters on CloudWatch logs?" icon="circle-question">
+    Currently, we do not apply AWS [masking](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/mask-sensitive-log-data.html) to our logs. This would render logs unusable in important support and debugging situations.
+  </Accordion>
+
+  <Accordion title="What's the path of incoming webhooks?" icon="circle-question">
+    The path for incoming webhooks is:
+    1. Webhooks first go through the WAF (you can add rules like IP restrictions)
+    2. Then the application load balancer
+    3. Then the k8s cluster
+
+    The authentication scheme depends on the specific vendor's API.
+  </Accordion>
+
+  <Accordion title="Can we attach custom security groups to one of the managed services?" icon="circle-question">
+    Please provide the details to our support team who can further discuss this.
+  </Accordion>
+
+  <Accordion title="Does Glean provide any Intrusion Detection capabilities on AWS?" icon="circle-question">
+    Glean recommends customers leverage AWS GuardDuty for IDS capabilities on AWS.
+
+    For more information, see: [AWS GuardDuty and Glean](https://docs.google.com/document/d/1JRBoLeCzAyKhruaQfZi0ckQRDA9Zxb_NwA-OinOZkN8/edit?usp=sharing)
+  </Accordion>
+</AccordionGroup>
+
+## Networking
+<AccordionGroup>
+  <Accordion title="What are the network requirements?" icon="circle-question">
+    Glean will set up and deploy all infrastructure, including VPC components, within an empty AWS account the customer owns, so there is nothing that the customer needs to do proactively with respect to networking.
+  </Accordion>
+</AccordionGroup>
+
+## Compute
+<AccordionGroup>
+  <Accordion title="What OS are the EC2 instances running on and where do the AMIs come from?" icon="circle-question">
+    Generally Amazon Linux 2 on EKS nodes. We use the default AWS-provided AMIs here.
+
+    For some standalone EC2 instances, we run a Glean AMI image built on top of Ubuntu 20.04 LTS (Focal).
+  </Accordion>
+
+  <Accordion title="Will the OS's be patched by Glean or is that a customer responsibility?" icon="circle-question">
+    Glean will handle the patching and maintenance of all compute instances. This is automated by our internal systems.
+  </Accordion>
+</AccordionGroup>
+
+## Cost & Resourcing
+<AccordionGroup>
+  <Accordion title="How do the infrastructure costs compare between AWS and GCP self-hosting options?" icon="circle-question">
+    Currently we estimate that the infrastructure costs for AWS are 1.5x those of GCP. Glean will continue to iterate on reducing the cost on both platforms.
+  </Accordion>
+
+  <Accordion title="How do we appropriately size our Glean instance?" icon="circle-question">
+    Glean will handle dynamically sizing all of the infrastructure based on many different factors relevant to the customer-specific corpus.
+  </Accordion>
+
+  <Accordion title="Can you provide estimates for costs and resource usage?" icon="circle-question">
+    These details can vary depending on the characteristics of your Glean deployment. To receive accurate estimates, please provide your Glean contact with:
+
+    - Number of employees in your organization
+    - Number of documents in your corpus
+    - The data sources to be connected, and ideally the number of docs per data source
+
+    While these are high-level factors, there are many more nuances that affect data storage and processing requirements. We can provide estimates based on comparable deployments, but any numbers provided should be used as estimates only.
+  </Accordion>
+
+  <Accordion title="What GPU instance types are typically needed?" icon="circle-question">
+    Our SageMaker training jobs require ml.g4dn.* instance types (primarily ml.g4dn.xlarge). We run about 1-4 training jobs a day, with varying runtimes from 30 minutes to a few hours.
+
+    However, none of the instances we explicitly create, e.g. on the EKS cluster, require GPUs.
+  </Accordion>
+
+  <Accordion title="How do we minimize egress cost?" icon="circle-question">
+    Most Glean-relevant traffic is ingress (incoming data). AWS generally does not charge for ingress.
+  </Accordion>
+</AccordionGroup>
+
+## Storage - RDS
+<AccordionGroup>
+  <Accordion title="Which database are you using?" icon="circle-question">
+    We're using AWS RDS for MySQL: [https://aws.amazon.com/rds/mysql/](https://aws.amazon.com/rds/mysql/)
+  </Accordion>
+
+  <Accordion title="How often are SQL backups taken?" icon="circle-question">
+    Once a day.
+  </Accordion>
+</AccordionGroup>
+
+## Storage - S3
+<AccordionGroup>
+  <Accordion title="Do buckets have Inventory enabled?" icon="circle-question">
+    No, we don't enable Inventory.
+  </Accordion>
+
+  <Accordion title="Are S3 buckets accessible publicly or from Glean Central?" icon="circle-question">
+    No.
+  </Accordion>
+
+  <Accordion title="Is S3 configured for cross-region replication?" icon="circle-question">
+    No, we don't configure cross-region replication and in practice have not had a strong reason to.
+  </Accordion>
+</AccordionGroup>
+
+## Lambda
+<AccordionGroup>
+  <Accordion title="What is the purpose of the private lambdas separate from the EKS cluster?" icon="circle-question">
+    These lambdas are used for:
+    - Setup & deployment (Bootstrap configuration template)
+    - Maintenance operations and cron jobs, e.g. restarting or upgrading node pools
+  </Accordion>
+
+  <Accordion title="Are the lambdas configured to be publicly accessible?" icon="circle-question">
+    No. None of them are publicly accessible.
+  </Accordion>
+
+  <Accordion title="Do you add layers to lambdas, and if so, are they accessible from outside the organization?" icon="circle-question">
+    No, Glean doesn't add layers to lambdas.
+  </Accordion>
+
+  <Accordion title="Do you use lambda function URLs?" icon="circle-question">
+    No, they are disabled.
+  </Accordion>
+</AccordionGroup>
+
+## Disaster Recovery
+<AccordionGroup>
+  <Accordion title="How does Glean handle Disaster Recovery?" icon="circle-question">
+    Please refer to the Glean Business Continuity & Disaster Recovery Policy (Trust Portal Access Required).
+  </Accordion>
+</AccordionGroup>
+
+## Feature Support
+<AccordionGroup>
+  <Accordion title="Does Glean on AWS support vanity URLs?" icon="circle-question">
+    Yes. Vanity URLs, i.e. companyname.glean.com, are supported on AWS.
+  </Accordion>
+
+  <Accordion title="Does Glean on AWS have feature parity with other Glean deployment methods?" icon="circle-question">
+    Glean on AWS has feature parity, with the exception of:
+
+    **DLP / Sensitive Content Reporting:**
+    This feature is dependent on GCP's DLP service. While AWS does have a similar service that Glean could leverage, it functions in a fundamentally different way (requiring a full export of all data to S3) which is incompatible with our platform. We are investigating alternative options to bring this capability to our AWS customers.
+
+    **OCR:**
+    OCR is an optional feature and requires a subscription uplift for use. Glean leverages GCP Cloud Vision for OCR capabilities. We are currently investigating the use of a multi-modal local LLM to provide this capability instead.
+  </Accordion>
+</AccordionGroup>

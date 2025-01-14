@@ -1,0 +1,62 @@
+---
+title: O365-10
+description: O365-10 Error Code
+---
+
+## Issue
+
+- We are missing Sharepoint REST API permissions for the app.
+
+## Resolution
+
+Since the graph API does not support many of our sharepoint use cases (e.g. site page permissions), we need to use the Sharepoint REST API. This will need to be done for every Azure app.
+
+### Certificate-based Setup (Recommended)
+
+**Prerequisites**
+
+- Provisioning REST API permissions directly through Azure portal requires your application to be authenticated through the certificate-based method.
+    - If you are currently using a client secret, contact support to enable the new certificate-based method for setup.
+    - This requires creating a certificate and uploading it to Azure. Then, you must upload the certificate and associated private key to Glean through Sharepoint connector setup.
+
+**Remediation Steps**
+
+- For your application in Azure, on the left side of the applications pane, navigate to Manage > API Permissions.
+- Click Add a permission and select Sharepoint. Choose Application permissions and add `Sites.FullControl.All`
+
+
+### Client Secret-based Setup (Deprecated)
+
+- Navigate to `<sharepoint-domain>-admin.sharepoint.com/_layouts/15/appinv.aspx` (where if you access Sharepoint at `glean.sharepoint.com`, the sharepoint-domain would be `glean`).
+- Look up the app using the Client ID for the app you created for Glean. You can fill the App Domain and Redirect URL to `glean.com` and `https://glean.com` respectively.
+- For Permission Request XML, paste the following:
+
+```xml
+<AppPermissionRequests AllowAppOnlyPolicy="true">
+<AppPermissionRequest Scope="http://sharepoint/content/tenant" Right="FullControl" />
+<AppPermissionRequest Scope="http://sharepoint/content/sitecollection" Right="FullControl" />
+<AppPermissionRequest Scope="http://sharepoint/content/sitecollection/web" Right="FullControl" />
+</AppPermissionRequests>
+```
+
+- Click Save in Glean to save the app credentials.
+
+Additionally if the tenant was recently created (starting from 2020 onwards):
+
+**Common errors:**
+
+- Accidentally modifying the Permission Request XML
+- Not completing this step for every app you created for Glean
+
+Additionally if the tenant was recently created (starting from 2020 onwards), you must disable custom app authentication for your Sharepoint tenant ([reference](https://sharepoint.stackexchange.com/questions/284402/sharepoint-online-authorization-issue-token-type-is-not-allowed)).
+
+**Remediation Steps**
+
+In PowerShell, run the following commands:
+
+```
+Connect-PnPOnline -Url https://<sharepointdomain>-admin.sharepoint.com
+Set-PnPTenant -DisableCustomAppAuthentication $false
+```
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

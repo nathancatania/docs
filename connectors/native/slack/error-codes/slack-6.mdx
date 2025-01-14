@@ -1,0 +1,18 @@
+---
+title: SLACK-6
+description: SLACK-6 Error Code
+---
+
+## Issue:
+
+- Could not find a user token authenticated with the necessary scopes
+
+## Resolution:
+
+- We need to add the required scopes for the user token on the slack app page under Oauth & Permissions
+
+<Frame><img src="https://support.glean.com/hc/article_attachments/26959641540251"/></Frame>
+
+- Please re-authenticate a user token with the required scopes: `users:read.email`, `channels:read`
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

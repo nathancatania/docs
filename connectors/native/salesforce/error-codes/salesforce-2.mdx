@@ -1,0 +1,29 @@
+---
+title: SALESFORCE_2
+description: SALESFORCE_2 Error Code
+---
+
+## Issue:
+
+- This error shows up when we are not able to validate permissions necessary for crawling a particular object
+
+## Resolution:
+
+Please refer to the error message for specific reasons as to why the validation failed.
+
+In general, we require the following permissions for crawling a Salesforce object:
+
+- Under Standard Object Permissions, ensure that we have both Read and View All permissions to the following objects:
+    - Accounts
+    - Campaigns
+    - Cases
+    - Contacts
+    - Leads
+    - Opportunities
+
+- In addition, the following administrative permissions are required:
+    - View Data Categories in Setup
+    - View All Users
+    - View All Profiles
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

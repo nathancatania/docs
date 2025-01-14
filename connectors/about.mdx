@@ -1,0 +1,110 @@
+---
+title: "About Connectors"
+description: "Glean connectors are integral components of the Glean platform, designed to fetch data and permissions from various enterprise data sources."
+icon: "plug-circle-bolt"
+---
+
+<Info>
+  Glean offers over 80 native connectors and supports custom connector development through its developer platform.
+</Info>
+
+## Overview
+
+Glean connectors serve as bridges between Glean and your organization's various data sources, enabling Glean to index and make searchable a wide range of content. These connectors are tailor-made for each application's unique data model and API endpoints.
+
+They are designed to fetch relevant information from various data sources, including:
+- Communication tools (Slack, Teams, Gmail, Outlook)
+- Cloud storage platforms (OneDrive, SharePoint, Box, Dropbox, Drive)
+- And many more enterprise applications
+
+<Card title="View Available Connectors" icon="link" href="https://www.glean.com/connectors">
+  See the complete list of all supported Glean connectors
+</Card>
+
+## Core Functions
+
+Glean connectors perform two primary functions:
+
+<CardGroup cols={2}>
+  <Card title="Content Parsing" icon="file-lines">
+    Connectors parse item content (e.g., title, body, comments, media) and permissions (i.e., who is allowed to view the item). This includes both native app content and all common file types (e.g., pdf, doc, ppt, xls, vsd).
+  </Card>
+  <Card title="Data Fetching" icon="database">
+    Connectors fetch data from source applications and store the information in Glean's system. They also fetch the permissions map from the source, ensuring search results strictly adhere to the access permissions set in the source application.
+  </Card>
+</CardGroup>
+
+## Why Glean Connectors Matter
+
+<Steps>
+  <Step title="Comprehensive Connectivity">
+    With over 80 native connectors and custom connector support, Glean can connect to a wide range of applications throughout your organization, ensuring all relevant enterprise data is searchable and accessible.
+  </Step>
+  <Step title="Permission Enforcement">
+    By fetching the permissions map from each source, Glean connectors ensure that search results strictly adhere to the access permissions set in the source application, preventing unauthorized access to content.
+  </Step>
+  <Step title="Data Security">
+    Connectors route all fetched data to your isolated Glean tenant. Data is end-to-end encrypted in transit and only written to disk once it reaches your tenant. Within your tenant, indexed data is encrypted at rest and remains within your tenant boundaries.
+  </Step>
+  <Step title="Real-time Updates">
+    Connectors capture changes to your data as quickly as possible, either via webhooks or incremental crawling. The Glean team continuously works with technology partners to keep connectors updated with feature enhancements and API changes.
+  </Step>
+</Steps>
+
+## Types of Connectors
+
+### Native Connectors
+
+Native connectors form the majority of Glean connectors. They are built specifically for particular data sources to directly interface with their APIs and index contained data. These connectors support:
+- Extensive data crawling
+- Attachment crawling
+- Threaded results parsing
+- Thread mentions
+- And more
+
+Native connectors require the data source API to fully support reading all necessary data for building Glean's knowledge graph and providing quality search results, including:
+
+<AccordionGroup>
+  <Accordion title="Content Data" icon="file-lines">
+    Documents, messages, tickets, images, entities, and other content types
+  </Accordion>
+  <Accordion title="People Data" icon="users">
+    Identities, roles, permissions, groups, and access control information
+  </Accordion>
+  <Accordion title="Activity Data" icon="chart-line">
+    Creation, modification, editing, viewing, and sharing timestamps and user information
+  </Accordion>
+</AccordionGroup>
+
+### Web History Connectors
+
+<Info>
+Web history connectors are used in scenarios where native connectors aren't available or feasible.
+</Info>
+
+These connectors may be necessary when:
+- A native connector hasn't been built yet
+- The data source lacks necessary API functionality
+- Content crawling would violate the service's Terms of Service
+
+The Glean browser extension enables search across page titles from users' browser histories for specific apps. Important considerations:
+- Users can only view content they've previously accessed
+- Browser history results are private to individual users
+- Companies cannot access users' browser history results
+
+### Push API Connectors
+
+Glean provides APIs for developers, including an indexing API for custom connector development. Push API connectors are typically used in these scenarios:
+
+<CardGroup cols={2}>
+  <Card title="Limited Interface Access" icon="circle-exclamation">
+    When data needs to be pushed to Glean due to deficient interfaces, APIs, or authentication processes
+  </Card>
+  <Card title="Self-hosted Environments" icon="server">
+    When applications are self-hosted and not accessible from the internet
+  </Card>
+</CardGroup>
+
+<Note>
+Push API connector code may be shared between customers or Glean partners, however such code will have limited support from Glean.
+</Note>

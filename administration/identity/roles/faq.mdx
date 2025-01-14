@@ -1,0 +1,53 @@
+---
+title: RBAC FAQ
+icon: circle-question
+---
+
+## Super Admin
+
+<AccordionGroup>
+
+<Accordion icon="circle-question" title="What is the Super Admin role?">
+The Super Admin role in Glean is a powerful role that controls access to Glean’s security features, including the Sensitive Content Report (DLP), Sensitive Content Search, and Client API Token. This role is not automatically assigned by Glean.
+
+The Super Admin role has all the Admin permissions plus the following:
+
+- Can assign the Admin Search role
+- Can assign the DLP moderator role
+- Can create global scope API tokens
+- Can assign the Super Admin role and any other permission or role
+
+The actions of a Super Admin are logged, including user, action, and timestamp details. Once a user is granted Super Admin status, they have continuous access to the associated permissions and features.
+
+* More information: [Manage Teammates](https://help.glean.com/en/articles/7920984-manage-teammates)
+</Accordion>
+
+<Accordion icon="circle-question" title="How can a user get first-time super admin role access? ">
+- Get in touch with one of Glean’s representatives or your assigned Glean CSM (Customer Success Manager).
+- CSM will request for a written email authorization from a high-level approver at the customer's end. This person should ideally be a CxO role or VP and above who is typically responsible for giving security access to others in their organization.
+- Once an email approval is obtained, the super admin access would be granted in 1-2 days.
+</Accordion>
+
+<Accordion icon="circle-question" title="How can a user be granted Super Admin role access after the initial Super Admin is created for your company? ">
+Contact your company’s existing Glean super admin and they should be able to assign other teammates to be Super Admins.
+</Accordion>
+
+</AccordionGroup>
+
+## User Permissions
+
+<AccordionGroup>
+
+<Accordion icon="circle-question" title="What are 'Default Member permissions'?">
+In Glean, they refer to the set of permissions that are automatically assigned to all members when they join the workspace. These permissions can be managed and modified by Admins.
+</Accordion>
+
+<Accordion icon="circle-question" title="Where can I configure Default Member permissions?">
+As an Admin, you can configure this by navigating to Admin console > Teammates and clicking on the "⚙ Default Member permissions" button near the top right corner of the table. For smaller teams, we recommend keeping most of the permissions toggled on by default.
+</Accordion>
+
+<Accordion icon="circle-question" title="How do I make adjustments to individual users' permissions?">
+If you want to adjust the permissions of an individual, you can go back to the main Teammates page, find the specific individual in the table, click on the ⋮ menu, then "Edit roles". You'll be able to see the different permissions associated with different roles (i.e. Super Admin, Admin, Setup Admin, Member). You can also scroll to the bottom of the modal and assign additional permissions (e.g. sensitive content moderator).
+</Accordion>
+
+</AccordionGroup>

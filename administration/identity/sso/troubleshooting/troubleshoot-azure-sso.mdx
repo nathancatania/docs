@@ -1,0 +1,49 @@
+---
+title: "Troubleshoot Azure SSO"
+description: "Resolve common Azure Single Sign-On (SSO) authentication issues in Glean"
+icon: "shield-keyhole"
+---
+
+When using Azure as your authentication method, users may encounter various login issues. This guide covers common authentication errors and their resolutions.
+
+## User Redirected to Login Screen
+
+### Error
+User redirected to login screen
+
+### Cause
+This issue typically occurs when a user's email domain in Azure has not been added to Glean's allowed domains list.
+
+### Resolution
+Contact Glean Support to request the addition of the user's domain to your instance's allowed domains list.
+
+## Error Code 13: SSO Code Exchange Failure
+
+### Error
+SSO code exchange failed [Error Code 13]
+
+### Cause
+This error appears when the client secret for your Azure App has expired.
+
+### Resolution
+1. Navigate to your Azure App configuration
+2. Generate a new client secret
+3. Access the Glean Admin Workspace Settings
+4. Go to Setup > Authentication
+5. Select your Azure App
+6. Update the Client Secret field with the new value
+7. Save the App configuration
+
+## Error Code 14: User Authentication Failure
+
+### Error
+Cannot authenticate user from access token [Error code 14]
+
+### Cause
+This error occurs when the user information request fails. Glean requires both email and name fields to be returned in the user information response. The error typically indicates that one or both of these fields are empty.
+
+### Resolution
+1. Access the Azure Admin portal
+2. Locate and view the user's properties
+3. Verify that both email and name fields contain valid values
+

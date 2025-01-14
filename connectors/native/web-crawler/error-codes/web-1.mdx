@@ -1,0 +1,16 @@
+---
+title: WEB_1
+description: WEB_1 Error Code
+---
+
+Authorization type to be used (BASIC_AUTH, OAUTH, NTLM or NONE) is not consistent with the secrets and / or configs present.
+
+The secrets required for each Auth type are
+
+- BASIC_AUTH: username and password must be populated under the secret keys USERNAME and PASSWORD respectively
+- NLTM: USERNAME, PASSWORD and DOMAIN secret keys should be populated with the respective values
+- OAUTH: OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_ACCESS_TOKEN secrets should be set with the respective values.
+
+The error message displayed will have information about what the inconsistency is which should help resolve this.
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

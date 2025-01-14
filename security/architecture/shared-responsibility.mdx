@@ -1,0 +1,89 @@
+---
+title: "Shared Responsibility Model"
+description: "Essential security practices and responsibilities for Glean tenant administrators"
+icon: "shield-check"
+---
+
+As a Glean administrator, you are responsible for implementing and maintaining specific security practices to ensure the safe and effective operation of your Glean tenant. This guide outlines your key responsibilities across different areas of tenant management.
+
+## Employee Access Controls
+
+<Warning>
+Proper access control management is critical for maintaining the security of your Glean environment. Administrators must actively manage user access and authentication policies.
+</Warning>
+
+### SSO and Authentication
+
+<CardGroup cols={2}>
+  <Card title="SSO Access Policy" icon="key">
+    Ensure your Single Sign-On (SSO) access policy aligns with organizational security protocols, including:
+    - Multi-Factor Authentication (MFA) implementation
+    - Trusted Location designation
+    - Regular policy review and updates
+  </Card>
+  
+  <Card title="Access Restriction" icon="user-lock">
+    Maintain strict control over user authentication by:
+    - Limiting SSO access to authorized Glean users only
+    - Implementing proper authentication gates
+    - Regularly auditing user access permissions
+  </Card>
+</CardGroup>
+
+### User Management
+
+<Steps>
+  <Step title="Terminated User Management">
+    Implement processes for immediate removal of terminated employees and contractors from the SSO provider configured with Glean to prevent unauthorized access.
+  </Step>
+  
+  <Step title="Role-Based Access Control (RBAC)">
+    Establish and maintain clear policies for:
+    - Administrator role assignments
+    - Permission scope definition
+    - Access level restrictions based on job responsibilities
+    - Regular review of admin permissions
+  </Step>
+  
+  <Step title="IP Access Control">
+    If your users access Glean from specific IP ranges (e.g., through VPN):
+    - Configure appropriate IP Allowlists
+    - Maintain up-to-date IP address/range documentation
+    - Regularly review and update allowed IP ranges
+  </Step>
+</Steps>
+
+## Connector Integrations
+
+<Info>
+Proper management of connector integrations is essential for maintaining secure and reliable data access within Glean.
+</Info>
+
+### Security Best Practices
+
+<CardGroup cols={2}>
+  <Card title="Credential Management" icon="rotate">
+    Implement regular rotation schedules for:
+    - API keys
+    - Access tokens
+    - Integration secrets
+    - Other authentication credentials
+  </Card>
+  
+  <Card title="Service Account Usage" icon="user-robot">
+    Prioritize service accounts over individual credentials:
+    - Set up dedicated service accounts for integrations
+    - Maintain proper documentation of service account usage
+    - Regularly audit service account permissions
+  </Card>
+</CardGroup>
+
+## Cloud-prem Environments
+
+<Info>
+Organizations hosting Glean within their own cloud infrastructure have additional security responsibilities.
+</Info>
+
+<Card title="Cloud-prem Security Guidelines" icon="cloud-arrow-up" href="../architecture/cloud-prem/customer-responsibilities.md">
+  For organizations hosting Glean in their own GCP or AWS environment, please review the complete set of additional security considerations and responsibilities in our Cloud-prem documentation.
+</Card>

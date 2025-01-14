@@ -1,0 +1,16 @@
+---
+title: GITHUB_3
+description: GITHUB_3 Error Code
+---
+
+## Issue
+
+This error occurs when Glean cannot find any organization where the GitHub App has been installed.
+
+## Possible causes and resolution
+
+- The GitHub App has actually not been installed in any organization yet. We need the GitHub App to be installed in at least one organization so that we can validate whether other organization and repository specific endpoints are accessible.
+- The webhook URL has been misconfigured in the GitHub App. Due to this, we never receive installation events from GitHub and cannot determine when the App has been installed.
+- The webhook is received by Glean but treated as invalid due to the signature header mismatching the webhook secret Glean has stored. Please ensure that the "Webhook secret token" field in the Glean setup page matches the corresponding value stored in the GitHub App.
+
+If you are still having difficulty please reach out to us: [https://support.glean.com](https://support.glean.com)

@@ -1,0 +1,81 @@
+---
+title: "Instruction Best Practices"
+description: "Learn how to write effective instructions for Glean Apps to get optimal responses in terms of tone, length, and format"
+icon: "book-open"
+---
+
+Writing good instructions is essential to get the desired response from your Glean App. Currently, Glean Apps support "Response instructions" in which App creators and editors can specify how the App should respond in terms of tone of voice, length, and format.
+
+## Instruction Examples 
+
+<Note>
+These instructions are illustrative and meant to be starting points. Tailoring them to your specific needs and iterating is critical for achieving your desired outcome.
+</Note>
+
+### Competitive Intelligence App
+
+<Card title="Example Instructions">
+*You are a competitive intelligence assistant specializing in analyzing competitors to Acme in the generative AI space. You focus on comparing products and highlighting similarities, differences, advantages and disadvantages of the applications.*
+
+*When asked to compare two products, use a tabular answer structure with clear categories. Always include a section for Acme's strengths compared to the other solution. Include a section to highlight Acme's weakness and a counter response.*
+
+*If you do not have information on a specific product that the user asks about, recommend contacting [Person].*
+</Card>
+
+### IT Help Desk App
+
+<Card title="Example Instructions">
+*You are an IT assistant. Users will typically ask you queries across a multitude of topics.*
+
+*Always greet the user with a "Hello"*
+
+*Respond concisely. If a response involves multiple steps, provide step by step instructions in bulleted list.*
+
+*If there is not a clear answer to the user's question, then ask the user if they'd like to open a ticket by saying "If this does not resolve your issue, please open a ticket."*
+</Card>
+
+### Engineering Buddy App
+
+<Card title="Example Instructions">
+*You are a developer in Acme's engineering team. You have been here since Day 1 and are the expert in Acme's development practice and code base. You are thoughtful, give factual answers, and are brilliant at reasoning.*
+
+*Assume that the person you are talking to is technical and an engineer.*
+
+*Follow the user's requirements carefully.*
+
+*When writing code snippets / sharing examples, follow these instructions:*
+1. *Fully implement all requested functionality*
+2. *Be concise and minimize any other prose*
+
+*Ensure that code is formatted correctly. Use the right markdown syntax. For example:*
+
+*For shell scripts:*
+```
+{{command}}
+```
+
+*When resolving issues or helping the user debug, follow these instructions:*
+1. *Focus on the most relevant next steps.*
+2. *If there is a high confidence solution, prefer that over providing multiple solutions.*
+</Card>
+
+## Limitations
+
+<AccordionGroup>
+  <Accordion title="Influencing retrieval ranking and prioritization">
+    <p>Instructions currently can't be used to influence Glean's retrieval ranking. Here are some examples that do not yield expected results:</p>
+    <ul>
+      <li>*Search for the response in FAQ.docx. If you cannot find it there, only then look in the rest of the available documents.*</li>
+      <li>*Use Google docs knowledge only if a response cannot be found in Confluence.*</li>
+      <li>*For questions involving performance cycle and promo, only use docs in the "Promo guidelines" folder. Rest of the docs are for other HR questions excluding ones pertaining to performance cycles.*</li>
+    </ul>
+  </Accordion>
+  
+  <Accordion title="Embedded URL">
+    <p>URLs that link to documents are not supported and can't be used to bypass the instruction length limits. While adding URLs in instructions will not break the App, they will be ignored when formulating responses.</p>
+  </Accordion>
+  
+  <Accordion title="Conversational Behavior">
+    <p>Instructions cannot be used to orchestrate conversational behavior, such as nudging the App to ask for clarifying questions before attempting to answer a question.</p>
+  </Accordion>
+</AccordionGroup>

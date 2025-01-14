@@ -1,0 +1,111 @@
+---
+title: "Data Analysis: Costings"
+description: "A detailed breakdown of costs and scaling considerations for running Data Analysis in Glean Assistant"
+icon: "calculator"
+---
+
+## Overview
+
+Glean's Data Analysis feature uses an auto-scaling architecture for both AWS and GCP customers. The system efficiently manages resources by scaling up to support up to 50 concurrent users and spinning down sandboxes after 30 minutes of inactivity.
+
+<Note>
+Expected monthly costs:
+- Base level: $30-45/month
+- With 10 concurrent users (1 hour daily usage): $45-60/month
+</Note>
+
+## Technical Architecture
+
+### Infrastructure Components
+
+The system operates using shared core machines for sandbox and orchestrator pods, optimized for:
+- Short bursts of high CPU and memory usage
+- Idle state between analytical queries
+- Efficient resource allocation
+
+<Card title="Base Infrastructure" icon="server">
+In steady state, the system runs:
+- 2 sandboxes
+- 1 orchestrator
+- Total base cost = 3 × (cost per machine) per month
+</Card>
+
+### Auto-scaling Behavior
+
+<Info>
+The auto-scaling algorithm maintains sandbox utilization at approximately 75% for optimal performance and cost efficiency.
+</Info>
+
+When usage increases:
+1. System scales up beyond 2 sandboxes
+2. Additional machines are provisioned as needed
+3. Costs increase proportionally to usage
+4. System scales back down when demand decreases
+
+## Cost Analysis
+
+### Example Scenario
+
+Consider this high-usage scenario:
+- 10 users running concurrent analysis
+- 1 hour daily usage
+- All usage occurring simultaneously (worst-case scenario)
+
+<Steps>
+  <Step title="Resource Allocation">
+    14 machines running to maintain 75% utilization target
+  </Step>
+  <Step title="Cleanup Process">
+    - Sandboxes marked for deletion after 15 minutes of inactivity
+    - Machines downscaled 15 minutes after marking
+  </Step>
+  <Step title="Extra Resource Usage">
+    - 12 extra sandboxes (14 total - 2 base)
+    - Running for 1.5 hours daily
+    - Monthly extra hours: 12 × 1.5 × 30 = 540 hours
+  </Step>
+</Steps>
+
+### Cost Breakdown by Provider
+
+<AccordionGroup>
+<Accordion title="Google Cloud Platform (GCP)">
+  Using e2-small machine type:
+  - Per machine cost: $0.016751/hour or $12.06/month
+  - Monthly base cost: $36.18
+  - Extra usage cost: 540 hours × $0.016751 = $9.05
+  - **Total monthly cost: $45**
+</Accordion>
+
+<Accordion title="Amazon Web Services (AWS)">
+  Using t3.small machine type:
+  - Per machine cost: $0.0208/hour or $14.97/month
+  - Monthly base cost: $44.91
+  - Extra usage cost: 540 hours × $0.0208 = $11.23
+  - **Total monthly cost: $56**
+</Accordion>
+</AccordionGroup>
+## Important Notes
+
+<Warning>
+All prices referenced are based on us-east regions. Costs may vary slightly across different regions.
+</Warning>
+
+### Scaling Limits
+
+<AccordionGroup>
+  <Accordion title="Standard Limits">
+      50 sandboxes, resulting in maximum monthly costs of:
+      - GCP: $603/month
+      - AWS: $748/month
+  </Accordion>
+  <Accordion title="Extended Limits">
+    Can be increased to:
+    - AWS: 450 sandboxes
+    - GCP: 1000 sandboxes
+  </Accordion>
+</AccordionGroup>
+
+<Info>
+For questions about costs or scaling limits, please contact your Glean representative.
+</Info>

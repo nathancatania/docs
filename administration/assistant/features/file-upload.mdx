@@ -1,0 +1,153 @@
+---
+title: "File Upload"
+description: "Upload and analyze local files in Glean Chat with support for documents, spreadsheets, presentations, and code files"
+icon: "file-upload"
+---
+
+## Overview
+
+File Upload enables users to upload and analyze local files directly in Glean Assistant, Public Knowledge, and Apps. This feature allows users to query, summarize, and generate content from uploaded files. The upload limits vary based on the model used in your Glean instance.
+
+<Info>
+File content is stored in users' chat sessions for 24 hours, while file metadata is retained within the chat session for up to 30 days before deletion. Files are not added to your corpus and remain accessible only to the uploading user.
+</Info>
+
+## Supported File Formats
+
+<AccordionGroup>
+  <Accordion title="Document Files">
+    - PDF
+    - DOC
+    - DOCX
+    - Pages
+  </Accordion>
+
+  <Accordion title="Spreadsheet Files">
+    - XLS
+    - XLSX
+    - Numbers
+  </Accordion>
+
+  <Accordion title="Presentation Files">
+    - PPT
+    - PPTX
+    - Key
+  </Accordion>
+
+  <Accordion title="Text Files">
+    - CSV
+    - JSON
+    - XML
+    - TXT
+    - RTF
+  </Accordion>
+
+  <Accordion title="Web Files">
+    - HTML
+    - CSS
+  </Accordion>
+
+  <Accordion title="Code Files">
+    - Java
+    - Python
+    - JavaScript
+    - TypeScript
+    - C++
+    - C
+    - Jupyter Notebooks
+    - SQL
+    - Shell Scripts
+    - Go
+    - YAML
+    - Log Files
+  </Accordion>
+</AccordionGroup>
+
+## Key Features
+
+### File Upload
+Users can upload up to 5 files directly from their local computer, with each file having a maximum size of 10 MB.
+
+### Real-Time Querying
+Query the text content of uploaded files immediately after upload for instant analysis.
+
+### Document Metadata
+The chat UI displays document metadata including title and file type for easy reference.
+
+### File Management
+
+<Steps>
+  <Step title="File Deletion">
+    Users can delete uploaded files before submitting their first query. After query submission, files can only be removed by deleting the chat session history.
+  </Step>
+  <Step title="Retention Policy">
+    - File content is retained for 24 hours
+    - File metadata persists for 30 days after chat session creation
+  </Step>
+</Steps>
+
+### API Support
+Developer platform customers can utilize our API for file uploads. Refer to our [API documentation](https://docs.google.com/document/d/1YwsNVGIHF--oj6PcmOysTfDX0HVinKASq47uRp4SMr8/edit?usp=sharing) for details.
+
+### Security and Privacy
+
+<Card title="Security Features">
+  - Files are parsed and scanned for malware before storage
+  - Malware-infected files trigger upload errors
+  - Uploaded files are only accessible to the uploading user
+</Card>
+
+### Upload Limits
+
+The maximum file size and number of files allowed per session depends on your model:
+
+| Model | File Limit | Size Limit |
+|-------|------------|------------|
+| 128K Models | 5 files | 10 MB |
+| 32K Models | 4 files | 5 MB |
+| 8K Models | 2 files | 2 MB |
+
+<Info>Minimum file size for upload is 1 KB</Info>
+
+## Known Limitations
+
+<Warning>
+- Multi-media support is not available (images, audio, video files)
+- Custom data retention policies are not supported beyond default 24-hour content and 30-day metadata retention
+- Optical Character Recognition (OCR) must be enabled for scanned PDFs to work properly - contact Glean support if you experience issues
+</Warning>
+
+## Enabling File Upload
+
+To enable file upload for all users:
+
+1. Navigate to the Assistant section in workspace Settings
+2. Locate the File Upload toggle
+3. Enable the feature
+
+<Info>
+File Upload is disabled by default for existing customers (as of GA on 9/24) but enabled by default for new customers.
+</Info>
+
+<Frame>
+  <img src="https://downloads.intercomcdn.com/i/o/1190343648/0968a7813764cf57a35b5430/AD_4nXeyVAWs5PSgFmrV03nwSd7jSEIsdWxkeBYwYPwu8gmxCoTRgGwSz79iVjBGzAxUaMsPzwrfgR8p6mUm0LTXBk7HkTyg5kksodK7cVk0dK3mfOhb8DoYhL3rFM7GKnoE5T9dOCBPWAq5BtTzrn_uMvVp5NE" />
+</Frame>
+
+## Related Features
+
+<Card title="Additional Capabilities" icon="stars">
+- [Data Analysis for Spreadsheets](https://intercom.help/scio-1d15ca4cb29a/en/articles/10115187-data-analysis-for-structured-files)
+- [File Creation and Export](https://intercom.help/scio-1d15ca4cb29a/en/articles/10025858-google-actions) to cloud storage services (GDrive, OneDrive)
+</Card>
+
+## Future Development
+
+<Accordion title="Planned Enhancements" icon="rocket">
+- Support for larger file sizes
+- Enhanced PDF support
+- Improved data analysis for spreadsheets and CSV files
+- Support for multimedia files:
+  - Video (mp4, mov, avi)
+  - Images (jpg, png, gif)
+  - Audio (mp3)
+</Accordion>

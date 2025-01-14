@@ -1,0 +1,52 @@
+---
+title: Jira Actions Setup
+description: Create Requests in Jira Service Management using Glean Assistant
+---
+
+Glean is launching the ability to create requests in Jira Service Management.
+
+This feature will allow companies to use Glean to automate IT Support and have Glean act as a level 1 support agent in IT Apps or IT Slack channels.
+
+Whenever users post queries in these channels, Glean will try to answer the question based on the knowledge base and also give users the option to create tickets automatically if Glean's answer doesn't resolve their query
+
+### Setup
+
+#### Step 1: Enabling Jira Actions
+
+Admins can enable this feature by going to [Glean](https://app.glean.com/admin/platform/tools) and navigating to Admin -> Platform -> Actions
+
+1. Click on Add Action and select Jira Actions
+2. Select the Jira datasource instance to link these actions to, this is the instance where the JSM requests would get created.
+3. Set up authentication.*Option 1*: Select Central - this uses the default OAuth App already setup for you. This is the quickest way to start using Jira Actions*Option 2*: Select Custom - this requires you to create a new custom OAuth App. Please follow the steps in [this article](https://help.glean.com/en/articles/9006099-jira-custom-authentication-setup) to setup a new OAuth app
+4. Click on save, the Jira Actions are now ready to use!
+
+#### Step 2: Add the Action to your App and deploy the App to a Slack Channel
+
+Navigate to an existing Glean App or create a new one by going to Admin -> Platform -> Apps
+
+1. Go to the Actions section in the App setup
+2. Add the "Jira Service Management - Create Request" Action to the App
+3. Configure the Service Desks you want this Action to create Requests in. Requests will always created in one of these Service Desks.
+4. Deploy this App to a Slack Channel by going to Publish -> Slack, andSearch for your slack channel to add it orClick on 'Can't find a channel' and add the Slack channel ID
+
+### Step 3: Go to Slack and configure Glean's response behavior
+
+1. Go to the slack channel where your App is deployed and type "/glean configure"
+2. This will show you options on when Glean should respond to user queries
+3. Every Glean response on this channel, will have a Create Ticket option, so the user can create tickets if Glean's answer doesn't resolve their query
+
+That's it. Now you can use Glean on IT Help Channels to automate answering questions and create tickets!
+
+## Key Features
+
+* Ability to create tickets from Slack
+
+![jira-actions-0](/images/administration/jira-actions-setup-0.png)
+
+* Right JSM Request forms are chosen automatically based on the user query and ticket information is pre-filled
+
+![jira-actions-1](/images/administration/jira-actions-setup-1.png)
+
+* Created ticket link is shared in the slack thread
+
+![jira-actions-2](/images/administration/jira-actions-setup-2.png)

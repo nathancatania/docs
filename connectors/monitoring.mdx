@@ -1,0 +1,87 @@
+---
+title: "Monitoring Connectors"
+description: "Configure and monitor your data sources through the Glean admin console"
+icon: "database"
+---
+
+## Getting Started
+
+Access the data sources management interface by navigating to the [admin console](https://app.glean.com/admin) (click the wrench icon in the left-hand navigation menu). You'll land on the **Data Sources** page by default.
+
+## Monitoring Data Sources
+
+The data sources page provides an overview of all your connected sources and their current status. 
+
+<Info>
+Status indicators like crawl status, document count, and content crawl may not always reflect real-time information. When you see "Crawl in progress", content should still be searchable as long as:
+- There is a document count displayed
+- The data source is set as visible
+</Info>
+
+<Warning>
+If content isn't appearing in search results despite meeting these conditions, please submit a support ticket.
+</Warning>
+
+## Setting Up New Data Sources
+
+<Steps>
+  <Step title="Add Data Source">
+    Click the "Add data source" button to view available native connectors. You can add:
+    - Pre-configured data sources with native connectors
+    - Custom websites
+    - [Custom data sources](/articles/6742862-setting-up-a-custom-data-source)
+  </Step>
+
+  <Step title="Configure Settings">
+    Provide necessary credentials and configurations for crawling. You can save your progress and resume setup later.
+  </Step>
+
+  <Step title="Manage Data">
+    Define rules to control what content Glean can crawl:
+    - Set inclusion/exclusion rules
+    - Configure content type filters
+    - Customize crawling parameters
+    
+    <Info>This step becomes available after saving the initial setup.</Info>
+  </Step>
+
+  <Step title="Start Crawling">
+    Choose to either:
+    - Start crawling immediately
+    - Schedule crawling for later (can be initiated from the Get Started tab under Review Data Source Crawl)
+  </Step>
+</Steps>
+
+## Visibility Controls
+
+<Card title="Best Practices for New Data Sources">
+1. Initially set visibility to "Visible to test group only"
+2. Configure your test group through the [Manage test group](https://app.glean.com/admin/setup/apps/testing) option
+3. Let the test group verify search results and content accuracy
+4. Once verified, set visibility to "visible to everyone"
+</Card>
+
+### Content Overview
+
+Clicking into a specific data source reveals detailed information about:
+- Crawl status
+- Content indexing progress
+- Document types (e.g., for Dropbox):
+  - `Folder`
+  - `Document`
+  - `Spreadsheet`
+  - `Paper`
+  - `Video`
+
+## Advanced Configuration
+
+### Managing Data Rules
+
+Some data sources (like Google Drive) offer a dedicated "Manage Data" tab for advanced configuration options:
+- Define inclusion/exclusion rules
+- Set content type filters
+- Configure crawling parameters
+
+<Info>
+If you need custom configurations for data sources without a "Manage Data" tab, contact support or your Glean representative. We continuously expand self-service configuration options.
+</Info>

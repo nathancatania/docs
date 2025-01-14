@@ -1,0 +1,46 @@
+---
+title: O365-12
+description: O365-12 Error Code
+---
+
+## Issue:
+
+- We are missing Sites.Selected permissions for a specified webUrl in the greenlist.
+
+## Resolution:
+
+These steps require being either a tenant administrator, or a site administrator of the associated site collection.
+
+- Open a PowerShell session. Note these steps may also require you to install Sharepoint PowerShell.
+
+```
+Connect-PnPOnline -Url $SITE_COLLECTION_URL
+```
+
+### For certificate self-serve setup (recommended)
+
+```
+Grant-PnpAzureADAppSitePermission -AppId '$CLIENT_ID' -Site $SITE_COLLECTION_URL -Permissions FullControl
+```
+
+### For client secret-based setup (deprecated)
+
+```
+Grant-PnpAzureADAppSitePermission -AppId '$CLIENT_ID' -Site $SITE_COLLECTION_URL -Permissions FullControl
+```
+
+You should expect the output to include
+
+```
+Id    : <id>
+Roles : {read}
+Apps  : {ReadPermissions, $CLIENT_ID_FOR_SETUP}
+```
+
+If the output does not include the right application ID with ReadPermissions, rerun:
+
+```
+Grant-PnpAzureADAppSitePermission -AppId '$CLIENT_ID' -Site $SITE_COLLECTION_URL -Permissions Read
+```
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

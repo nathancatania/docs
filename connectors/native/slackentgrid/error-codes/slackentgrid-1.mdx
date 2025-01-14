@@ -1,0 +1,15 @@
+---
+title: SLACKENTGRID-1
+description: SLACKENTGRID-1 Error Code
+---
+
+## Issue:
+
+- Glean is unable to find the discovery token post-authentication for Slack Enterprise Grid.
+- Glean is unable to reconcile the token from post-authorization internally assuming authorization succeeded.
+
+## Resolution:
+
+- Reattempt authorization. Ensure that authorization succeeds, i.e. redirects back to Glean after acknowledging the crawler app's permissions.
+
+For additional assistance, please contact Glean Support at [https://support.glean.com](https://support.glean.com)

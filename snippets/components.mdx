@@ -1,0 +1,337 @@
+export const GleanSearchHero = () => {
+    return (
+        <div className="search-box-container">
+            <div id="glean-search-box" className="glean-search-box--hero"></div>
+        </div>
+    )
+};
+
+export const StartButton = ({ children = 'Go to Quickstart' }) => {
+    return (
+        <a className="group" href="/get-started/welcome">
+            <button className="flex items-center space-x-1 font-medium px-4 py-1 bg-primary-dark rounded-xl group-hover:opacity-[0.9] text-white group-hover:opacity-[0.9]">
+                <span>{children}</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={20}
+                    height={20}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-3 h-3"
+                >
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
+            </button>
+        </a>
+    );
+};
+
+export const ActionButton = ({ link, type = 'primary', children = 'Link' }) => {
+    return (
+        <a className="group" href={link}>
+            <button className={`flex items-center space-x-1 font-medium px-4 py-1 bg-${type}-dark rounded-xl group-hover:opacity-[0.9] text-white group-hover:opacity-[0.9]`}>
+                <span>{children}</span>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={20}
+                    height={20}
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="w-3 h-3"
+                >
+                    <path d="m9 18 6-6-6-6" />
+                </svg>
+            </button>
+        </a>
+    );
+};
+
+export const HeroCard = ({ img, title, description, href }) => {
+    return (
+        <a className="border-b pb-8 cursor-pointer border-gray-500 dark:border-gray-800 hover:!border-primary dark:hover:!border-primary-light" href={href}>
+            <img src={img} className="w-full" />
+            <h1 className="mt-4 font-semibold text-gray-900 dark:text-white">{title}</h1>
+            <h2 className="mt-1 text-gray-600 dark:text-gray-400 text-sm leading-6">{description}</h2>
+        </a>
+    )
+}
+
+
+export const Banner = () => {
+    const gradientStyle = {
+        backgroundColor: 'transparent',
+        backgroundImage: 'linear-gradient(270deg, #739cf4, #343ced)'
+    };
+
+    return (
+        <div className="w-full h-96 relative overflow-hidden" style={gradientStyle}>
+
+            <div className="absolute inset-0 z-0">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    xmlnsXlink="http://www.w3.org/1999/xlink"
+                    x="0px"
+                    y="0px"
+                    viewBox="0 0 1920 323"
+                    className="w-full h-auto absolute bottom-0"
+                    preserveAspectRatio="none"
+                    enableBackground="new 0 0 1920 323"
+                    xmlSpace="preserve"
+                >
+                    <polygon fill="#ffffff" style={{ fillOpacity: 0.05 }} points="-0.5,322.5 -0.5,121.5 658.3,212.3" />
+                    <polygon fill="#ffffff" style={{ fillOpacity: 0.1 }} points="-2,323 1920,323 1920,-1" />
+                </svg>
+            </div>
+
+            <div className="relative z-10 h-full flex items-center">
+                <div className="max-w-8xl mx-auto w-full">
+                    <div className="flex lg:px-12 mx-4 lg:mx-0">
+                        <div className="flex-1 py-8">
+                            <h1 className="text-3xl text-white font-bold hero-title">Hello, how can we help?</h1>
+                            <h2 className="mt-1 text-white hero-subtitle">Learn how to get started with Glean</h2>
+                            <h3 className="hero-example-search-terms--container"> <span id="example-term" class="hero-example-search-terms"></span> </h3>
+                            <div className="search-container">
+                                <form onsubmit="return false;">
+                                    <div class="search-wrapper">
+                                        <input
+                                            type="text"
+                                            class="glean-search-box--hero"
+                                            id="glean-search-box"
+                                            aria-label="Search for answers"
+                                            placeholder="Search for answers..."
+                                        />
+                                        <button type="button" class="search-button" aria-label="Search">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    );
+};
+
+export const LandingPageCardGroup = ({ children }) => {
+    return (
+        <div className="w-full">
+            <div className="h-full items-center">
+                <div className="max-w-8xl mx-auto w-full">
+                    <div className="flex lg:px-12 mx-4 lg:mx-0">
+                        <div className="flex-1 py-8">
+                            {children}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export const LandingPageGettingStartedCard = () => {
+    return (
+        <div class="p-6 rounded-lg border border-gray-200 dark:border-gray-800 hover:border-primary dark:hover:border-primary-light transition-colors relative overflow-hidden mb-6">
+            <div class="absolute inset-0">
+                <img
+                    src="/images/get-started-bg.png"
+                    alt=""
+                    class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-black/30"></div>
+            </div>
+
+
+            <div class="flex flex-col md:flex-row md:items-center gap-4 relative z-10">
+                <div class="flex-1">
+                    <h3 class="text-lg font-bold text-white mb-2">👋 Are you a new Glean customer?</h3>
+                    <p class="text-white">
+                        Let's guide you through the initial setup process!
+                    </p>
+                </div>
+
+                <div class="flex-shrink-0">
+                    <a class="group" href="/get-started/welcome">
+                        <button class="flex items-center space-x-1 font-medium px-4 py-1 bg-white text-black rounded-xl group-hover:opacity-[0.9] shadow-lg">
+                            <span>Get Started</span>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                class="w-3 h-3"
+                            >
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
+export const LandingPageHeroCards = () => {
+    return (
+        <CardGroup cols={3}>
+            <Card
+                title="Connectors"
+                icon="plug"
+                href="/connectors/about"
+            >
+                Connect all of your existing applications to discover all of your company's knowledge in one place
+            </Card>
+            <Card
+                title="Search"
+                icon="magnifying-glass"
+                href="/administration/search"
+            >
+                Find what you need, across all your company's knowledge
+            </Card>
+            <Card
+                title="Assistant"
+                icon="comment"
+                href="/administration/assistant"
+            >
+                Your AI-powered helper for work
+            </Card>
+            <Card
+                title="Apps"
+                icon="stars"
+                href="/administration/assistant/apps"
+            >
+                Create custom Generative AI apps and agents securely and at scale
+            </Card>
+            <Card
+                title="Knowledge Management"
+                icon="book-open"
+                href="/administration/knowledge/"
+            >
+                Bring all your company's knowledge together for easy discovery and navigation
+            </Card>
+            <Card
+                title="Developers"
+                icon="code"
+                href="/api-reference"
+            >
+                Integrate Glean with your internal tools and applications
+            </Card>
+        </CardGroup>
+    );
+};
+
+export const LandingPageStandardCards = () => {
+    return (
+        <CardGroup cols={3}>
+            <Card
+                title="Administration"
+                icon="gear"
+                href="/administration"
+                horizontal
+            >
+            </Card>
+            <Card
+                title="Security"
+                icon="shield-check"
+                href="/security"
+                horizontal
+            >
+            </Card>
+            <Card
+                title="Infrastructure"
+                icon="server"
+                href="/infrastructure"
+                horizontal
+            >
+            </Card>
+            <Card
+                title="Troubleshooting"
+                icon="bug"
+                href="/troubleshooting/home"
+                horizontal
+            >
+            </Card>
+            <Card
+                title="Release Notes"
+                icon="rocket"
+                href="/release-notes"
+                horizontal
+            >
+            </Card>
+            <Card
+                title="Blog"
+                icon="rss"
+                href="https://glean.com/blog"
+                horizontal
+            >
+            </Card>
+        </CardGroup>
+    );
+};
+
+export const ConnectorCard = ({ title, link, horizontal = true }) => {
+
+    const connectorImages = {
+        'asana': 'https://app.glean.com/images/logos/asana.png',
+        'bitbucket': 'https://app.glean.com/images/logos/bitbucket.png',
+        'box': 'https://app.glean.com/images/logos/box.png',
+        'confluence': 'https://app.glean.com/images/logos/confluence.svg',
+        'github': 'https://app.glean.com/images/logos/github.svg',
+        'ghenterprise': 'https://app.glean.com/images/logos/github.svg',
+        'gitlab': 'https://app.glean.com/images/logos/gitlab.svg',
+        'gmail': 'https://app.glean.com/images/logos/gmail.png',
+        'gcal': 'https://app.glean.com/images/logos/gcal.png',
+        'gdrive': 'https://app.glean.com/images/logos/gdrive.svg',
+        'ggroups': 'https://app.glean.com/images/logos/googlegroups.png',
+        'gsites': 'https://app.glean.com/images/logos/gsites.svg',
+        'jira': 'https://app.glean.com/images/logos/jira.svg',
+        'miro': 'https://app.glean.com/images/logos/miro.png',
+        'notion': 'https://app.glean.com/images/logos/notion.png',
+        'onedrive': 'https://app.glean.com/images/logos/onedrive.svg',
+        'outlook': 'https://app.glean.com/images/logos/outlook.svg',
+        'salesforce': 'https://app.glean.com/images/logos/salesforce.png',
+        'sharepoint': 'https://app.glean.com/images/logos/sharepoint.svg',
+        'sharepointonedrive': 'https://app.glean.com/images/logos/sharepoint.svg',
+        'slack': 'https://app.glean.com/images/logos/slack.svg',
+        'slackentgrid': 'https://app.glean.com/images/logos/slack.svg',
+        'teams': 'https://app.glean.com/images/logos/teams.svg',
+        'trello': 'https://app.glean.com/images/logos/trello.png',
+        'zendesk': 'https://app.glean.com/images/logos/zendesk.png',
+        'zoom': 'https://app.glean.com/images/logos/zoom.svg',
+        'default': 'https://app.glean.com/images/plug.svg'
+    };
+
+    const getImageByLink = (link) => {
+        return connectorImages[link.toLowerCase()] || connectorImages['default'];
+    };
+
+
+    return (
+        <Card
+            title={title}
+            icon={<img src={getImageByLink(link)} className="h-6 w-6" />}
+            href={`/connectors/${link}`}
+            horizontal={horizontal}
+        >
+        </Card>
+    )
+}

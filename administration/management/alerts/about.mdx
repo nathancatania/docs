@@ -1,0 +1,58 @@
+---
+title: "About Admin Alerts"
+description: "Configure and manage alerts for critical events in your Glean instance to maintain optimal performance"
+---
+
+## Overview
+
+Admin alerts notify you of critical events in your Glean instance that could affect performance. These notifications enable rapid response to potential issues, helping you maintain system health and resolve problems efficiently.
+
+<Info>
+All alerts are delivered via email and are enabled by default.
+</Info>
+
+## Configuration
+
+### Alert Settings
+
+Navigate to [Admin console](https://app.glean.com/admin/) > Settings > [Alerts](https://app.glean.com/admin/setup/alerts) to manage your alert configuration.
+
+<Card title="Configuration Options">
+- Admins can customize recipient lists for each alert type
+- At least one recipient must be specified as alerts are mandatory
+- Alert settings are managed on a per-alert basis
+</Card>
+
+### Alert Delivery
+
+<Info>
+- Frequency: One email notification per day for each alert until the issue is resolved
+- Sender Address: [noreply@glean.com](mailto:noreply@glean.com)
+- Preview: Admins can preview email alert content before enabling
+</Info>
+
+## Supported Alert Types
+
+Glean continuously monitors various performance metrics for your instance. Admin alerts represent a subset of these monitoring capabilities and will expand over time.
+
+### Mandatory Alerts
+
+<CardGroup cols={2}>
+  <Card title="Failing Credentials" icon="key-skeleton">
+    Triggers when data source credentials fail, potentially affecting search result integrity
+    
+    - Initial alert on first detection
+    - Daily follow-up alerts after 7 days
+  </Card>
+
+  <Card title="Slack Integration Errors" icon="slack">
+    Alerts when the Glean application in Slack encounters setup issues
+    
+    - Indicates problems with Slack message response capabilities
+    - Affects some or all Slack functionality
+  </Card>
+</CardGroup>
+
+<Warning>
+Both alerts are mandatory and cannot be disabled to ensure system reliability and optimal performance.
+</Warning>

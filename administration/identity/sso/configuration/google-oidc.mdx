@@ -1,0 +1,211 @@
+---
+title: "Google (OIDC)"
+description: "Step-by-step guide for configuring Google Workspace as the SSO provider for Glean using OIDC authentication."
+icon: "google"
+---
+
+<Frame>
+  <img src="assets/google-oidc.20240217132754405.webp" alt="Google OIDC Configuration" />
+</Frame>
+
+This guide provides step-by-step instructions on how to configure Google Workspace as the SSO provider for Glean using the [OpenID Connect (OIDC)](https://developers.google.com/identity/openid-connect/openid-connect) protocol.
+
+Single Sign-On (SSO) is a user authentication service that permits a user to use one set of login credentials to access multiple applications.
+
+<Info>
+  Customized instructions for your Glean environment are available in the Glean UI.
+
+  [Workspace Settings > Setup > Authentication > GSuite](https://app.glean.com/admin/setup/auth/gsuite)
+</Info>
+
+## Prerequisites
+
+Before you begin the setup process, ensure you have the following:
+
+- An active Google Workspace administrator account.
+- Access to your Glean admin account with **Admin** or **Setup Admin** roles to configure SSO settings.
+- Basic understanding of SSO concepts.
+
+<Warning>
+  Glean restricts SSO authentication to domains that have been pre-approved. Ensure that you have notified Glean of all domains that will be used for user authentication or else SSO will fail.
+
+  For example: `company.com`, `company.co.jp`, `subsidiary.co`, etc.
+</Warning>
+
+## Google Configuration
+
+### 1 - Set OAuth Consent
+
+You must have create an OAuth consent screen for your Glean before proceeding.
+
+<AccordionGroup>
+<Accordion title="What is the Google OAuth consent screen?">
+  When a user opts to sign in to Glean (or any other OAuth App) using Google SSO for the first time, they are greeted with a Google consent screen.
+  
+  This screen concisely informs the user about the app's functions and the specific data it will access. By presenting this information upfront, users can confidently manage their privacy and data sharing preferences before proceeding with the authentication process.
+
+  <Frame>
+    <img src="assets/google-oidc.20240217132130010.webp" alt="OAuth Consent Screen" />
+  </Frame>
+</Accordion>
+
+
+<Accordion title="How do I check if the OAuth consent screen has already been created?">
+  If you are not sure if this has already been completed, you can check in the Google Cloud Console:
+
+  1. Navigate to [APIs and Services > Credentials](https://console.cloud.google.com/apis/credentials).
+
+  2. If you see a warning message "*Remember to configure the OAuth consent screen with information about your application.*", you will need to configure the OAuth Consent Screen before proceeding.
+
+  3. If you **don't** see this warning, then you can skip this section and proceed to the next one.
+</Accordion>
+</AccordionGroup>
+
+To configure the OAuth consent screen for Glean:
+
+1. In the Google Cloud Console, navigate to [APIs and Services > OAuth consent screen](https://console.cloud.google.com/apis/credentials/consent).
+2. Select **Internal** as the user type, then click **Create**.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132227667.webp" alt="Create OAuth Consent" />
+</Frame>
+
+3. Fill in the fields as per the table below, then click **Save and Continue**:
+
+| Field | Value |
+|-------|--------|
+| App name | `Glean` |
+| User support email | Email alias for your IT helpdesk, e.g. `helpdesk@company.com` |
+| App logo | [Download this Glean icon](https://app.glean.com/images/admin/glean-logo2-256.png) to set as the app logo. |
+| App home page | `https://app.glean.com` |
+| App privacy policy link | `https://www.glean.com/privacy-policy` |
+| App Terms of Service link | `https://www.glean.com/terms` |
+| Authorized domain | `glean.com` |
+| Developer Contact Email | Email alias for your IT team, e.g. `it@company.com` |
+
+<Frame>
+  <img src="assets/google-oidc.20240217132244584.webp" alt="OAuth Consent Configuration 1" />
+</Frame>
+
+<Frame>
+  <img src="assets/google-oidc.20240217132255448.webp" alt="OAuth Consent Configuration 2" />
+</Frame>
+
+4. On the next page, scroll to the bottom and select **Save and Continue**: No scopes are required to be added.
+
+5. On the summary page, proceed to the dashboard. Your OAuth screen for Glean should now be configured.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132310916.webp" alt="OAuth Consent Summary" />
+</Frame>
+
+### 2 - Create an OAuth Client
+
+<Tip>
+  You will need your tenant ID and/or tenant backend domain for this step. This will take the form of: `tenant_name-be.glean.com`
+
+  You can find your tenant ID by following the [instructions here](../../tenant-id.md). If you still unsure, contact your Glean engineer or Glean support.
+</Tip>
+
+1. In the Google Cloud Console, navigate to [APIs and Services > Credentials](https://console.cloud.google.com/apis/credentials/consent), and select **Create Credentials > OAuth Client ID**.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132450787.webp" alt="Create OAuth Client" />
+</Frame>
+
+2. Fill in the fields as per the table below, and then click **Create**.
+
+| Field | Value |
+|-------|--------|
+| Application type | Web application |
+| Name | `Glean SSO` |
+| Authorized Javascript origins | `https://app.glean.com` |
+| Authorised redirect URIs | Add **both** the following URIs:<br/>`https://tenant_name-be.glean.com/authorization-code/callback?isExtension=1`<br/>`https://tenant_name-be.glean.com/authorization-code/callback` |
+
+Replace `tenant_name` with your actual tenant ID.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132500228.webp" alt="OAuth Client Configuration" />
+</Frame>
+
+3. On the next screen, you will show a success modal that contains your **Client ID** and **Client Secret**. Copy these as you will need them in the next section.
+
+    * If you accidentally close the modal, you can open it again by clicking the download icon next to the Glean SSO OAuth client.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132507807.webp" alt="OAuth Client Credentials" />
+</Frame>
+
+## Glean Configuration
+
+### 1 - Configure Google SSO
+
+1. In the Glean UI, navigate to [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/auth).
+2. Select **GSuite** from the list of SSO Providers.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132620314.webp" alt="Select GSuite SSO" />
+</Frame>
+
+3. Paste the **Client ID** and **Client Secret** values copied from the Google console into their respective fields in the Glean UI.
+4. Click **Save**.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132519856.webp" alt="Configure Google SSO" />
+</Frame>
+
+### 2 - Activate SSO
+
+You must activate SSO in Workspace Settings before your users can sign in to Glean using SSO.
+
+1. Return to the [Workspace Settings > Setup > Authentication](https://app.glean.com/admin/setup/apps) screen.
+2. Under the *Switch to logging into Glean via SSO* section, click the **Switch to Gsuite SSO** button.
+
+<Frame>
+  <img src="assets/google-oidc.20240217132635004.webp" alt="Switch to GSuite SSO" />
+</Frame>
+
+<Info>
+  If you don't see the **Switch to GSuite SSO** button, it means that your Glean tenant is still provisioning and you will not be able to make the switch just yet.
+
+  You can skip ahead to the [Connect Datasources](../../../getting-started/datasources.md) section of the Getting Started guide and return to this point later.
+</Info>
+
+3. You will be prompted to confirm the switch and then sign-in via SSO.
+4. After SSO has been activated, you will see GSuite present in the list of Authentication apps with a Status of **Connected**.
+
+<Frame>
+  <img src="assets/google-oidc.20240217135302852.webp" alt="SSO Connected" />
+</Frame>
+
+<Check>
+  You have successfully configured SSO for Glean with Google Workspace.
+</Check>
+
+## Testing the Configuration
+
+There are two key phases of SSO to test: The Glean to Google Workspace redirect, and the Google Workspace back to Glean redirect.
+
+### Glean to Google
+
+To test your SSO configuration, open a new **Incognito** or **Private Browsing** window and navigate to [https://app.glean.com](https://app.glean.com). Enter your work email and click **Log In**.
+
+You should be redirected to your SSO platform successfully.
+
+<Tip>
+  Testing in a Private Window is crucial to prevent existing browser cache, storage, sessions, and cookies from affecting the result.
+</Tip>
+
+### Google to Glean
+
+When you have been redirected to Google SSO, attempt to sign in. You should be redirected back to Glean and successfully signed in.
+
+### Troubleshooting
+
+If any of the above SSO flows fail, consult the table below. If you have issues that persist, or issues not mentioned below, please contact Glean support.
+
+| Issue | Description | Fix |
+|-------|-------------|-----|
+| The code cannot be verified [Error Code 13] | The Client ID or Client Secret are incorrect. | Double check that you have copied the Client ID and Client Secret values correctly into the Glean UI. |
+| The code cannot be verified [Error Code 13] | In addition to the above, this error code may indicate that Glean cannot validate the email domain being used for sign-in. | Glean checks the email domain of every user that authenticates via SSO against a list of known company domains that are assigned to your tenant. If Glean is not aware of the email domain that your user is attempting to SSO with, it denies access to your Glean environment for security reasons. Notify your Glean engineer or Glean support of all email domains that your users will be authenticating from. |
+| You do not have access to Glean. Please contact your IT administrator to get access. You do not have access to Glean. Please contact your IT administrator to get access. [Error Code 15] | A user will receive this error if they are not included in the Google Group which manages access to Glean. | Add the user to the Google Group. If you are unsure of which Google Group manages access, please reach out to Glean Support for assistance retrieving the Google Group email. |

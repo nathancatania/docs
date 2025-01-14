@@ -1,0 +1,121 @@
+---
+title: "Debug Endpoints"
+description: "A comprehensive guide to debugging REST API issues using Glean's diagnostic endpoints"
+icon: "screwdriver-wrench"
+---
+
+This guide provides information about debug endpoints that can help you investigate issues with Glean's REST APIs. For detailed documentation on available debugging endpoints, please refer to our [troubleshooting documentation](https://developers.glean.com/docs/indexing_api/indexing_api_troubleshooting/).
+
+## Debug Endpoints
+
+<AccordionGroup>
+
+  <Accordion title="Debug Data Source Status" icon="server">
+    **Purpose:**  
+    Use this endpoint to verify the success of indexing jobs and confirm document processing status. The endpoint provides timestamps for bulk uploads and processing completion.
+
+    **Request Format**
+    ```bash
+    curl -i -X POST \
+      'https://domain-be.glean.com/api/index/v1/debug/{datasource}/status' \
+      -H 'Authorization: Bearer <YOUR_TOKEN_HERE>'
+    ```
+
+    **Usage Guidelines**
+    Monitor the following fields in the response:
+    - **bulkUploadHistory**: Shows when documents were last uploaded
+    - **processingHistory**: Indicates when documents were last processed
+
+    Documents become available in search results only after the processingHistory timestamp is more recent than the bulkUploadHistory timestamp.
+
+    <Info>
+    [View complete endpoint documentation](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1status/post/)
+    </Info>
+  </Accordion>
+
+  <Accordion title="Debug Data Source Document" icon="file-lines">
+    **Purpose:**  
+    Verify a document's presence in the data source index and check its permission settings.
+
+    **Request Format**
+    ```bash
+    curl -i -X POST \
+      'https://domain-be.glean.com/api/index/v1/debug/{datasource}/document' \
+      -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+      -H 'Content-Type: application/json; charset=UTF-8' \
+      -d '{
+        "objectType": "Article",
+        "docId": "art123"
+      }'
+    ```
+
+    **Access Conditions**
+    A user can view a document if any of these conditions are met:
+    - **allowAnonymousAccess** is set to true
+    - **allowAllDatasourceUsersAccess** is true and the user is indexed as a data source user
+    - The user belongs to the **allowedGroups** and is listed in **allowedUsers** or **allowedGroupIntersections**
+
+    <Info>
+    [View complete endpoint documentation](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1document/post/)
+    </Info>
+  </Accordion>
+
+  <Accordion title="Debug Data Source User" icon="user-gear">
+    **Purpose:**  
+    Verify a user's group memberships and access permissions within a data source.
+
+    **Request Format**
+    ```bash
+    curl -i -X POST \
+      'https://domain-be.glean.com/api/index/v1/debug/{datasource}/user' \
+      -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+      -H 'Content-Type: application/json; charset=UTF-8' \
+      -d '{
+        "email": "u1@foo.com"
+      }'
+    ```
+
+    Use this endpoint in conjunction with the Debug Data Source Document endpoint to confirm whether a user has the necessary group memberships for document access.
+
+    <Info>
+    [View complete endpoint documentation](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1debug~1%7Bdatasource%7D~1user/post/)
+    </Info>
+  </Accordion>
+
+  <Accordion title="Check Document Access" icon="key">
+    **Purpose:**  
+    Directly verify whether a specific user has access to view a particular document.
+
+    **Request Format**
+    ```bash
+    curl -i -X POST \
+      https://domain-be.glean.com/api/index/v1/checkdocumentaccess \
+      -H 'Authorization: Bearer <YOUR_TOKEN_HERE>' \
+      -H 'Content-Type: application/json' \
+      -d '{
+        "datasource": "string",
+        "objectType": "string",
+        "docId": "string",
+        "userEmail": "string"
+      }'
+    ```
+
+    The endpoint returns a boolean response (**true** or **false**). If access is denied, use the debug data source user and document endpoints to investigate the underlying permission configuration.
+
+    <Info>
+    [View complete endpoint documentation](https://developers.glean.com/indexing/tag/Troubleshooting/paths/~1checkdocumentaccess/post/)
+    </Info>
+  </Accordion>
+
+</AccordionGroup>
+
+## Getting Support
+
+If you need additional assistance after using these debug endpoints, please contact Glean Support with the following information:
+
+- A detailed description of the issue, including any error messages
+- The endpoint URL and request body schema you're using
+- The name of the affected data source
+- The timestamp and timezone when you encountered the error
+
+This information will help our support team investigate and resolve your issue more efficiently.

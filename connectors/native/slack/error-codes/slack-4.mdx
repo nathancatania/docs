@@ -1,0 +1,13 @@
+---
+title: SLACK-4
+description: SLACK-4 Error Code
+---
+
+## Issue:
+
+- An internal config setting is preventing any channel results, public or private, from showing up.
+
+## Resolution:
+
+- Admin should check the config keys for the slack instance: `promptForPrivateResults` and `crawlPublicChannels` cannot be set to false at the same time
+- Reach out to us at [https://support.glean.com](https://support.glean.com) to diagnose why crawling public channels is disabled and/or why the private channel option is disabled.
