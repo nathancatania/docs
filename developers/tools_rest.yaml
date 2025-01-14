@@ -1,0 +1,386 @@
+openapi: 3.0.0
+info:
+  version: 0.9.0
+  title: Tools API
+  contact:
+    email: support@glean.com
+  description: |
+    # Introduction
+    APIs related to Glean Assistant tools. Tools can be used to augment
+    Assistant's knowledge or to direct the Assistant to perform actions on
+    behalf of the user.
+
+    # Usage guidelines
+    This API is in early access. Please contact your Glean representative if you're interested in joining the waitlist.
+  x-logo:
+    url: https://app.glean.com/images/glean-text2.svg
+servers:
+  - url: https://{domain}-be.glean.com/api/tools/v1
+    variables:
+      domain:
+        default: domain
+        description: Email domain (without extension) that determines the deployment backend.
+tags:
+  - name: Setup
+    description: How to provide tools manifest & API spec
+  - name: Authentication
+    description: Endpoints relating to authentication and verifying requests coming from Glean.
+paths:
+  /verification_key:
+    get:
+      summary: Verification key
+      description: Provides the public key to be used to verify requests coming from Glean.
+      tags:
+        - Authentication
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolsVerificationKeyResponse'
+  /tool/{toolName}/manifest:
+    put:
+      summary: Upload Tool Manifest
+      description: Uploads the manifest for a specified tool.
+      tags:
+        - Setup
+      parameters:
+        - in: path
+          name: toolName
+          required: true
+          schema:
+            type: string
+          description: Name of the tool.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ToolManifest'
+      responses:
+        '200':
+          description: Manifest successfully uploaded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadManifestResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authorized
+    get:
+      summary: Retrieve Tool Manifest
+      description: Retrieves the manifest for a specified tool.
+      tags:
+        - Setup
+      parameters:
+        - in: path
+          name: toolName
+          required: true
+          schema:
+            type: string
+          description: Name of the tool.
+      responses:
+        '200':
+          description: Manifest successfully retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ToolManifest'
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+  /tool/{toolName}/apispec:
+    put:
+      summary: Upload API specification for a tool
+      description: This endpoint allows for uploading the API specification of a tool in YAML format.
+      tags:
+        - Setup
+      parameters:
+        - name: toolName
+          in: path
+          required: true
+          description: Name of the tool
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: API specification file in YAML format.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadApiSpecResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authorized
+    get:
+      summary: Download API specification for a tool
+      description: This endpoint allows for downloading the API specification of a tool in YAML format.
+      tags:
+        - Setup
+      parameters:
+        - name: toolName
+          in: path
+          required: true
+          description: Name of the tool
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/x-yaml:
+              schema:
+                type: string
+                format: binary
+                description: API specification file in YAML format.
+        '400':
+          description: Bad Request
+        '401':
+          description: Not Authorized
+        '404':
+          description: Not Found
+components:
+  schemas:
+    ToolsVerificationKeyResponse:
+      type: object
+      description: Describes the response body of the /verification_key API call
+      properties:
+        publicKey:
+          type: string
+          description: The public key to be used to verify requests coming from Glean.
+    UploadApiSpecResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message detailing the outcome of the operation.
+    UploadManifestResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Message detailing the outcome of the operation.
+    displayName:
+      description: Human understandable name of the tool. Max 50 characters.
+      type: string
+    logoUrl:
+      type: string
+      description: URL used to fetch the logo.
+    objectName:
+      type: string
+      description: Name of the generated object. This will be used to indicate to the end user what the generated object contains.
+      example:
+        - HR ticket
+        - Email
+        - Chat message
+    PersonObject:
+      required:
+        - name
+        - obfuscatedId
+      properties:
+        name:
+          type: string
+          description: The display name.
+        obfuscatedId:
+          type: string
+          description: An opaque identifier that can be used to request metadata for a Person.
+    AuthConfig:
+      description: Config for tool's authentication method.
+      type: object
+      properties:
+        isOnPrem:
+          type: boolean
+          description: Whether or not this tool is hosted on-premise.
+        usesCentralAuth:
+          type: boolean
+          description: Whether or not this uses central auth.
+        type:
+          type: string
+          enum:
+            - NONE
+            - OAUTH_USER
+            - OAUTH_ADMIN
+            - API_KEY
+            - BASIC_AUTH
+            - DWD
+          description: |
+            The type of authentication being used.
+            Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
+            'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
+            'OAUTH_USER' uses individual user tokens for external API calls.
+            'DWD' refers to domain wide delegation.
+        grantType:
+          type: string
+          enum:
+            - AUTH_CODE
+            - CLIENT_CREDENTIALS
+          description: The type of grant type being used.
+        status:
+          type: string
+          description: Auth status of the tool.
+          enum:
+            - AWAITING_AUTH
+            - AUTHORIZED
+        client_url:
+          type: string
+          format: url
+          description: The URL where users will be directed to start the OAuth flow.
+        scopes:
+          type: array
+          items:
+            type: string
+          description: A list of strings denoting the different scopes or access levels required by the tool.
+        audiences:
+          type: array
+          items:
+            type: string
+          description: A list of strings denoting the different audience which can access the tool.
+        authorization_url:
+          type: string
+          format: url
+          description: The OAuth provider's endpoint, where access tokens are requested.
+        lastAuthorizedAt:
+          type: string
+          format: date-time
+          description: The time the tool was last authorized in ISO format (ISO 8601).
+    ScopeType:
+      type: string
+      description: Describes the scope for a ReadPermission, WritePermission, or GrantPermission object
+      enum:
+        - GLOBAL
+        - OWN
+    WritePermission:
+      description: Describes the write permissions levels that a user has for a specific feature
+      properties:
+        scopeType:
+          $ref: '#/components/schemas/ScopeType'
+        create:
+          type: boolean
+          description: True if user has create permission for this feature and scope
+        update:
+          type: boolean
+          description: True if user has update permission for this feature and scope
+        delete:
+          type: boolean
+          description: True if user has delete permission for this feature and scope
+    ObjectPermissions:
+      properties:
+        write:
+          $ref: '#/components/schemas/WritePermission'
+    ToolMetadata:
+      description: The manifest for a tool that can be used to augment Glean Assistant.
+      required:
+        - type
+        - name
+        - displayName
+        - displayDescription
+      properties:
+        type:
+          description: The type of tool.
+          type: string
+          enum:
+            - RETRIEVAL
+            - ACTION
+        name:
+          description: Unique identifier for the tool. Name should be understandable by the LLM, and will be used to invoke a tool.
+          type: string
+        displayName:
+          $ref: '#/components/schemas/displayName'
+        toolId:
+          type: string
+          description: An opaque id which is unique identifier for the tool.
+        displayDescription:
+          description: Description of the tool meant for a human.
+          type: string
+        logoUrl:
+          $ref: '#/components/schemas/logoUrl'
+        objectName:
+          $ref: '#/components/schemas/objectName'
+        knowledgeType:
+          type: string
+          description: Indicates the kind of knowledge a tool would access or modify.
+          enum:
+            - NEUTRAL_KNOWLEDGE
+            - COMPANY_KNOWLEDGE
+            - WORLD_KNOWLEDGE
+        createdBy:
+          $ref: '#/components/schemas/PersonObject'
+        lastUpdatedBy:
+          $ref: '#/components/schemas/PersonObject'
+        createdAt:
+          type: string
+          format: date-time
+          description: The time the tool was created in ISO format (ISO 8601)
+        lastUpdatedAt:
+          type: string
+          format: date-time
+          description: The time the tool was last updated in ISO format (ISO 8601)
+        writeActionType:
+          type: string
+          description: Valid only for write actions. Represents the type of write action. REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action.
+          enum:
+            - REDIRECT
+            - EXECUTION
+        authType:
+          type: string
+          enum:
+            - NONE
+            - OAUTH_USER
+            - OAUTH_ADMIN
+            - API_KEY
+            - BASIC_AUTH
+            - DWD
+          description: |
+            The type of authentication being used.
+            Use 'OAUTH_*' when Glean calls an external API (e.g., Jira) on behalf of a user to obtain an OAuth token.
+            'OAUTH_ADMIN' utilizes an admin token for external API calls on behalf all users.
+            'OAUTH_USER' uses individual user tokens for external API calls.
+            'DWD' refers to domain wide delegation.
+        auth:
+          deprecated: true
+          $ref: '#/components/schemas/AuthConfig'
+        permissions:
+          deprecated: true
+          $ref: '#/components/schemas/ObjectPermissions'
+    ToolManifest:
+      deprecated: true
+      description: The manifest for a tool that can be used to augment Glean Assistant.
+      allOf:
+        - $ref: '#/components/schemas/ToolMetadata'
+        - type: object
+          properties:
+            description:
+              description: Description tailored to an LLM describing how to use the tool. 8,000 character max.
+              type: string
+            enablePreview:
+              type: boolean
+              default: true
+              description: Valid only for ACTION tools. If true, enable default preview and confirmation flow If false, directly execute the action.
+            actionType:
+              type: string
+              description: Valid only for ACTION tools. Represents the type of action tool REDIRECT - The client renders the URL which contains information for carrying out the action. EXECUTION - Send a request to an external server and execute the action.
+              enum:
+                - REDIRECT
+                - EXECUTION
+            exampleQueries:
+              description: Example queries that can be used to invoke the tool.
+              type: array
+              items:
+                type: string

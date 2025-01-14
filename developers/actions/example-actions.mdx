@@ -1,0 +1,643 @@
+---
+title: "Example Actions"
+description: "Learn how to build different types of Actions in Glean through comprehensive implementation examples"
+icon: "code"
+---
+
+<Note>
+This feature is currently in Beta. Please contact a Glean representative if you are interested in partnering with Glean and building actions on Glean's platform.
+</Note>
+
+This guide demonstrates how to enhance Glean Assistant's capabilities by implementing various types of Actions. You'll learn how to integrate with external systems and enable Glean Assistant to perform operations like creating Jira issues or retrieving calendar events.
+
+<Info>
+Before proceeding, ensure you've reviewed the [Introduction](https://developers.glean.com/docs/tools/introduction/) and [Getting Started](https://developers.glean.com/docs/tools/getting_started/) documentation to understand Glean's actions framework.
+</Info>
+
+## Implementation Examples
+
+<AccordionGroup>
+  <Accordion title="Google Docs Update Action (Execution Type)" icon="file-lines">
+    This example demonstrates creating an execution action that allows Glean Assistant to update Google Documents.
+    
+    ## Step 1: Finding the right OpenAPI Spec
+
+    We'll be implementing the following HTTP request:
+    ```bash
+    POST https://docs.googleapis.com/v1/documents/{documentId}:batchUpdate
+    ```
+
+    <Info>
+    While Google doesn't typically provide OpenAPI specs publicly, you can:
+    - Use their [documentation](https://developers.google.com/docs/api/reference/rest/v1/documents/batchUpdate) to construct a spec
+    - Reference third-party sources like [this one](https://api.apis.guru/v2/specs/googleapis.com/docs/v1/openapi.yaml)
+    </Info>
+
+    The OpenAPI spec needs careful preparation to work effectively with Glean Assistant. Here's the complete spec with detailed formatting:
+
+    ```yaml
+    openapi: 3.0.0
+    servers:
+      - url: 'https://docs.googleapis.com/'
+    info:
+      description: Writes Google Docs documents.
+      title: Google Docs API
+      version: v1
+    paths:
+      '/v1/documents/{documentId}:batchUpdate':
+        post:
+          description: >-
+            Applies one or more updates to the document. Each request is validated
+            before being applied. If any request is not valid, then the entire
+            request will fail and nothing will be applied. The updates in your request
+            are guaranteed to be applied together atomically.
+          operationId: docs.documents.batchUpdate
+          parameters:
+            - description: >-
+                The ID of the document to update. Use glean search to find 
+                the relevant document. The documentId usually exists in the
+                url of the doc. The syntax of URL (with documentId) is like:
+                https://docs.google.com/document/d/<documentId>/edit
+                Extract out the documentId from the URL.
+              in: path
+              name: documentId
+              required: true
+              schema:
+                type: string
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    requests:
+                      type: array
+                      maxItems: 2
+                      items:
+                        type: object
+                        properties:
+                          insertText:
+                            description: >-
+                              Inserts text at the specified location. Always use this 
+                              operation except when text deletion or text replacement 
+                              is required. 
+                            type: object
+                            properties:
+                              location:
+                                type: object
+                                properties:
+                                  index:
+                                    description: >-
+                                      The zero-based index, in UTF-16 code units. 
+                                      Strictly use a value of 1 and nothing else.
+                                    format: int32
+                                    type: integer
+                              text:
+                                description: >-
+                                  The text to be inserted. This is the most important field
+                                  for this text inserting operation. Insert a neatly 
+                                  formatted text consisting of multiple paragraphs. Whenever
+                                  required, always start with a new line for paragraphs, 
+                                  tables, lists for neatness.
+                                type: string
+                          replaceAllText:
+                            description: >- 
+                              Replaces all instances of the specified text. 
+                              Always use this operation when text deletion 
+                              or text replacement is required. 
+                            type: object
+                            properties:
+                              containsText:
+                                type: object
+                                properties:
+                                  matchCase:
+                                    description: >-
+                                      Indicates whether the search should respect
+                                      case: - `True`: the search is case sensitive.
+                                      - `False`: the search is case insensitive.
+                                    type: boolean
+                                    title: Do you want to match case
+                                  text:
+                                    description: The text to search for in the document.
+                                    type: string
+                              replaceText:
+                                description: >- 
+                                  The text that will replace the
+                                  matched text. Keep empty for deletion.
+                                type: string
+          responses:
+            '200':
+              description: Successful response
+    ```
+
+    ## Step 2: Creating the Action
+
+    Navigate to [Admin console > Platform > Actions](https://app.glean.com/admin/platform/tools) and click "New Action". Select "start from scratch" since this is a custom action.
+
+    ### Basic Information 
+    <Frame>
+      ![Basic Info Dialog Box](./images/basic_info.png)
+    </Frame>
+
+    Configure:
+    - Display name: Name shown in the actions directory
+    - Description: Detailed explanation of the action's purpose
+    - Unique identifier: Used throughout OAuth and setup process
+    - Action type: Select "Action" since this will modify Google docs
+
+    ### Trigger Condition
+    <Frame>
+      ![Trigger Condition Dialog Box](./images/trigger_condition.png)
+    </Frame>
+
+    Provide comprehensive instructions for when Glean Assistant should use this action, including:
+    - Use cases where the action should be triggered
+    - Scenarios where the action should not be used
+    - Example queries that should trigger the action
+
+    ### Functionality
+    <Frame>
+      ![Functionality Dialog Box](./images/functionality.png)
+    </Frame>
+
+    Add the OpenAPI spec here. Since we're using Google's API directly, leave the "Use existing on-premise server" option unchecked.
+
+    ## Step 3: Authorization Setup
+
+    1. Visit the [Google Cloud Console Credentials page](https://console.cloud.google.com/apis/credentials)
+    
+    2. Create OAuth credentials:
+       <Frame>
+         ![GCP Credentials Dialog Box](./images/gcs_cloud_create_cred.png)
+       </Frame>
+
+    3. Configure the OAuth client:
+       <Frame>
+         ![Create OAuth Client](./images/create_oauth_client.png)
+       </Frame>
+
+    4. Set up the redirect URI:
+       ```text
+       https://{your-glean-domain-name}-be.glean.com/tools/oauth/verify_code/{your-action-unique-identifier-name}
+       ```
+
+    5. Configure OAuth settings in Glean:
+       ```text
+       Client URL: https://accounts.google.com/o/oauth2/auth?prompt=consent&access_type=offline
+       Authorization URL: https://accounts.google.com/o/oauth2/token
+       Scopes: https://www.googleapis.com/auth/documents
+       ```
+
+    6. Enable the Google Docs API:
+       <Frame>
+         ![GCP Google Docs API Settings](./images/google_docs_api.png)
+       </Frame>
+
+    ## Step 4: Deployment and Testing
+
+    1. Save the action and click "Test your Action at this URL"
+    2. Test with various queries to ensure proper triggering
+    3. Use the "Review and confirm" interface to verify field population
+    4. Deploy to Chat or AI Apps through the deploy tab
+    
+    <Frame>
+      ![Deploy Action View](./images/deploy_window.png)
+    </Frame>
+
+    ### Testing Example
+    <Frame>
+      ![Chat Execution Modal Form](./images/fe_modal_form.png)
+    </Frame>
+
+    <Frame>
+      Before execution:
+      ![State of Doc before Action Execution](./images/before_doc.png)
+    </Frame>
+
+    <Frame>
+      After execution:
+      ![State of Doc after Action Execution](./images/after_doc.png)
+    </Frame>
+  </Accordion>
+
+
+<Accordion title="Google Calendar Events Retrieval Action" icon="calendar">
+    This example demonstrates how to create a retrieval action that allows Glean Assistant to fetch Google Calendar events.
+
+    ## Step 1: Creating the Action
+
+    Navigate to [Admin console > Platform > Actions](https://app.glean.com/admin/platform/tools) and select "New Action". Since Google Calendar isn't available in templates, choose "start from scratch".
+
+    ### Basic Information
+    <Frame>
+      ![Basic Info Dialog Box](../../images/actions/calendar_action_basic_info.png)
+    </Frame>
+
+    Configure the following settings:
+    - Display name: Choose a descriptive name for the calendar events retrieval action
+    - Description: Explain the action's purpose and functionality
+    - Unique identifier: This will be used throughout the OAuth and setup process
+    - Action type: Select "Retrieval" as this action fetches calendar data
+
+    ### Trigger Condition
+    <Frame>
+      ![Trigger Condition Dialog Box](../../images/actions/calendar_action_trigger_condition.png)
+    </Frame>
+
+    Provide detailed instructions for when this action should be triggered, including:
+    - Use cases for calendar event retrieval
+    - Specific scenarios where the action is most appropriate
+    - Example queries that should trigger the action
+
+    ### Functionality
+    Add the following OpenAPI specification:
+
+    ```yaml
+    openapi: 3.0.1
+    servers:
+      - url: 'https://www.googleapis.com/calendar/v3/'
+    info:
+      title: Google Calendar Events API
+      description: This API returns events on the primary calendar of the currently logged-in user.
+      version: 1.0.0
+    paths:
+      /calendars/primary/events:
+        get:
+          summary: List Events
+          description: Retrieves events from the primary calendar.
+          parameters:
+            - name: timeMin
+              in: query
+              description: |
+                Lower bound (exclusive) for an event's start time to filter by. Must be an RFC3339 timestamp with a mandatory time zone offset. Its very important to have timestamp in Z format
+                Example: 2011-06-03T10:00:00Z
+              required: false
+              schema:
+                type: string
+                format: date-time
+            - name: timeMax
+              in: query
+              description: |
+                Upper bound (exclusive) for an event's start time to filter by. Must be an RFC3339 timestamp with a mandatory time zone offset. Its very important to have timestamp in Z format
+                Example: 2011-06-03T10:00:00Z
+              required: false
+              schema:
+                type: string
+                format: date-time
+            - name: q
+              in: query
+              description: Free text search terms to find events that match these terms in various fields such as summary, description, location, etc.
+              required: false
+              schema:
+                type: string
+          responses:
+            '200':
+              description: A list of events.
+              content:
+                application/json:
+                  schema:
+                    type: object
+                    properties:
+                      items:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Identifier of the event.
+                            status:
+                              type: string
+                              description: Status of the event (confirmed, tentative, cancelled).
+                            summary:
+                              type: string
+                              description: Title of the event.
+                            description:
+                              type: string
+                              description: Description of the event.
+                            start:
+                              type: object
+                              properties:
+                                dateTime:
+                                  type: string
+                                  format: date-time
+                                  description: The start time of the event.
+                            end:
+                              type: object
+                              properties:
+                                dateTime:
+                                  type: string
+                                  format: date-time
+                                  description: The end time of the event.
+    ```
+
+    ## Step 2: Authorization Setup
+
+    ### Google Cloud Console Configuration
+    1. Access the [Google Cloud Console Credentials page](https://console.cloud.google.com/apis/credentials)
+    
+    2. Create OAuth credentials:
+       <Frame>
+         ![GCP Credentials Dialog Box](../../images/actions/calendar_action_gcs_cloud_create_cred.png)
+       </Frame>
+
+    3. Set up the OAuth client:
+       <Frame>
+         ![Create OAuth Client](../../images/actions/calendar_action_create_oauth_client.png)
+       </Frame>
+
+    4. Configure the redirect URI using the format:
+       ```text
+       https://{your-glean-domain-name}-be.glean.com/tools/oauth/verify_code/retrieveCalendarEvents
+       ```
+       <Warning>
+         The redirect URI must use your action's unique identifier, not its display name. The identifier is case-sensitive.
+       </Warning>
+
+    ### OAuth Configuration in Glean
+    Configure the following OAuth settings in the Authentication section:
+    ```text
+    Client URL: https://accounts.google.com/o/oauth2/auth?prompt=consent&access_type=offline
+    Authorization URL: https://accounts.google.com/o/oauth2/token
+    Scopes: https://www.googleapis.com/auth/calendar.readonly
+    ```
+
+    <Frame>
+      ![Authentication Dialogue Box](../../images/actions/calendar_action_authentication.png)
+    </Frame>
+
+    ### Enable Google Calendar API
+    1. Visit your Google Cloud Console
+    2. Enable the Calendar API for your project
+    3. Verify the API is active:
+       <Frame>
+         ![GCP Google Calendar API Settings](../../images/actions/calendar_action_google_api.png)
+       </Frame>
+
+    ## Step 3: Deployment and Testing
+
+    ### Testing the Action
+    1. Save your action configuration
+    2. Use the testing URL provided
+    3. You'll see a connection banner:
+       <Frame>
+         ![Connect Action Banner](../../images/actions/calendar_action_connect_banner.png)
+       </Frame>
+    4. After authentication, test the calendar event retrieval:
+       <Frame>
+         ![Calendar Events Result](../../images/actions/calendar_action_calendar_events.png)
+       </Frame>
+
+    ### Deployment
+    Deploy the action through the deploy tab:
+    <Frame>
+      ![Deploy Action View](../../images/actions/deploy_window.png)
+    </Frame>
+
+    You can:
+    - Enable the action for all teammates
+    - Restrict access to specific teammates
+    - Configure deployment settings for Chat or AI Apps integration
+  </Accordion>
+
+  <Accordion title="Jira Issue Creation Action (Execution Type)" icon="jira">
+    This example demonstrates implementing an execution action that enables Glean Assistant to create Jira issues programmatically.
+
+    ## Action Manifest Configuration
+
+    Begin by creating an action manifest that defines the core properties. This manifest uses OAuth-based authentication to handle user authorization securely.
+
+    ```json
+    {
+      "type": "ACTION",
+      "name": "CreateJiraIssue",
+      "displayName": "Create Jira Issue Action",
+      "description": "This action allows you to create a new issue in Jira. You can specify the project, issue type, and other details.",
+      "enablePreview": true,
+      "actionType": "EXECUTION",
+      "logoUrl": "path/to/your/logo.png",
+      "auth": {
+        "type": "OAUTH_ADMIN",
+        "client_url": "https://auth.atlassian.com/authorize?audience={ATLASSIAN-DOMAIN}.atlassian.net&prompt=consent",
+        "scopes": [
+          "write:jira-work",
+          "offline_access",
+          "read:me"
+        ],
+        "authorization_url": "https://auth.atlassian.com/oauth/token"
+      }
+    }
+    ```
+
+    <Note>
+      We use `OAUTH_ADMIN` authentication type because Jira's cloud API allows admin tokens to create issues on behalf of other users. For applications requiring individual user authentication, use `OAUTH_USER` instead.
+    </Note>
+
+    ## Server Implementation
+
+    The following server implementation handles requests from Glean's actions backend. The server code includes key security features and proper user attribution.
+
+    ```python
+    from flask import Flask, request, jsonify
+    import requests
+    import json
+
+    app = Flask(__name__)
+    cloud_id = "your_jira_cloud_id_here"
+    create_issue_url_format = f"https://api.atlassian.com/ex/jira/{cloud_id}/rest/api/3/issue"
+    users_search_url = f"https://your-domain.atlassian.net/rest/api/3/users/search"
+
+    def get_reporter_id(email, auth_header):
+        """
+        Retrieves the Jira account ID for a given email address.
+        
+        Args:
+            email: User's email address
+            auth_header: OAuth authorization header
+            
+        Returns:
+            str: The user's Jira account ID or None if not found
+        """
+        start_at = 0
+        max_results = 50
+        while True:
+            params = {'startAt': start_at, 'maxResults': max_results}
+            headers = {'Accept': 'application/json', 'Authorization': auth_header}
+            response = requests.get(users_search_url, params=params, headers=headers)
+            users = json.loads(response.text)
+            for user in users:
+                if user['emailAddress'] == email:
+                    return user['accountId']
+            if len(users) < max_results:
+                break
+            start_at += max_results
+        return None
+
+    def transform_to_jira_request(input_payload, reporter_id):
+        """
+        Transforms the input payload into Jira's required format.
+        
+        Args:
+            input_payload: Original request payload
+            reporter_id: ID of the user creating the issue
+            
+        Returns:
+            dict: Formatted Jira request payload
+        """
+        jira_request = {
+            "fields": {
+                "project": {"id": input_payload['pid']},
+                "issuetype": {"id": str(input_payload['issuetype'])},
+                "priority": {"id": str(input_payload['priority'])},
+                "summary": input_payload['summary'],
+                "components": [{"id": input_payload['components']}],
+                "description": {
+                    "type": "doc",
+                    "version": 1,
+                    "content": [{"type": "text", "text": input_payload['description']}]
+                },
+                "assignee": {"id": input_payload['assignee']},
+                "reporter": {"id": reporter_id}
+            }
+        }
+        return jira_request
+
+    @app.route('/create_issue', methods=['POST'])
+    def create_issue():
+        """
+        Endpoint handler for creating Jira issues.
+        Validates authentication and creates the issue with proper user attribution.
+        """
+        authorization_header = request.headers.get('Authorization')
+        glean_user_email = request.headers.get('Glean-User-Email')
+        
+        # Validate required headers
+        if authorization_header is None or glean_user_email is None:
+            return jsonify({"error": "Authorization header or Glean-User-Email not found"}), 401
+
+        # Get reporter ID for user attribution
+        reporter_id = get_reporter_id(glean_user_email, authorization_header)
+        if reporter_id is None:
+            return jsonify({"error": "Reporter ID not found"}), 400
+
+        # Transform and send request
+        input_payload = request.json
+        jira_request = transform_to_jira_request(input_payload, reporter_id)
+        
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization": authorization_header
+        }
+
+        response = requests.post(create_issue_url_format, headers=headers, json=jira_request)
+        if response.status_code == 200:
+            return jsonify({"resultURL": json.loads(response.text).get("key")}), 200
+        else:
+            return jsonify({"error": "Failed to create issue", "details": response.text}), response.status_code
+
+    if __name__ == '__main__':
+        app.run(port=8080)
+    ```
+
+    <Info>
+      The server implementation includes several important features:
+      - Validates requests are from Glean
+      - Uses the `Glean-User-Email` header for proper user attribution
+      - Prevents impersonation of other users
+      - Handles OAuth tokens automatically through Glean's infrastructure
+    </Info>
+
+    ## OpenAPI Specification
+
+    The following OpenAPI specification defines how Glean Assistant interacts with your action server:
+
+    ```yaml
+    openapi: 3.0.0
+    info:
+      title: Jira Execution Action
+      version: 1.0.0
+    servers:
+      - url: https://{domain}-be.glean.com/tools/jira
+        variables:
+          domain:
+            default: domain
+            description: Email domain (without extension) that determines the deployment backend.
+    paths:
+      /create_issue:
+        post:
+          summary: Creates an issue or a sub-task from a JSON representation
+          description: |
+            This API allows you to create an issue in Jira.
+          parameters:
+            - name: Glean-User-Email
+              in: header
+              required: true
+              schema:
+                type: string
+              description: Email of the authenticated glean user.
+          requestBody:
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    pid:
+                      x-glean-typehint: 'JiraProjectID'
+                      type: string
+                      description: Project ID where the ticket is created.
+                    issuetype:
+                      type: integer
+                      description: The ID corresponding to the type of issue being created.
+                    priority:
+                      type: integer
+                      minimum: 1
+                      maximum: 5
+                      description: Numeric priority. 1 (highest) to 5 (lowest).
+                    summary:
+                      x-glean-typehint: 'Content'
+                      type: string
+                      description: Title of the issue
+                    components:
+                      x-glean-typehint: 'JiraComponentId'
+                      type: string
+                      description: Component name where the ticket should be filed.
+                    description:
+                      x-glean-typehint: 'Content'
+                      type: string
+                      description: Body of the issue.
+                    assignee:
+                      x-glean-typehint: 'EmailAddress'
+                      type: string
+                      description: User to which the issue is assigned.
+            required: true
+          responses:
+            '200':
+              description: OK
+              content:
+                application/json:
+                  schema:
+                    $ref: '#/components/schemas/CreateIssuePostResponse'
+            '400':
+              description: Bad Request
+            '401':
+              description: Not Authorized
+            '409':
+              description: Conflict
+    components:
+      schemas:
+        CreateIssuePostResponse:
+          type: object
+          properties:
+            resultURL:
+              type: string
+              description: URL of the created issue.
+    ```
+
+    <Warning>
+      Ensure your OpenAPI specification includes proper type hints (`x-glean-typehint`) to help Glean Assistant accurately populate fields.
+    </Warning>
+  </Accordion>
+
+  
+
+</AccordionGroup>

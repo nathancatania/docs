@@ -970,6 +970,13 @@
       ]
     },
     {
+      "group": "General",
+      "pages": [
+        "developers/introduction",
+        "developers/get-started"
+      ]
+    },
+    {
       "group": "Endpoint Examples",
       "pages": [
         "developers/samples/get",
@@ -1052,6 +1059,263 @@
             "developers/indexing/shortcuts/upload-shortcuts"
           ]
         }
+      ]
+    },
+    {
+      "group": "Actions SDK",
+      "pages": [
+        "developers/actions/introduction",
+        "developers/actions/create-actions",
+        "developers/actions/authentication",
+        "developers/actions/actions-faq",
+        {
+          "group": "Example Actions",
+          "pages": [
+            "developers/actions/examples/google-docs-update",
+            "developers/actions/examples/google-calendar-events",
+            "developers/actions/examples/jira-issue-creation",
+            "developers/actions/examples/zendesk-ticket-redirection",
+            "developers/actions/examples/jira-issue-creation-redirect"
+          ]
+        },
+        {
+          "group": "Authentication",
+          "pages": [
+            "developers/actions/authentication/verification-key"
+          ]
+        },
+        {
+          "group": "Setup",
+          "pages": [
+            "developers/actions/setup/retrieve-tool-manifest",
+            "developers/actions/setup/upload-tool-manifest",
+            "developers/actions/setup/download-api-specification-for-a-tool",
+            "developers/actions/setup/upload-api-specification-for-a-tool"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Client API",
+      "pages": [
+        {
+          "group": "Activity",
+          "pages": [
+            "developers/client/activity/report-document-activity",
+            "developers/client/activity/report-client-activity"
+          ]
+        },
+        {
+          "group": "Announcements",
+          "pages": [
+            "developers/client/announcements/create-announcement",
+            "developers/client/announcements/create-draft-announcement",
+            "developers/client/announcements/delete-announcement",
+            "developers/client/announcements/delete-draft-announcement",
+            "developers/client/announcements/read-announcement",
+            "developers/client/announcements/read-draft-announcement",
+            "developers/client/announcements/list-announcements",
+            "developers/client/announcements/preview-announcement",
+            "developers/client/announcements/preview-draft-announcement",
+            "developers/client/announcements/publish-draft-announcement",
+            "developers/client/announcements/unpublish-announcement",
+            "developers/client/announcements/update-announcement",
+            "developers/client/announcements/update-draft-announcement"
+          ]
+        },
+        {
+          "group": "Answers",
+          "pages": [
+            "developers/client/answers/create-answer",
+            "developers/client/answers/delete-answer",
+            "developers/client/answers/update-answer",
+            "developers/client/answers/read-answer",
+            "developers/client/answers/list-answers",
+            "developers/client/answers/preview-answer",
+            "developers/client/answers/preview-draft-answer",
+            "developers/client/answers/update-answer-likes",
+            "developers/client/answers/create-answer-board",
+            "developers/client/answers/delete-answer-board",
+            "developers/client/answers/update-answer-board",
+            "developers/client/answers/read-answer-board",
+            "developers/client/answers/list-answer-boards"
+          ]
+        },
+        {
+          "group": "Authentication",
+          "pages": [
+            "developers/client/authentication/create-anonymous-token",
+            "developers/client/authentication/create-authentication-token"
+          ]
+        },
+        {
+          "group": "Calendar",
+          "pages": [
+            "developers/client/calendar/read-events"
+          ]
+        },
+        {
+          "group": "Chat",
+          "pages": [
+            "developers/client/chat/detect-and-answer-questions",
+            "developers/client/chat/chat",
+            "developers/client/chat/deletes-all-saved-chats-owned-by-a-user",
+            "developers/client/chat/deletes-saved-chats",
+            "developers/client/chat/retrieves-a-chat",
+            "developers/client/chat/retrieves-all-saved-chats",
+            "developers/client/chat/gets-the-metadata-for-a-custom-chat-application",
+            "developers/client/chat/upload-files-for-chat",
+            "developers/client/chat/get-files-uploaded-by-a-user-for-chat",
+            "developers/client/chat/delete-files-uploaded-by-a-user-for-chat"
+          ]
+        },
+        {
+          "group": "Collections",
+          "pages": [
+            "developers/client/collections/add-collection-item",
+            "developers/client/collections/create-collection",
+            "developers/client/collections/delete-collection",
+            "developers/client/collections/delete-collection-item",
+            "developers/client/collections/update-collection",
+            "developers/client/collections/update-collection-item",
+            "developers/client/collections/update-document-collections",
+            "developers/client/collections/read-collection",
+            "developers/client/collections/list-collections",
+            "developers/client/collections/move-collection-item",
+            "developers/client/collections/pin-collection"
+          ]
+        },
+        {
+          "group": "Displayable Lists",
+          "pages": [
+            "developers/client/displayable-lists/create-displayable-lists",
+            "developers/client/displayable-lists/delete-displayable-lists",
+            "developers/client/displayable-lists/read-displayable-lists",
+            "developers/client/displayable-lists/update-displayable-lists"
+          ]
+        },
+        {
+          "group": "Documents",
+          "pages": [
+            "developers/client/documents/read-document-permissions",
+            "developers/client/documents/read-documents",
+            "developers/client/documents/read-documents-by-facets",
+            "developers/client/documents/read-document-analytics"
+          ]
+        },
+        {
+          "group": "Images",
+          "pages": [
+            "developers/client/images/get-image",
+            "developers/client/images/upload-images"
+          ]
+        },
+        {
+          "group": "Insights",
+          "pages": [
+            "developers/client/insights/read-insights"
+          ]
+        },
+        {
+          "group": "Messages",
+          "pages": [
+            "developers/client/messages/read-messages"
+          ]
+        },
+        {
+          "group": "Pins",
+          "pages": [
+            "developers/client/pins/update-pin",
+            "developers/client/pins/read-pin",
+            "developers/client/pins/list-pins",
+            "developers/client/pins/create-pin",
+            "developers/client/pins/delete-pin"
+          ]
+        },
+        {
+          "group": "Search",
+          "pages": [
+            "developers/client/search/search-the-index-admin",
+            "developers/client/search/autocomplete",
+            "developers/client/search/feed-of-documents-and-events",
+            "developers/client/search/suggest-people",
+            "developers/client/search/suggest-people-admin",
+            "developers/client/search/recommend-documents",
+            "developers/client/search/search"
+          ]
+        },
+        {
+          "group": "Entities",
+          "pages": [
+            "developers/client/entities/list-entities",
+            "developers/client/entities/read-people",
+            "developers/client/entities/read-teams"
+          ]
+        },
+        {
+          "group": "Shortcuts",
+          "pages": [
+            "developers/client/shortcuts/create-shortcut",
+            "developers/client/shortcuts/delete-shortcut",
+            "developers/client/shortcuts/read-shortcut",
+            "developers/client/shortcuts/get-similar-shortcuts",
+            "developers/client/shortcuts/list-shortcuts",
+            "developers/client/shortcuts/preview-shortcut",
+            "developers/client/shortcuts/update-shortcut"
+          ]
+        },
+        {
+          "group": "Summarize",
+          "pages": [
+            "developers/client/summarize/summarize-documents"
+          ]
+        },
+        {
+          "group": "Tools",
+          "pages": [
+            "developers/client/tools/execute-action-tool"
+          ]
+        },
+        {
+          "group": "User",
+          "pages": [
+            "developers/client/user/create-credentials",
+            "developers/client/user/delete-query-history",
+            "developers/client/user/send-invitation",
+            "developers/client/user/read-public-client-configuration",
+            "developers/client/user/delete-credentials",
+            "developers/client/user/send-support-email"
+          ]
+        },
+        {
+          "group": "Verification",
+          "pages": [
+            "developers/client/verification/create-verification",
+            "developers/client/verification/list-verifications",
+            "developers/client/verification/update-verification"
+          ]
+        }
+      ]
+    },
+    {
+      "group": "Web SDK",
+      "pages": [
+        "developers/web/web-sdk-overview",
+        "developers/web/chat",
+        "developers/web/autocomplete",
+        "developers/web/modal-search",
+        "developers/web/sidebar",
+        "developers/web/recommendations",
+        {
+          "group": "Integrations",
+          "pages": [
+            "developers/web/integrations/react",
+            "developers/web/integrations/zendesk",
+            "developers/web/integrations/lumapps",
+            "developers/web/integrations/brightspot"
+          ]
+        },
+        "developers/web/3rd-party-cookies"
       ]
     },
     {
