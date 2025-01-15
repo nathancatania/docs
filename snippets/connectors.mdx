@@ -1,0 +1,170 @@
+{/* More connector icons:https://github.com/askscio/scio/tree/master/typescript/web/public/images */}
+
+export const ConnectorCard = ({ title, link, horizontal = true, icon = null, type = 'native' }) => {
+
+    const connectorImages = {
+        '15five': 'https://app.glean.com/images/logos/fifteenfive2.svg',
+        'aha': 'https://app.glean.com/images/logos/aha.svg',
+        'airtable': 'https://app.glean.com/images/logos/airtable.svg',
+        'anthropic': 'https://app.glean.com/images/logos/anthropic.svg',
+        'asana': 'https://app.glean.com/images/logos/asana.png',
+        'aws': 'https://app.glean.com/images/logos/aws.svg',
+        'azure': 'https://app.glean.com/images/logos/azure.svg',
+        'azuredevops': 'https://app.glean.com/images/logos/azuredevops.svg',
+        'bamboohr': 'https://app.glean.com/images/logos/bamboohr-2.svg',
+        'bigquery': 'https://app.glean.com/images/logos/bigquery.svg',
+        'bitbucket': 'https://app.glean.com/images/logos/bitbucket.png',
+        'blend': 'https://app.glean.com/images/logos/blend.svg',
+        'box': 'https://app.glean.com/images/logos/box.png',
+        'brightspot': 'https://app.glean.com/images/logos/brightspot.svg',
+        'bynder': 'https://app.glean.com/images/logos/bynder.svg',
+        'clubhouse': 'https://app.glean.com/images/logos/clubhouse.svg',
+        'coda': 'https://app.glean.com/images/logos/coda.svg',
+        'confluence': 'https://app.glean.com/images/logos/confluence.svg',
+        'custom': 'https://app.glean.com/images/logos/custom.svg',
+        'datadog': 'https://app.glean.com/images/logos/datadog.svg',
+        'discord': 'https://app.glean.com/images/logos/discord.svg',
+        'docebo': 'https://app.glean.com/images/logos/docebo.svg',
+        'docusign': 'https://app.glean.com/images/logos/docusign.svg',
+        'dropbox': 'https://app.glean.com/images/logos/dropbox2.svg',
+        'egnyte': 'https://app.glean.com/images/logos/egnyte.svg',
+        'evernote': 'https://app.glean.com/images/logos/evernote.svg',
+        'fb-workplace': 'https://app.glean.com/images/logos/workplace.svg',
+        'figma': 'https://app.glean.com/images/logos/figma.svg',
+        'freshservice': 'https://app.glean.com/images/logos/freshservice.svg',
+        'github': 'https://app.glean.com/images/logos/github.svg',
+        'ghenterprise': 'https://app.glean.com/images/logos/github.svg',
+        'gitlab': 'https://app.glean.com/images/logos/gitlab.svg',
+        'gmail': 'https://app.glean.com/images/logos/gmail.png',
+        'gcal': 'https://app.glean.com/images/logos/gcal.png',
+        'gcloud': 'https://app.glean.com/images/logos/google-cloud.svg',
+        'gcs': 'https://app.glean.com/images/logos/gcs.svg',
+        'gdrive': 'https://app.glean.com/images/logos/gdrive.svg',
+        'ggroups': 'https://app.glean.com/images/logos/googlegroups.png',
+        'gchat': 'https://app.glean.com/images/logos/GoogleChat.png',
+        'gnews': 'https://app.glean.com/images/logos/googlenews.svg',
+        'gong': 'https://app.glean.com/images/logos/gong.svg',
+        'greenhouse': 'https://app.glean.com/images/logos/greenhouse.svg',
+        'gsites': 'https://app.glean.com/images/logos/gsites.svg',
+        'guru': 'https://app.glean.com/images/logos/guru.svg',
+        'highspot': 'https://app.glean.com/images/logos/highspot.svg',
+        'hubspot': 'https://app.glean.com/images/logos/hubspot.svg',
+        'instagram': 'https://app.glean.com/images/logos/instagram.svg',
+        'invision': 'https://app.glean.com/images/logos/invision.svg',
+        'jenkins': 'https://app.glean.com/images/logos/jenkins.svg',
+        'jfrog': 'https://app.glean.com/images/logos/jfrog.svg',
+        'jira': 'https://app.glean.com/images/logos/jira.svg',
+        'lattice': 'https://app.glean.com/images/logos/lattice.png',
+        'lessonly': 'https://app.glean.com/images/logos/lessonly.png',
+        'linear': 'https://app.glean.com/images/logos/linear.svg',
+        'linkedin': 'https://app.glean.com/images/logos/linkedin2.svg',
+        'looker': 'https://app.glean.com/images/logos/looker.svg',
+        'loopio': 'https://app.glean.com/images/logos/loopio.png',
+        'lucidchart': 'https://app.glean.com/images/logos/lucidchart.svg',
+        'lucidspark': 'https://app.glean.com/images/logos/lucidspark.svg',
+        'lumapps': 'https://app.glean.com/images/logos/lumapps.svg',
+        'metabase': 'https://app.glean.com/images/logos/metabase.svg',
+        'miro': 'https://app.glean.com/images/logos/miro.png',
+        'monday': 'https://app.glean.com/images/logos/monday.svg',
+        'notion': 'https://app.glean.com/images/logos/notion.png',
+        'okta': 'https://app.glean.com/images/logos/okta.svg',
+        'onedrive': 'https://app.glean.com/images/logos/onedrive.svg',
+        'onelogin': 'https://app.glean.com/images/logos/onelogin.svg',
+        'openai': 'https://app.glean.com/images/logos/openai.svg',
+        'opsgenie': 'https://app.glean.com/images/logos/opsgenie.svg',
+        'outlook': 'https://app.glean.com/images/logos/outlook.svg',
+        'outreach': 'https://app.glean.com/images/logos/outreach.png',
+        'pagerduty': 'https://app.glean.com/images/logos/pagerduty.svg',
+        'quip': 'https://app.glean.com/images/logos/quip.svg',
+        'rubrik': 'https://app.glean.com/images/logos/rubrik-datasource.svg',
+        's3': 'https://app.glean.com/images/logos/s3.png',
+        'salesforce': 'https://app.glean.com/images/logos/salesforce.svg',
+        'seismic': 'https://app.glean.com/images/logos/seismic.svg',
+        'servicecloud': 'https://app.glean.com/images/logos/servicecloud.svg',
+        'servicenow': 'https://app.glean.com/images/logos/servicenow.svg',
+        'sharepoint': 'https://app.glean.com/images/logos/sharepoint.svg',
+        'sharepoint-onprem': 'https://app.glean.com/images/logos/sharepoint.svg',
+        'slack': 'https://app.glean.com/images/logos/slack.svg',
+        'slackentgrid': 'https://app.glean.com/images/logos/slack.svg',
+        'smartsheet': 'https://app.glean.com/images/logos/smartsheet.svg',
+        'spinnaker': 'https://app.glean.com/images/logos/spinnaker.svg',
+        'stackoverflow': 'https://app.glean.com/images/logos/stackoverflow.svg',
+        'tableau': 'https://app.glean.com/images/logos/tableau.svg',
+        'teams': 'https://app.glean.com/images/logos/teams.svg',
+        'testrail': 'https://app.glean.com/images/logos/testrail.svg',
+        'trello': 'https://app.glean.com/images/logos/trello.png',
+        'web-crawler': 'https://app.glean.com/images/logos/web2.svg',
+        'webflow': 'https://app.glean.com/images/logos/webflow-icon.svg',
+        'wordpress': 'https://app.glean.com/images/logos/wordpress.svg',
+        'workday': 'https://app.glean.com/images/logos/workday.svg',
+        'yammer': 'https://app.glean.com/images/logos/yammer.svg',
+        'youtrack': 'https://app.glean.com/images/logos/youtrack.svg',
+        'zendesk': 'https://app.glean.com/images/logos/zendesk.png',
+        'zeplin': 'https://app.glean.com/images/logos/zeplin.svg',
+        'zoom': 'https://app.glean.com/images/logos/zoom.svg',
+        'default': 'https://app.glean.com/images/plug.svg'
+    };
+
+    const getImageByLink = (link) => {
+        return connectorImages[link.toLowerCase()] || connectorImages['default'];
+    };
+
+
+
+    if (!icon) {
+        icon = link;
+    }
+
+    return (
+        <Card
+            title={title}
+            icon={<img src={getImageByLink(icon)} className="h-6 w-6" />}
+            href={`/connectors/${type}/${link}/home`}
+            horizontal={horizontal}
+        >
+        </Card>
+    )
+}
+
+export const ConnectorHomePage = ({ connectorDisplayName, link, type = 'native', showSectionGeneral = true, showSectionSetup = true, showSectionSecurity = true, showSectionSupport = true, showOverview = true, showConfiguration = true, showAPIEndpoints = true, showCrawlingRestrictions = true, showPermissions = true, showTroubleshooting = true, showErrorCodes = true }) => {
+
+    return (
+        <>
+            {showSectionGeneral && (
+                <div>
+                    <h2>General Information</h2>
+                    <CardGroup>
+                        {showOverview && (<Card title="Overview" icon="circle-info" href={`/connectors/${type}/${link}/about`}>Overview of the {connectorDisplayName} connector</Card>)}
+                    </CardGroup>
+                </div>
+            )}
+            {showSectionSetup && (
+                <div>
+                    <h2>Setup & Configuration</h2>
+                    <CardGroup>
+                        {showConfiguration && (<Card title="Configuration" icon="gear" href={`/connectors/${type}/${link}/setup`}>How to configure the {connectorDisplayName} connector</Card>)}
+                        {showCrawlingRestrictions && (<Card title="Crawling Restrictions" icon="lock" href={`/connectors/${type}/${link}/crawling-restrictions`}>Supported crawling restrictions for the {connectorDisplayName} connector</Card>)}
+                    </CardGroup>
+                </div>
+            )}
+            {showSectionSecurity && (
+                <div>
+                    <h2>Security</h2>
+                    <CardGroup>
+                        {showAPIEndpoints && (<Card title="API Endpoints" icon="lock">Trust Portal Access Required</Card>)}
+                        {showPermissions && (<Card title="Permissions" icon="crown" href={`/connectors/${type}/${link}/permissions`}>Overview of the permissions required for the {connectorDisplayName} connector</Card>)}
+                    </CardGroup>
+                </div>
+            )}
+            {showSectionSupport && (
+                <div>
+                    <h2>Support</h2>
+                    <CardGroup>
+                        {showTroubleshooting && (<Card title="Troubleshooting" icon="triangle-exclamation" href={`/connectors/${type}/${link}/troubleshooting`}>Troubleshooting the {connectorDisplayName} connector</Card>)}
+                        {showErrorCodes && (<Card title="Error Codes" icon="triangle-exclamation" href={`/connectors/${type}/${link}/error-codes`}>Error codes for the {connectorDisplayName} connector</Card>)}
+                    </CardGroup>
+                </div>
+            )}
+        </>
+    )
+}

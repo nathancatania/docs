@@ -181,6 +181,20 @@
       "group": "Native Connectors",
       "pages": [
         {
+          "group": "15Five",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/15five/home"
+          ]
+        },
+        {
+          "group": "Asana",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/asana/home"
+          ]
+        },
+        {
           "group": "BitBucket",
           "icon": "bitbucket",
           "pages": [
@@ -194,6 +208,13 @@
                 "connectors/native/bitbucket/error-codes/bitbucket-4"
               ]
             }
+          ]
+        },
+        {
+          "group": "Box",
+          "icon": "box",
+          "pages": [
+            "connectors/native/box/home"
           ]
         },
         {
@@ -212,6 +233,51 @@
                 "connectors/native/confluence/error-codes/confluence-6",
                 "connectors/native/confluence/error-codes/confluence-7",
                 "connectors/native/confluence/error-codes/confluence-8"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "GitHub",
+          "icon": "github",
+          "pages": [
+            "connectors/native/github/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/github/error-codes/github-1",
+                "connectors/native/github/error-codes/github-2",
+                "connectors/native/github/error-codes/github-3",
+                "connectors/native/github/error-codes/github-4"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "GitLab",
+          "icon": "gitlab",
+          "pages": [
+            "connectors/native/gitlab/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gitlab/error-codes/gitlab-1",
+                "connectors/native/gitlab/error-codes/gitlab-2",
+                "connectors/native/gitlab/error-codes/gitlab-3"
+              ]
+            }
+          ]
+        },
+        {
+          "group": "Gmail",
+          "icon": "google",
+          "pages": [
+            "connectors/native/gmail/home",
+            {
+              "group": "Error Codes",
+              "pages": [
+                "connectors/native/gmail/error-codes/gmail-2",
+                "connectors/native/gmail/error-codes/gmail-3"
               ]
             }
           ]
@@ -283,20 +349,6 @@
           ]
         },
         {
-          "group": "Gmail",
-          "icon": "google",
-          "pages": [
-            "connectors/native/gmail/home",
-            {
-              "group": "Error Codes",
-              "pages": [
-                "connectors/native/gmail/error-codes/gmail-2",
-                "connectors/native/gmail/error-codes/gmail-3"
-              ]
-            }
-          ]
-        },
-        {
           "group": "Google Sites",
           "icon": "google",
           "pages": [
@@ -306,37 +358,6 @@
               "pages": [
                 "connectors/native/gsites/error-codes/google-sites-1",
                 "connectors/native/gsites/error-codes/google-sites-2"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "GitHub",
-          "icon": "github",
-          "pages": [
-            "connectors/native/github/home",
-            {
-              "group": "Error Codes",
-              "pages": [
-                "connectors/native/github/error-codes/github-1",
-                "connectors/native/github/error-codes/github-2",
-                "connectors/native/github/error-codes/github-3",
-                "connectors/native/github/error-codes/github-4"
-              ]
-            }
-          ]
-        },
-        {
-          "group": "GitLab",
-          "icon": "gitlab",
-          "pages": [
-            "connectors/native/gitlab/home",
-            {
-              "group": "Error Codes",
-              "pages": [
-                "connectors/native/gitlab/error-codes/gitlab-1",
-                "connectors/native/gitlab/error-codes/gitlab-2",
-                "connectors/native/gitlab/error-codes/gitlab-3"
               ]
             }
           ]
@@ -361,6 +382,20 @@
                 "connectors/native/jira/error-codes/jira-11"
               ]
             }
+          ]
+        },
+        {
+          "group": "Miro",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/miro/home"
+          ]
+        },
+        {
+          "group": "Notion",
+          "icon": "plug",
+          "pages": [
+            "connectors/native/notion/home"
           ]
         },
         {
@@ -502,8 +537,15 @@
           ]
         },
         {
+          "group": "Trello",
+          "icon": "trello",
+          "pages": [
+            "connectors/native/trello/home"
+          ]
+        },
+        {
           "group": "Web Crawler",
-          "icon": "microsoft",
+          "icon": "globe",
           "pages": [
             "connectors/native/web-crawler/home",
             {

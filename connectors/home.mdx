@@ -4,7 +4,7 @@ mode: "wide"
 icon: "house"
 ---
 
-import { ConnectorCard } from '/snippets/components.mdx';
+import { ConnectorCard } from '/snippets/connectors.mdx';
 
 Welcome to the Connectors Hub! Here you will find information on supported connectors, and how to use them.
 
@@ -18,28 +18,42 @@ Glean connectors are integral components of the Glean platform, designed to fetc
     <Card
         title="About Connectors"
         icon="book"
-        href="https://mintlify.com/docs/settings/global"
+        href="/connectors/about"
         horizontal={true}
     >
     </Card>
     <Card
         title="Crawling FAQ"
         icon="book"
-        href="https://mintlify.com/docs/settings/global"
+        href="/connectors/crawling-faq"
         horizontal={true}
     >
     </Card>
     <Card
         title="Crawling Frequency"
         icon="book"
-        href="https://mintlify.com/docs/settings/global"
+        href="/connectors/crawling-frequency"
         horizontal={true}
     >
     </Card>
     <Card
         title="Restricting Content"
         icon="book"
-        href="https://mintlify.com/docs/settings/global"
+        href="/connectors/restricting-content"
+        horizontal={true}
+    >
+    </Card>
+    <Card
+        title="Monitor Crawls"
+        icon="book"
+        href="/connectors/monitoring-connectors"
+        horizontal={true}
+    >
+    </Card>
+    <Card
+        title="Custom Connectors"
+        icon="book"
+        href="/connectors/custom/about"
         horizontal={true}
     >
     </Card>
@@ -64,6 +78,7 @@ Glean connectors are integral components of the Glean platform, designed to fetc
 
 ## All Connectors
 <CardGroup cols={3}>
+    <ConnectorCard title="15Five" link='15five' />
     <ConnectorCard title="Asana" link='asana' />
     <ConnectorCard title="Bitbucket" link='bitbucket' />
     <ConnectorCard title="Box" link='box' />
@@ -72,17 +87,25 @@ Glean connectors are integral components of the Glean platform, designed to fetc
     <ConnectorCard title="GitLab" link='gitlab' />
     <ConnectorCard title="Gmail" link='gmail' />
     <ConnectorCard title="Google Calendar" link='gcal' />
+    <ConnectorCard title="Google Chat" link='gchat' />
     <ConnectorCard title="Google Drive" link='gdrive' />
+    <ConnectorCard title="Google Groups" link='ggroups' />
+    <ConnectorCard title="Google Sites" link='gsites' />
     <ConnectorCard title="Jira" link='jira' />
     <ConnectorCard title="Miro" link='miro' />
     <ConnectorCard title="Notion" link='notion' />
-    <ConnectorCard title="OneDrive" link='onedrive' />
+    <ConnectorCard title="OneDrive" link='sharepoint' icon='onedrive' />
+    <ConnectorCard title="Outlook" link='outlook' />
     <ConnectorCard title="Salesforce" link='salesforce' />
+    <ConnectorCard title="ServiceNow" link='servicenow' />
     <ConnectorCard title="SharePoint" link='sharepoint' />
+    <ConnectorCard title="SharePoint On-Prem" link='sharepoint-onprem' />
     <ConnectorCard title="Slack" link='slack' />
+    <ConnectorCard title="Slack Enterprise Grid" link='slackentgrid' />
     <ConnectorCard title="Teams" link='teams' />
     <ConnectorCard title="Trello" link='trello' />
+    <ConnectorCard title="Web Crawler" link='web-crawler' />
+    <ConnectorCard title="Workday" link='workday' />
     <ConnectorCard title="Zendesk" link='zendesk' />
     <ConnectorCard title="Zoom" link='zoom' />
-
 </CardGroup>
