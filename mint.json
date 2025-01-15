@@ -1,12 +1,12 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Glean Documentation",
+  "name": "Glean Help Center",
   "theme": "prism",
   "logo": {
     "dark": "/logo/dark.svg",
     "light": "/logo/light.svg"
   },
-  "favicon": "/favicon.svg",
+  "favicon": "/favicon.png",
   "colors": {
     "primary": "#343CED",
     "light": "#9297F4",
@@ -65,14 +65,14 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
+      "name": "glean.com",
+      "icon": "globe",
       "url": "https://mintlify.com/docs"
     },
     {
-      "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
+      "name": "Blog",
+      "icon": "rss",
+      "url": "https://www.glean.com/blog"
     }
   ],
   "navigation": [
@@ -1006,7 +1006,47 @@
           "group": "Error Codes",
           "icon": "bug",
           "pages": [
-            "troubleshooting/error-codes/generic/oauth-1"
+            {
+              "group": "Generic",
+              "pages": [
+                "troubleshooting/error-codes/generic/config-1",
+                "troubleshooting/error-codes/generic/config-2",
+                "troubleshooting/error-codes/generic/config-3",
+                "troubleshooting/error-codes/generic/document-exists-1",
+                "troubleshooting/error-codes/generic/federated-fetch-backend-not-found",
+                "troubleshooting/error-codes/generic/federated-fetch-dsi-disabled",
+                "troubleshooting/error-codes/generic/git-1",
+                "troubleshooting/error-codes/generic/git-2",
+                "troubleshooting/error-codes/generic/glean-1",
+                "troubleshooting/error-codes/generic/glean-500",
+                "troubleshooting/error-codes/generic/internal-error"
+              ]
+            },
+            {
+              "group": "Authentication",
+              "pages": [
+                "troubleshooting/error-codes/authentication/oauth-1",
+                "troubleshooting/error-codes/authentication/oauth-token-expired",
+                "troubleshooting/error-codes/authentication/oauth-token-not-found",
+                "troubleshooting/error-codes/authentication/oauth-token-refresh-failed"
+              ]
+            },
+            {
+              "group": "People Data",
+              "pages": [
+                "troubleshooting/error-codes/people-data/csv"
+              ]
+            },
+            {
+              "group": "Atlassian",
+              "pages": [
+                "troubleshooting/error-codes/atlassian/atlassian-1",
+                "troubleshooting/error-codes/atlassian/atlassian-2",
+                "troubleshooting/error-codes/atlassian/atlassian-3",
+                "troubleshooting/error-codes/atlassian/atlassian-4",
+                "troubleshooting/error-codes/atlassian/atlassian-5"
+              ]
+            }
           ]
         }
       ]
@@ -1375,9 +1415,16 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
+    "website": "https://www.glean.com",
+    "x": "https://twitter.com/glean",
+    "github": "https://github.com/askscio",
+    "linkedin": "https://www.linkedin.com/company/gleanwork/about/",
+    "youtube": "https://www.youtube.com/channel/UCY0JDJWRBXrR0m1SqWPVB9A"
+  },
+  "feedback": {
+    "thumbsRating": true,
+    "suggestEdit": true,
+    "raiseIssue": true
   },
   "font": {
     "headings": {
