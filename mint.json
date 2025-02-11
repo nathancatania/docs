@@ -24,6 +24,7 @@
   ],
   "topbarCtaButton": {
     "name": "Go to Glean",
+    "arrow": true,
     "url": "https://app.glean.com"
   },
   "primaryTab": {
